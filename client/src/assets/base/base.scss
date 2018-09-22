@@ -1,0 +1,97 @@
+// variables
+$base-color: #333; // 基础字体颜色
+$bc: $base-color; // 缩写
+$base-color-white: #fff; // 基础字体颜色
+$bcw: $base-color-white; // 缩写
+$theme-color: #28589a; // 主题颜色
+$tc: $theme-color; //缩写
+$base-font-size: 12px; // 基础字体大小
+$bfs: $base-font-size; //缩写
+$bfs14: 2+$base-font-size;
+// mixins
+@mixin px2rem($property, $px-values, $baseline-px:75, $support-for-ie:false) {
+  //Conver the baseline into rems 
+  $baseline-rem: $baseline-px / 1rem * 1; //Print the first line in pixel values 
+  @if $support-for-ie {
+    #{$property}: $px-values;
+  } //if there is only one (numeric) value, return the property/value line for it. 
+  @if type-of($px-values)=="number" {
+    #{$property}: $px-values / $baseline-rem;
+  }
+  @else {
+    //Create an empty list that we can dump values into 
+    $rem-values: ();
+    @each $value in $px-values {
+      // If the value is zero or not a number, return it 
+      @if $value==0 or type-of($value) !="number" {
+        $rem-values: append($rem-values, $value / $baseline-rem);
+      }
+    } // Return the property and its list of converted values 
+    #{$property}: $rem-values;
+  }
+}
+
+@mixin padding($top, $right: $top, $bottom: $top, $left: $right) {
+  @include px2rem(padding-top, $top);
+  @include px2rem(padding-right, $right);
+  @include px2rem(padding-bottom, $bottom);
+  @include px2rem(padding-left, $left);
+}
+
+
+@mixin margin($top, $right: $top, $bottom: $top, $left: $right) {
+  @if $top == 'auto' {
+    margin: auto;
+  } @else if $right == 'auto' {
+    @include px2rem(margin-top, $top);
+    margin-right: auto;
+    @include px2rem(margin-bottom, $bottom);
+    margin-left: auto
+  } @else {
+    @include px2rem(margin-top, $top);
+    @include px2rem(margin-right, $right);
+    @include px2rem(margin-bottom, $bottom);
+    @include px2rem(margin-left, $left);
+  }
+
+}
+
+@mixin font-dpr($font-size) {
+  font-size: $font-size/2;
+  [data-dpr="2"] & {
+    font-size: $font-size;
+  }
+  [data-dpr="3"] & {
+    font-size: $font-size * 3/2;
+  }
+}
+
+@mixin h($num) {
+  @include px2rem(height, $num);
+  @include px2rem(line-height, $num);
+}
+
+@mixin no-bullets {
+  list-style: none;
+  li {
+    list-style-image: none;
+    list-style-type: none;
+    margin-left: 0px;
+  }
+}
+
+@mixin link-colors($normal, $hover, $visited) {
+  color: $normal;
+  &:hover { color: $hover; }
+  &:visited { color: $visited; }
+}
+
+@mixin clearfix {
+  zoom: 1;
+  &:after {
+    content: "";
+    clear: both;
+    display: block;
+    overflow: hidden;
+  }
+}
