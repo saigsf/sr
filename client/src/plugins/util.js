@@ -65,7 +65,13 @@ export function assert (condition, msg) {
   if (!condition) throw new Error(`[vuex] ${msg}`)
 }
 
-// 获取cookie、
+/**
+ *获取cookie
+ *
+ * @export
+ * @param {*} name
+ * @returns
+ */
 export function getCookie (name) {
   var arr
   var reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)')
@@ -73,43 +79,57 @@ export function getCookie (name) {
   else return null
 }
 
-// 设置cookie,增加到vue实例方便全局调用
+/**
+ *设置cookie
+ *
+ * @export
+ * @param {*} cname
+ * @param {*} value
+ * @param {*} expiredays
+ */
 export function setCookie (cname, value, expiredays) {
   var exdate = new Date()
   exdate.setDate(exdate.getDate() + expiredays)
   document.cookie = cname + '=' + escape(value) + ((expiredays == null) ? '' : ';expires=' + exdate.toGMTString())
 }
 
-// 删除cookie
+/**
+ *删除cookie
+ *
+ * @export
+ * @param {*} name
+ */
 export function delCookie (name) {
   var exp = new Date()
   exp.setTime(exp.getTime() - 1)
   var cval = getCookie(name)
   if (cval !== null) document.cookie = name + '=' + cval + ';expires=' + exp.toGMTString()
 }
-
-// js判断屏幕横竖屏：
-export function orient () {
-  if (window.orientation === 0 || window.orientation === 180) {
-    $('body').attr('class', 'portrait') // 当竖屏的时候为body增加一个class
-    // orientation = 'portrait'
-    return false
-  } else if (window.orientation === 90 || window.orientation === -90) {
-    $('body').attr('class', 'landscape') // 当横屏的时候为body移除这个class
-    // orientation = 'landscape'
-    return false
+/**
+ *时间格式化
+ *
+ * @export
+ * @param {*} fmt
+ * @param {*} date
+ * @returns
+ */
+export function dateFtt (fmt, date) {
+  var o = {
+    'M+': date.getMonth() + 1,
+    'd+': date.getDate(),
+    'h+': date.getHours(),
+    'm+': date.getMinutes(),
+    's+': date.getSeconds(),
+    'q+': Math.floor((date.getMonth() + 3) / 3),
+    'S': date.getMilliseconds()
   }
-}
-
-// 获取布局
-export function getLayout () {
-  var width = $(window).width()
-  // console.log(width)
-  if (width <= 375) {
-    return 'HM'
-  } else if (width <= 768) {
-    return 'HMF'
-  } else {
-    return 'HAMF'
+  if (/(y+)/.test(fmt)) {
+    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
   }
+  for (var k in o) {
+    if (new RegExp('(' + k + ')').test(fmt)) {
+      fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)))
+    }
+  }
+  return fmt
 }

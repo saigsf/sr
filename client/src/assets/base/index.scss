@@ -1,0 +1,192 @@
+@import './mixins.scss';
+@import './variables.scss';
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: $tbcm;
+  font-size: $tfs;
+}
+
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.child-view {
+  position: relative;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  transition: all .5s cubic-bezier(.55, 0, .1, 1);
+}
+
+.slide-left-enter,
+.slide-right-leave-active {
+  opacity: 0;
+  -webkit-transform: translate(30px, 0);
+  transform: translate(30px, 0);
+}
+
+.slide-left-leave-active,
+.slide-right-enter {
+  opacity: 0;
+  -webkit-transform: translate(-30px, 0);
+  transform: translate(-30px, 0);
+}
+
+.el-header {
+  background-color: $tbcm;
+  line-height: 100px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, .05);
+  padding: 0;
+  z-index: 999;
+}
+
+.el-aside {
+  background-color: #293752;
+  color: #fff;
+  width: 200px;
+  overflow: unset;
+  text-align: center
+}
+
+.el-main {
+  // line-height: 160px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.users {
+  background-color: $tbcm;
+}
+
+.tasks {
+  background-color: $tbcm;
+}
+
+// 导航栏样式重写
+.el-menu {
+  background-color: $tbca;
+  border-right: none
+}
+
+.el-submenu {
+  .el-submenu__title {
+    border-left: 4px solid $tbca;
+    i {
+      color: #fff;
+    }
+  }
+  
+  .el-menu-item {
+    border-left: 4px solid $tbca;
+    &:hover,
+    &:focus {
+      background-color: $tbca;
+    }
+  }
+}
+
+.el-submenu.is-active {
+  .el-submenu__title {
+    background-color: $tbcaa;
+    border-left: 4px solid #273657;
+    position: relative;
+    &:after {
+      content: "";
+      display: block;
+      width: 80%;
+      height: 0px;
+      border: 1px solid transparent;
+      border-bottom-color: #b3b0b1;
+      position: absolute;
+      bottom: 0px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 50%;
+    }
+    &:before {
+      content: "";
+      display: block;
+      width: 0;
+      height: 0;
+      border-width: 12px 8px;
+      border-style: solid;
+      border-color: transparent transparent transparent $tbcaa;
+      position: absolute;
+      right: -16px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+.el-submenu__title {
+  &:hover,
+  &:focus {
+    background-color: $tbcaa;
+    border-left: 4px solid #273657;
+  }
+}
+
+// 按钮样式重写
+.el-button {
+  border-radius: 7px;
+}
+.el-button--primary {
+  background-color: rgba(46, 116, 176, 1);
+  border-color: rgba(46, 116, 176, 1);
+  &.is-active,
+  &:active {
+    background-color: rgba(46, 116, 176, .8);
+    border-color: rgba(46, 116, 176, .8);
+  }
+  &:focus,
+  &:hover {
+    background-color: rgba(46, 116, 176, .8);
+    border-color: rgba(46, 116, 176, .8);
+  }
+}
+
+// select样式重写
+.el-input {
+  border: 1px solid #7e7e7e
+}
+
+// 表格样式重写
+.el-table {
+  text-align: center;
+  margin-top: 20px;
+  thead th {
+    text-align: center
+  }
+  .el-button {
+    border-color: $tbca;
+    border-radius: 7px;
+    &--mini {
+      padding: 4px 15px;
+    }
+    &.is-plain:focus,
+    &.is-plain:hover, {
+      background-color: $tbca;
+      border-color: $tbca;
+      color: #fff;
+    }
+  }
+}
+tr.header-row,
+tr.header-row th {
+  background-color: $tbchr;
+  color: #fff
+}
+
+tr.even-row {
+  background-color: #f7fcff;
+}

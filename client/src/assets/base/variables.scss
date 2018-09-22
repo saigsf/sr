@@ -1,0 +1,27 @@
+// variables
+$theme-background-color-main: #edf2f6;
+$theme-background-color-logo: #3f4f69;
+$theme-background-color-aside: #364564;
+$theme-background-color-aside-active: #4f6793;
+$theme-background-color-dialog: #2b6193;
+$theme-background-color-header-row: #3b4f72;
+
+$theme-size-header-height: 100px;
+$theme-size-aside-width: 200px;
+$theme-size-aside-height: 420px;
+$theme-size-aside-line-height: 140px;
+
+$theme-font-size: 12px;
+
+// Abbreviation
+$tbcm: $theme-background-color-main;
+$tbcl: $theme-background-color-logo;
+$tbca: $theme-background-color-aside;
+$tbcaa: $theme-background-color-aside-active;
+$tbcd: $theme-background-color-dialog;
+$tbchr: $theme-background-color-header-row;
+$tshh: $theme-size-header-height;
+$tsaw: $theme-size-aside-width;
+$tsah: $theme-size-aside-height;
+$tsalh: $theme-size-aside-line-height;
+$tfs: $theme-font-size;

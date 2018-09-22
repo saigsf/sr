@@ -36,16 +36,17 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src'),
-      'mui': resolve('src/assets/mui/js/mui.js')
-    },
-    plugins: [
-      new webpack.ProvidePlugin({
-        mui: 'mui',
-        'window.mui': 'mui'
-      })
-    ]
+      '@': resolve('src')
+    }
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      jquery: 'jquery',
+      'window.jQuery': 'jquery'
+    })
+  ],
   module: {
     rules: [
       ...(config.dev.useEslint ? [createLintingRule()] : []),

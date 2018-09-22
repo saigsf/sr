@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="tasks">
     <transition name="slide-left" mode="out-in">
       <keep-alive>
         <router-view class="child-view"></router-view>
@@ -10,10 +10,11 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'Tasks'
 }
 </script>
 
-<style lang="scss">
-@import './assets/base/index.scss'
+<style lang="scss" scoped>
+@import '@/assets/base/variables.scss';
+
 </style>
