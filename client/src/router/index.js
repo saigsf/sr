@@ -13,7 +13,7 @@ export default new Router({
       name: 'Home',
       component: Layout,
       meta: {
-        title: '主界面'
+        title: '盛瑞后台管理'
       },
       children: [
         {

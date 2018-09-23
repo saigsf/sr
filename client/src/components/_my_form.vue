@@ -59,7 +59,7 @@
         </el-select>
         <!-- 复选框 -->
         <el-checkbox-group v-else-if="item.type=='checkbox'" v-model="item.value">
-          <el-checkbox v-for="(option, idx) in item.options" :key="idx" :label="option.label" :name="option.value" ></el-checkbox>
+          <el-checkbox v-for="(option, idx) in item.options" :key="idx" :label="option.label"></el-checkbox>
         </el-checkbox-group>
         <!-- 单选 -->
         <el-radio-group v-else-if="item.type=='radio'" v-model="item.value">
@@ -143,5 +143,9 @@ export default {
       border-color: rgba(54, 69, 100, .8);
     }
   }
+}
+.el-checkbox {
+  margin-left: 0;
+  margin-right: 30px
 }
 </style>
