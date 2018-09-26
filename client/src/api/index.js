@@ -8,7 +8,7 @@ Axios.defaults.headers.post['Content-Type'] = 'application/json' // 配置请求
 
 // 添加一个请求拦截器
 Axios.interceptors.request.use(function (config) {
-  console.dir(config)
+  // console.dir(config)
   // bus.$emit('goto', '/login')
   iView.LoadingBar.start()
   return config
@@ -26,12 +26,14 @@ Axios.interceptors.response.use(function (response) {
   return response
 }, function (error) {
   // 对返回的错误进行一些处理
+  console.log(error)
   iView.LoadingBar.error()
   return Promise.reject(error)
 })
 
 // 基地址
-let base = 'http://36.110.56.189:8848' // 接口代理地址参见：config/index.js中的proxyTable配置
+let base = '' // 接口代理地址参见：config/index.js中的proxyTable配置
+// let base = 'http://localhost:3000' // 接口代理地址参见：config/index.js中的proxyTable配置
 
 // 通用方法
 export const POST = (url, params) => {

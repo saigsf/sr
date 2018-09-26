@@ -1,10 +1,10 @@
 var mysql=require("mysql");
 var pool = mysql.createPool({
     host: 'localhost',
-    user: 'user',
-    password: 'password',
-    database: 'database',
-    port: port
+    user: 'root',
+    password: 'root',
+    database: 'test',
+    port: 3306
 });
 
 var query=function(sql,callback){

@@ -72,8 +72,16 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/base/variables.scss';
-.el-menu-aside {
-  height: $tsah;
+.aside {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  &>.el-menu {
+    width: 100%;
+    position: absolute;
+    top: 140px;
+    bottom: 60px;
+  }
 }
 .aside-logo {
   line-height: $tsalh;

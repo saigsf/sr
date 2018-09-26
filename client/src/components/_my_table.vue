@@ -60,17 +60,13 @@
         :width="table.operation.width"
         :minWidth="table.operation.minWidth">
         <template slot-scope="scope">
-          <!-- <el-dropdown @command="handleClick(scope.row)">
-            <el-button type="primary" :size="table.operation.size">
-              操作<i class="el-icon-arrow-down el-icon--right"></i>
-            </el-button>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item v-for="(item, index) in table.operation.btns"
-                :key="index"
-                size="mini">{{item.content}}</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown> -->
-          <el-button v-for="(citem, index) in table.operation.btns" :key="index" plain :size="citem.size">{{citem.content}}</el-button>
+          <el-button v-for="(citem, index) in table.operation.btns"
+            :key="index"
+            plain
+            @click="handle(citem.handle, scope.row)"
+            :size="citem.size">
+            {{citem.content}}
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -96,17 +92,16 @@ export default {
       }
       
     },
-    handleClick(row) {
-      console.log(row);
+    handle(str, row) {
+      this.rowClick(row)
+      this.$emit(str, row)
     },
     handleSelectionChange(val) {
-      // console.log(val)
-      this.multipleSelection = val;
+      this.$emit('select', val)
     },
-    // rowClick(row) {
-    //   // console.log(row);
-    //   this.$refs.multipleTable.toggleRowSelection(row);
-    // },
+    rowClick(row) {
+      this.$refs.multipleTable.toggleRowSelection(row);
+    },
     indexMethod(index) {
       return index +1;
     },

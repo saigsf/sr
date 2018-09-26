@@ -102,7 +102,6 @@ export default {
   },
   methods: {
     getSubmitData(clear) {
-
         for (let i = 0; i < this.form.formItem.length; i++) {
           this.form.formItem[i].value = clear ? '' : this.form.formItem[i].value
           this.formData[this.form.formItem[i].name] = this.form.formItem[i].value

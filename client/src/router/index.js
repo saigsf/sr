@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/view/layout'
+import Login from '@/view/login'
 import Users from '@/view/users'
 import Tasks from '@/view/tasks'
 
@@ -8,6 +9,14 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login,
+      meta: {
+        title: '盛瑞后台管理-登录'
+      }
+    },
     {
       path: '/',
       name: 'Home',

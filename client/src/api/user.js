@@ -3,19 +3,19 @@ import * as API from './index'
 export default {
   // 获取用户列表
   getUserList: params => {
-    return API.GET('', params)
+    return API.GET('/api/users/getList', params)
   },
   // 修改用户信息
   updateUserInfo: params => {
-    return API.GET('', params)
+    return API.GET('/api/users/update', params)
   },
   // 删除用户信息
   deleteUser: params => {
-    return API.GET('', params)
+    return API.GET('/api/users/deleteById', params)
   },
   // 添加用户信息
   addUser: params => {
-    return API.GET('', params)
+    return API.POST('/api/users/add', params)
   },
   // 获取角色列表
   getRoleList: params => {
