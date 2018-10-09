@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import {getField} from '@/assets/json/index.js'
 export default {
   name: 'RightsList',
   data () {
@@ -49,29 +50,7 @@ export default {
           ]
         } // 操作按钮
       },
-      column: [
-        {
-          'prop': 'rightsNo',
-          'label': '权限编号',
-          'width': 'auto',
-          'fixed': false,
-          'sortable': false
-        },
-        {
-          'prop': 'rightsName',
-          'label': '权限名称',
-          'width': 'auto',
-          'fixed': false,
-          'sortable': false
-        },
-        {
-          'prop': 'makeTime',
-          'label': '创建时间',
-          'width': 'auto',
-          'fixed': false,
-          'sortable': false
-        }
-      ],
+      column: [],
       data: [
         {
           rightsNo: 'sdgasg',
@@ -94,6 +73,62 @@ export default {
           makeTime: 'sdfsdga'
         }
       ]
+    }
+  },
+  created () {
+    // 获取字段
+    this.column = getField('rights')
+  },
+  methods: {
+    submit (form) {
+      console.log(form)
+    },
+    cancle (form) {
+      console.log(form)
+    },
+    handleClose (done) {
+      done()
+    },
+    // 删除用户
+    deleteUser (row) {
+      this.$message({
+        message: '正在执行删除操作···',
+        type: 'warning'
+      })
+    },
+    // 批量删除
+    deleteBatch () {
+      var id = ''
+      this.multipleSelection.forEach(item => {
+        id += item.uid + ','
+      })
+      if (id) {
+        this.deleteUser({uid: id.slice(0, id.length - 1)})
+      } else {
+        this.$message({
+          message: '请至少选择一个用户',
+          type: 'warning'
+        })
+      }
+    },
+    // 显示弹框
+    showDialog (row) {
+      if (row.uid) {
+        this.form.formItem.forEach(item => {
+          item.value = row[item.name]
+          if (item.name === 'roles') {
+            item.value = item.value.split(',')
+          }
+        })
+        this.queryType = 'updateUserInfo'
+      } else {
+        this.queryType = 'addUser'
+      }
+      this.dialogVisible = true
+    },
+    // 获取选中行
+    handleSelectionChange (val) {
+      this.multipleSelection = val
     }
   }
 }

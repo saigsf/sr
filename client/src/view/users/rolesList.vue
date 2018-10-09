@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import {getField} from '@/assets/json/index.js'
 export default {
   name: 'RolesList',
   data () {
@@ -115,29 +116,7 @@ export default {
           ]
         } // 操作按钮
       },
-      column: [
-        {
-          'prop': 'roles',
-          'label': '角色名',
-          'width': 'auto',
-          'fixed': false,
-          'sortable': false
-        },
-        {
-          'prop': 'belonged',
-          'label': '所属权限',
-          'width': 'auto',
-          'fixed': false,
-          'sortable': false
-        },
-        {
-          'prop': 'makeTime',
-          'label': '创建时间',
-          'width': 'auto',
-          'fixed': false,
-          'sortable': false
-        }
-      ],
+      column: [],
       data: [
         {
           belonged: 'sdgasg',
@@ -161,6 +140,10 @@ export default {
         }
       ]
     }
+  },
+  created () {
+    // 获取字段
+    this.column = getField('roles')
   },
   methods: {
     submit (form) {

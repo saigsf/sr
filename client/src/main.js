@@ -12,7 +12,7 @@ import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 
 import '@/components/_globals.js'
-Vue.use(ElementUI, { size: 'small' })
+Vue.use(ElementUI, { size: 'mini' })
 Vue.use(iView)
 Vue.config.productionTip = false
 

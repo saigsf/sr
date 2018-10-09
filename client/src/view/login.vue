@@ -5,7 +5,7 @@
       <div class="login-box">
         <div class="login-logo"></div>
         <div class="login-form">
-          <MyForm :form="form" @submit="submit" @cancle="cancle"></MyForm>
+          <MyForm :form="form" :formData="formData" :formItem="formItem" @submit="submit" @cancle="cancle"></MyForm>
         </div>
       </div>
     </div>
@@ -24,26 +24,31 @@ export default {
         labelWidth: '60px',
         labelPositon: 'right',
         submitText: '登录',
-        width: 90,
-        column: 1,
-        formItem: [
-          {
-            type: 'text',
-            name: 'username',
-            placeholder: '请输入用户名',
-            value: '',
-            width: '100',
-            label: '用户名'
-          },
-          {
-            type: 'password',
-            name: 'password',
-            placeholder: '请输入用户密码',
-            value: '',
-            width: '100',
-            label: '密码'
-          }
-        ]
+        hasSubmit: true,
+        width: '90%',
+        column: 1
+      },
+      formItem: [
+        {
+          type: 'text',
+          name: 'username',
+          placeholder: '请输入用户名',
+          value: '',
+          width: '100',
+          label: '用户名'
+        },
+        {
+          type: 'password',
+          name: 'password',
+          placeholder: '请输入用户密码',
+          value: '',
+          width: '100',
+          label: '密码'
+        }
+      ],
+      formData: {
+        username: '',
+        password: ''
       }
     }
   },
@@ -67,12 +72,12 @@ export default {
   width: 100%;
   height: 100%;
   position: relative;
-  background: url(../../static/img/login_bg.png) no-repeat center;
+  background: url(../assets/img/login_bg.png) no-repeat center;
   background-size: cover;
   &-wrapper {
     width: 100%;
     @include px2rem(height, 406);
-    background: url(../../static/img/middle_bg.png) no-repeat center;
+    background: url(../assets/img/middle_bg.png) no-repeat center;
     background-size: cover;
     position: absolute;
     left: 0;
@@ -85,7 +90,7 @@ export default {
     position: absolute;
     left: 40%;
     top: -70px;
-    background: url(../../static/img/login_title.png) no-repeat center;
+    background: url(../assets/img/login_title.png) no-repeat center;
     background-size: cover;
   }
   &-box {
@@ -103,7 +108,7 @@ export default {
     float: left;
     width: 40%;
     height: 100%;
-    background: url(../../static/img/userlogo.png) no-repeat center;
+    background: url(../assets/img/userlogo.png) no-repeat center;
   }
   &-form {
     float: left;

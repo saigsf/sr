@@ -16,17 +16,16 @@
       :data="data"
       :stripe="stripe"
       :border="border"
-      :height="height"
       :max-height="maxHeight"
       :style="styles"
       tooltip-effect="dark"
       :row-class-name="tableRowClassName"
       @selection-change="handleSelectionChange">
       <!-- 复选框 -->
-      <el-table-column type="selection" v-if="table.multiple" :fixed="false"></el-table-column>
+      <el-table-column type="selection" v-if="multiple" :fixed="false"></el-table-column>
       <!-- 序号 -->
       <el-table-column
-        v-if="table.hasIndex"
+        v-if="hasIndex"
         :fixed="'left'"
         type="index"
         label="序号"
@@ -63,13 +62,13 @@
       </el-table-column>
       <!-- 操作按钮 -->
       <el-table-column
-        v-if="table.operation.show"
-        :fixed="table.operation.fixed"
-        :label="table.operation.label"
-        :width="table.operation.width"
-        :minWidth="table.operation.minWidth">
+        v-if="operation.show"
+        :fixed="operation.fixed"
+        :label="operation.label"
+        :width="operation.width"
+        :minWidth="operation.minWidth">
         <template slot-scope="scope">
-          <el-button v-for="(citem, index) in table.operation.btns"
+          <el-button v-for="(citem, index) in operation.btns"
             :key="index"
             type="text"
             @click="handle(citem.handle, scope.row)"
@@ -170,6 +169,12 @@ export default {
       type: String,
       default: 'prev, pager, next'
     },
+    operation: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    }
   },
   data() {
     return {
@@ -195,7 +200,7 @@ export default {
     },
     rowClick(row) {
       console.log(this.$refs)
-      this.$refs.multipleTable.toggleRowSelection(row);
+      // this.$refs.multipleTable.toggleRowSelection(row);
     },
     indexMethod(index) {
       return index +1;

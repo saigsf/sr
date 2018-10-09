@@ -29,6 +29,7 @@
 
 <script>
 import API from '@/api/user.js'
+import {getField} from '@/assets/json/index.js'
 export default {
   name: 'UsersList',
   data () {
@@ -145,43 +146,7 @@ export default {
           ]
         } // 操作按钮
       },
-      column: [
-        {
-          'prop': 'tcuModel',
-          'label': 'TCU型号',
-          'width': 'auto',
-          'fixed': false,
-          'sortable': false
-        },
-        {
-          'prop': 'tcuCode',
-          'label': 'TCU代码',
-          'width': 'auto',
-          'fixed': false,
-          'sortable': false
-        },
-        {
-          'prop': 'supplier',
-          'label': '供应商',
-          'width': 'auto',
-          'fixed': false,
-          'sortable': false
-        },
-        {
-          'prop': 'supplierCode',
-          'label': '供应商代码',
-          'width': 'auto',
-          'fixed': false,
-          'sortable': false
-        },
-        {
-          'prop': 'boot',
-          'label': 'boot版本号',
-          'width': 'auto',
-          'fixed': false,
-          'sortable': false
-        }
-      ],
+      column: [],
       data: [
         {
           tcuModel: 'sdfas',
@@ -194,7 +159,8 @@ export default {
     }
   },
   created () {
-    // this.getUserList()
+    // 获取字段
+    this.column = getField('tcu')
   },
   methods: {
     // 表单提交

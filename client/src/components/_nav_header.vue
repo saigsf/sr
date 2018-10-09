@@ -1,10 +1,10 @@
 <template>
   <div class="header">
     <div class="header-logo">
-      <h1>盛瑞后台管理</h1>
+      <h1>盛瑞管理系统</h1>
     </div>
     <div class="header-content">
-      <el-input placeholder="请输入内容" v-model="search" class="input-with-select">
+      <el-input placeholder="请输入公司员工" v-model="search" size="mini" class="input-with-select">
         <!-- <el-select v-model="select" slot="prepend" placeholder="请选择">
           <el-option label="餐厅名" value="1"></el-option>
           <el-option label="订单号" value="2"></el-option>
@@ -51,7 +51,7 @@ export default {
     float: left;
     color: #fff;
     font-family: 'hanYi';
-    background: url(../../static/img/logo.png) no-repeat center left;
+    background: url(../assets/img/logo.png) no-repeat center left;
   }
   &-content {
     float: left;
@@ -81,7 +81,7 @@ export default {
         display: inline-block;
         @include px2rem(width, 35);
         @include px2rem(height, 35);
-        background: url(../../static/img/login.png) no-repeat center;
+        background: url(../assets/img/login.png) no-repeat center;
         background-size: cover;
       }
       &:hover {
@@ -98,7 +98,8 @@ export default {
     }
     p {
       color: #fff;
-      @include px2rem(font-size, 14);
+      // @include px2rem(font-size, 14);
+      font-size: 12px;
       span {
         color: $tc;
       }
@@ -108,7 +109,7 @@ export default {
     border-radius: 21px;
     background-color: #fff;
     overflow: hidden;
-    @include px2rem(height, 42);
+    // @include px2rem(height, 34);
     @include px2rem(width, 443);
     @include px2rem(margin-left, 86);
   }

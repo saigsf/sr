@@ -10,15 +10,15 @@
   background-position: center;
   background-size: cover;
   &-user {
-    background-image: url("../static/img/user.png");
+    background-image: url("./assets/img/user.png");
     @include margin(0, 34)
   }
   &-product {
-    background-image: url("../static/img/product.png");
+    background-image: url("./assets/img/product.png");
     @include margin(0, 34)
   }
   &-mes {
-    background-image: url("../static/img/mes.png");
+    background-image: url("./assets/img/mes.png");
     @include margin(0, 34)
   }
   &-dot {

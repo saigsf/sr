@@ -1,0 +1,191 @@
+{
+  "user": {
+    "item": [
+      {
+        "type": "text",
+        "name": "username",
+        "value": "",
+        "width": "80",
+        "label": "用户名:"
+      },
+      {
+        "type": "checkbox",
+        "name": "roles",
+        "label": "角色:",
+        "value": [],
+        "options": [
+          {
+            "label": "刷写工人",
+            "value": "刷写工人"
+          },
+          {
+            "label": "刷写设置管理员",
+            "value": "刷写设置管理员"
+          },
+          {
+            "label": "生产任务管理员",
+            "value": "生产任务管理员"
+          },
+          {
+            "label": "超级管理员",
+            "value": "超级管理员"
+          },
+          {
+            "label": "日志管理员",
+            "value": "日志管理员"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "name": "rights",
+        "label": "权限:",
+        "value": [],
+        "options": [
+          {
+            "label": "刷写工人",
+            "value": "刷写工人"
+          },
+          {
+            "label": "刷写设置管理员",
+            "value": "刷写设置管理员"
+          },
+          {
+            "label": "生产任务管理员",
+            "value": "生产任务管理员"
+          },
+          {
+            "label": "超级管理员",
+            "value": "超级管理员"
+          },
+          {
+            "label": "日志管理员",
+            "value": "日志管理员"
+          }
+        ]
+      }
+    ],
+    "data": {
+      "username": "",
+      "roles": [],
+      "rights": []
+    }
+  },
+  "userAndRoles": {
+    "item": [
+      {
+        "type": "text",
+        "name": "username",
+        "value": "",
+        "width": "80",
+        "disabled": true,
+        "label": "用户名:"
+      },
+      {
+        "type": "checkbox",
+        "name": "roles",
+        "label": "角色:",
+        "value": [],
+        "options": [
+          {
+            "label": "刷写工人",
+            "value": "刷写工人"
+          },
+          {
+            "label": "刷写设置管理员",
+            "value": "刷写设置管理员"
+          },
+          {
+            "label": "生产任务管理员",
+            "value": "生产任务管理员"
+          },
+          {
+            "label": "超级管理员",
+            "value": "超级管理员"
+          },
+          {
+            "label": "日志管理员",
+            "value": "日志管理员"
+          }
+        ]
+      }
+    ],
+    "data": {
+      "username": "",
+      "roles": []
+    }
+  },
+  "productionTask": {
+    "item": [
+      {
+        "type": "text",
+        "name": "projectName",
+        "value": "",
+        "placeholder": "请选择项目名称",
+        "width": "100%",
+        "label": "项目名称:"
+      },
+      {
+        "type": "date",
+        "name": "projectName",
+        "value": "",
+        "width": "100%",
+        "label": "生产日期:"
+      },
+      {
+        "type": "select",
+        "name": "tcuCode",
+        "value": "",
+        "width": "100%",
+        "label": "TCU代码:"
+      },
+      {
+        "type": "text",
+        "name": "batch",
+        "value": "",
+        "width": "100%",
+        "label": "批次:"
+      },
+      {
+        "type": "text",
+        "name": "batchNumber",
+        "value": "",
+        "width": "100%",
+        "label": "批次数量:"
+      },
+      {
+        "type": "text",
+        "name": "creater",
+        "value": "",
+        "width": "100%",
+        "label": "创建者:"
+      },
+      {
+        "type": "date",
+        "name": "createTime",
+        "value": "",
+        "width": "100%",
+        "label": "创建日期:"
+      },
+      {
+        "type": "text",
+        "name": "finishedNumber",
+        "value": "",
+        "width": "100%",
+        "label": "完成数量:"
+      },
+      {
+        "type": "text",
+        "name": "flowCode",
+        "value": "",
+        "width": "100%",
+        "label": "初始流水号:"
+      }
+    ],
+    "data": {}
+  },
+  "project": {
+    "item": [],
+    "data": {}
+  }
+}

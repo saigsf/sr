@@ -28,6 +28,7 @@
 
 <script>
 import API from '@/api/user.js'
+import {getField} from '@/assets/json/index.js'
 export default {
   name: 'UsersList',
   data () {
@@ -123,30 +124,14 @@ export default {
           show: false
         } // 操作按钮
       },
-      column: [
-        {
-          'prop': 'projectName',
-          'label': '操作人',
-          'width': 'auto',
-          'fixed': false,
-          'sortable': false
-        },
-        {
-          'prop': 'projectName',
-          'label': '操作时间',
-          'width': 'auto',
-          'fixed': false,
-          'sortable': false
-        },
-        {
-          'prop': 'projectName',
-          'label': '执行动作',
-          'width': 'auto',
-          'fixed': false,
-          'sortable': false
-        }
-      ],
+      column: [],
       data: [
+        {
+          projectName: 'sdfas',
+          carmakeName: 'dsfgdtg',
+          tcuCode: 'wereq',
+          makeTime: '2018-01-01'
+        },
         {
           projectName: 'sdfas',
           carmakeName: 'dsfgdtg',
@@ -157,6 +142,8 @@ export default {
     }
   },
   created () {
+    // 获取字段
+    this.column = getField('operationLog')
     // this.getUserList()
   },
   methods: {

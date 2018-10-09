@@ -1,111 +1,187 @@
 <template>
-  <div class="form">
+  <div class="form"
+    :style="'width: ' + (form.width ? form.width : '100%')">
+    <!-- 标题 -->
+    <div class="form-title" v-if="form.showTitle" >{{form.title}}</div>
+    <!-- 通用表单 -->
     <el-form
       v-if="!form.isTable"
       :ref="form.ref"
+      :disabled="form.disabled"
       :label-position="form.labelPosition"
-      :inline="false" size="small"
-      :style="'width:'+form.width+'%'"
-      :model="form"
+      :inline="false"
+      size="mini"
+      :model="formData"
       :label-width="form.labelWidth">
       <el-row>
-      <el-col :span="24/form.column" v-for="(item, index) in form.formItem" :key="index">
-      <el-form-item :label="item.label">
-        <!-- 上传文件 -->
-        <el-input v-if="item.type==='file'"
-          :type="item.type"
-          :style="'width:'+item.width+'%'"
-          v-model="item.value">
-        </el-input>
-        <!-- 输入框 -->
-        <el-input v-else-if="item.type == 'text'"
-          :type="item.type"
-          :placeholder="item.placeholder"
-          :style="'width:'+item.width+'%'"
-          v-model="item.value">
-        </el-input>
-        <!-- 日期选择框 -->
-        <el-date-picker v-else-if="item.type == 'date'"
-          :type="item.type"
-          :placeholder="item.placeholder"
-          :value-format="item.formate"
-          :style="'width:'+item.width+'%'"
-          v-model="item.value">
-        </el-date-picker>
-        <!-- 时间选择框 -->
-        <el-time-picker v-else-if="item.type == 'fixed-time'"
-          :type="item.type"
-          :placeholder="item.placeholder"
-          :style="'width:'+item.width+'%'"
-          v-model="item.value">
-        </el-time-picker>
-        <!-- 日期时间选择器 -->
-        <el-date-picker v-else-if="item.type == 'datetime'" v-model="item.value"
-          :type="item.type"
-          :placeholder="item.placeholder"
-          :default-time="item.defaultTime"
-          :align="item.align"
-          :style="'width:'+item.width+'%'"
-          :picker-options="item.pickerOptions">
-        </el-date-picker>
-        <!-- 开关 -->
-        <el-switch v-else-if="item.type=='switch'" v-model="item.value"></el-switch>
-        <!-- select选择框 -->
-        <el-select v-else-if="item.type=='select'"
-          v-model="item.value"
-          :style="'width:'+item.width+'%'"
-          :placeholder="item.placeholder">
-          <el-option v-for="(option, idx) in item.options" :key="idx" :label="option.label" :value="option.value"></el-option>
-        </el-select>
-        <!-- 复选框 -->
-        <el-checkbox-group v-else-if="item.type=='checkbox'" v-model="item.value">
-          <el-checkbox v-for="(option, idx) in item.options" :key="idx" :label="option.label"></el-checkbox>
-        </el-checkbox-group>
-        <!-- 单选 -->
-        <el-radio-group v-else-if="item.type=='radio'" v-model="item.value">
-          <el-radio v-for="(option, idx) in item.options" :key="idx" :label="option.label"></el-radio>
-        </el-radio-group>
-        <!-- 文本域 -->
-        <el-input v-else-if="item.type=='textarea'"
-          :type="item.type"
-          v-model="item.value"
-          :style="'width:'+item.width+'%'"
-          :placeholder="item.placeholder">
-        </el-input>
-        <!-- 其他 -->
-        <el-input v-else :type="item.type" :placeholder="item.placeholder" v-model="item.value" :style="'width:'+item.width+'%'"></el-input>
-      </el-form-item>
-      </el-col>
+        <el-col :span="24/form.column" v-for="(item, index) in formItem" :key="index">
+          <el-form-item
+            :label="item.label"
+            :prop="item.name"
+            :rules="item.rules">
+            <!-- 上传文件 -->
+            <el-input v-if="item.type === 'file'" :type="item.type" v-model="formData[item.name]"></el-input>
+            <!-- 输入框 -->
+            <el-input v-else-if="item.type === 'text'"
+              v-model="formData[item.name]"
+              :type="item.type"
+              :style="'width: ' + (item.width ? item.width : '100%')"
+              :placeholder="item.placeholder"
+              :disabled="item.disabled">
+            </el-input>
+            <!-- 日期选择框 -->
+            <el-date-picker v-else-if="item.type === 'date'"
+              v-model="formData[item.name]"
+              :type="item.type"
+              :placeholder="item.placeholder"
+              :disabled="item.disabled"
+              :format="(item.format ? item.format : 'yyyy-MM-dd')"
+              :style="'width: ' + (item.width ? item.width : '100%')">
+            </el-date-picker>
+            <!-- 时间选择框 -->
+            <el-time-picker v-else-if="item.type === 'fixed-time'"
+              v-model="formData[item.name]"
+              :type="item.type"
+              :placeholder="item.placeholder"
+              :disabled="item.disabled"
+              :format="(item.format ? item.format : 'hh:mm:ss')"
+              :style="'width: ' + (item.width ? item.width : '100%')">
+            </el-time-picker>
+            <!-- 日期时间选择器 -->
+            <el-date-picker v-else-if="item.type == 'datetime'"
+              v-model="formData[item.name]"
+              :type="item.type"
+              :placeholder="item.placeholder"
+              :default-time="item.defaultTime"
+              :align="item.align"
+              :picker-options="item.pickerOptions"
+              :disabled="item.disabled"
+              :format="(item.format ? item.format : 'yyyy-MM-dd hh:mm:ss')"
+              :style="'width: ' + (item.width ? item.width : '100%')">
+            </el-date-picker>
+            <!-- 开关 -->
+            <el-switch v-else-if="item.type=='switch'" v-model="formData[item.name]"></el-switch>
+            <!-- select选择框 -->
+            <el-select v-else-if="item.type=='select'" v-model="formData[item.name]" :placeholder="item.placeholder" :style="'width: ' + (item.width ? item.width : '100%')">
+              <el-option v-for="(option, idx) in item.options" :key="idx" :label="option.label" :value="option.value"></el-option>
+            </el-select>
+            <!-- 复选框 -->
+            <el-checkbox-group v-else-if="item.type=='checkbox'" v-model="formData[item.name]">
+              <el-checkbox v-for="(option, idx) in item.options" :key="idx" :label="option.label">{{option.label}}</el-checkbox>
+            </el-checkbox-group>
+            <!-- 单选 -->
+            <el-radio-group v-else-if="item.type=='radio'" v-model="formData[item.name]">
+              <el-radio v-for="(option, idx) in item.options" :key="idx" :label="option.label" :disabled="option.disabled"></el-radio>
+            </el-radio-group>
+            <!-- 文本域 -->
+            <el-input v-else-if="item.type=='textarea'" :type="item.type" v-model="formData[item.name]" :placeholder="item.placeholder"></el-input>
+            <!-- 其他 -->
+            <el-input v-else :type="item.type" :placeholder="item.placeholder" v-model="formData[item.name]"></el-input>
+          </el-form-item>
+        </el-col>
       </el-row>
     </el-form>
-    <el-row class="btns" :style="'width:'+form.width+'%'">
-      <el-button type="primary" size="mini" @click="onSubmit">{{form.submitText}}</el-button>
-      <!-- <el-button size="mini" @click="onCancel">取消</el-button> -->
+    <!-- 表格式表单 -->
+    <el-table v-else
+      :data="form.data"
+      :show-header="true"
+      :border="true"
+      style="width: 100%">
+      <el-table-column v-for="(item, index) in form.column" :key="index"
+        :prop="item.prop"
+        :label="item.label"
+        width="auto">
+        <template slot-scope="scope">
+          <el-input size="mini" v-model="scope.row[item.prop]"></el-input>
+        </template>
+      </el-table-column>
+    </el-table>
+    <el-row v-if="form.hasSubmit" class="btn-group">
+      <el-button v-if="form.cancleShow" size="mini" @click="resetForm(form.ref)">{{form.cancleText}}</el-button>
+      <el-button type="primary" size="mini" @click="submitForm(form.ref)">{{form.submitText}}</el-button>
     </el-row>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
-import {dateFtt} from '@/plugins/util.js'
 export default {
   name: "MyForm",
-  props: ["form"],
+  props: {
+    form: {
+      type: Object,
+      default: () => {
+        return {
+          title: {
+            type: String,
+            default: '标题'
+          },
+          showTitle: {
+            type: Boolean,
+            default: true
+          },
+          ref: {
+            type: String,
+            default: 'form'
+          },
+          width: {
+            type: Number,
+            default: 100
+          },
+          isTable: {
+            type: Boolean,
+            default: false
+          },
+          labelWidth: {
+            type: String,
+            default: '120px'
+          },
+          labelPositon: {
+            type: String,
+            default: 'right'
+          },
+          column: {
+            type: Number,
+            default: 1
+          },
+          hasSubmit: {
+            type: Boolean,
+            default: false
+          },
+          disabled: {
+            type: Boolean,
+            default: false
+          }
+        }
+      }
+    },
+    formItem: {
+      type: Array,
+      default: () => [Object]
+    },
+    formData: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    }
+  },
   data() {
     return {
-      formData: {}
-    };
+      // formData: {}
+    }
   },
   created () {},
-  activated () {
-    this.getSubmitData(true)
-  },
   methods: {
     getSubmitData(clear) {
-        for (let i = 0; i < this.form.formItem.length; i++) {
-          this.form.formItem[i].value = clear ? '' : this.form.formItem[i].value
-          this.formData[this.form.formItem[i].name] = this.form.formItem[i].value
+      for (let i = 0; i < this.forms.length; i++) {
+        const item = this.forms[i];
+        this.formData[item.ref] = {}
+        for (let j = 0; j < item.formItem.length; j++) {
+          item.formItem[j].value = clear ? '' : item.formItem[j].value
+          this.formData[item.ref][item.formItem[j].name] = item.formItem[j].value
         }
+      }
     },
     onSubmit() {
       this.getSubmitData()
@@ -114,37 +190,49 @@ export default {
     onCancel() {
       this.getSubmitData(true)
       this.$emit('cancle')
-    }
-  }
-};
-</script>
-
-<style lang="scss" scoped>
-@import '@/assets/base/index.scss';
-.el-row.btns {
-  text-align: right;
-  margin-top: 40px;
-  .el-button {
-    background-color: $tc;
-    border-color: $tc;
-    // margin-right: -20px;
-    &.el-button--mini {
-      padding: 7px 20px;
-    }
-    &.is-active,
-    &:active {
-      background-color: $tc7;
-    border-color: $tc7;
-    }
-    &:focus,
-    &:hover {
-      background-color: $tc7;
-    border-color: $tc7;
+    },
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          // alert('submit!');
+          this.$emit('submit')
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
+    resetForm(formName) {
+      this.$emit('cancle')
+      this.$refs[formName].resetFields();
     }
   }
 }
+</script>
+
+<style lang="scss" scoped>
+@import '@/assets/base/variables.scss';
+@import '@/assets/base/mixins.scss';
+.form {
+  margin: auto;
+  &-title {
+    line-height: 40px;
+    background: $tc;
+    margin-bottom: 20px;
+    color: #fff;
+    // text-align: left
+  }
+}
+.el-table {
+  margin-bottom: 20px
+}
+.btn-group {
+  text-align: right
+}
 .el-checkbox {
   margin-left: 0;
-  margin-right: 30px
+  &:not(:last-of-type) {
+    @include px2rem(margin-right, 30)
+  }
 }
 </style>

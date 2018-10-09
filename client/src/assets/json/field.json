@@ -1,0 +1,314 @@
+{
+  "user": [
+    {
+      "prop": "username",
+      "label": "用户名",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "roles",
+      "label": "角色",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "rights",
+      "label": "所属权限",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "makeTime",
+      "label": "创建时间",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    }
+  ],
+  "roles": [
+    {
+      "prop": "roles",
+      "label": "角色名",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "belonged",
+      "label": "所属权限",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "makeTime",
+      "label": "创建时间",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    }
+  ],
+  "rights": [
+    {
+      "prop": "rightsNo",
+      "label": "权限编号",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "rightsName",
+      "label": "权限名称",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "makeTime",
+      "label": "创建时间",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    }
+  ],
+  "carmake": [
+    {
+      "prop": "carmakeName",
+      "label": "车企名称",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "makeTime",
+      "label": "创建时间",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    }
+  ],
+  "tcu": [
+    {
+      "prop": "tcuModel",
+      "label": "TCU型号",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "tcuCode",
+      "label": "TCU代码",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "supplier",
+      "label": "供应商",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "supplierCode",
+      "label": "供应商代码",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "boot",
+      "label": "boot版本号",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    }
+  ],
+  "project": [
+    {
+      "prop": "projectName",
+      "label": "项目名称",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "carmakeName",
+      "label": "车企名称",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "tcuCode",
+      "label": "TCU型号",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "makeTime",
+      "label": "创建时间",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    }
+  ],
+  "task": [
+    {
+      "prop": "employee",
+      "label": "项目名称",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "other",
+      "label": "生产日期",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "other",
+      "label": "TCU代码",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "other",
+      "label": "批次",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "other",
+      "label": "批次数量",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "other",
+      "label": "创建人",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "other",
+      "label": "创建日期",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "other",
+      "label": "完成数量",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "allocatedTime",
+      "label": "任务状态",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "allocatedTime",
+      "label": "初始流水号",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    }
+  ],
+  "productionLog": [
+    {
+      "prop": "projectName",
+      "label": "操作时间",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "projectName",
+      "label": "操作人",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "projectName",
+      "label": "项目名称",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "tcuCode",
+      "label": "TCU型号",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "makeTime",
+      "label": "生产任务",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "makeTime",
+      "label": "刷写结果",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "makeTime",
+      "label": "流水号",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "makeTime",
+      "label": "批次号",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    }
+  ],
+  "operationLog": [
+    {
+      "prop": "projectName",
+      "label": "操作人",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "projectName",
+      "label": "操作时间",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    },
+    {
+      "prop": "projectName",
+      "label": "执行动作",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false
+    }
+  ]
+}

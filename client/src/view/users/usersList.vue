@@ -8,218 +8,117 @@
     <el-row class="btn-group">
       <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">新增用户</el-button>
       <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除用户</el-button>
-      <el-button type="primary" size="mini" icon="el-icon-edit" @click="deleteBatch">角色关联</el-button>
+      <el-button type="primary" size="mini" icon="el-icon-edit" @click="roleAssociation">角色关联</el-button>
     </el-row>
     <MyTable
-      :table="table"
+      size="mini"
+      :stripe="false"
+      :border="false"
+      :multiple="true"
       :column="column"
-      @delete="deleteUser"
+      :data="data"
+      :operation="operation"
+      @delete="deleteRow"
       @update="showDialog"
-      @select="handleSelectionChange"
-      :data="data">
+      @select="handleSelectionChange">
     </MyTable>
     <el-dialog
-      title="新增用户"
+      :title="dialogTitle"
       :visible.sync="dialogVisible"
       width="30%"
       :before-close="handleClose">
-      <MyForm :form="form" @submit="submit" @cancle="cancle"></MyForm>
+      <MyForm :form="form" ref="form" :formData="formData" :formItem="formItem" @submit="submit" @cancle="cancle"></MyForm>
     </el-dialog>
   </div>
 </template>
 
 <script>
 import API from '@/api/user.js'
+import {getField, getFormField} from '@/assets/json/index.js'
 export default {
   name: 'UsersList',
   data () {
     return {
+      dialogTitle: '新增用户',
       dialogVisible: false,
       multipleSelection: [],
       queryType: 'addUser',
       form: {
         title: '',
         ref: 'form1',
-        submitText: '提交',
         showTitle: false,
         labelWidth: '80px',
         labelPositon: 'right',
         width: 100,
         column: 1,
-        formItem: [
+        hasSubmit: true,
+        submitText: '提交',
+        cancleText: '取消'
+      },
+      formItem: [],
+      formData: {},
+      operation: {
+        show: true,
+        fixed: 'right',
+        size: 'mini',
+        width: 'auto',
+        minWidth: 100,
+        label: '操作',
+        btns: [
           {
             type: 'text',
-            name: 'username',
-            value: '',
-            width: '80',
-            label: '用户名:'
+            size: 'mini',
+            content: '修改密码',
+            icon: 'el-icon-edit',
+            handle: 'update'
           },
           {
-            type: 'checkbox',
-            name: 'roles',
-            label: '角色:',
-            // width: '80',
-            value: [],
-            options: [
-              {
-                label: '刷写工人',
-                value: '刷写工人'
-              },
-              {
-                label: '刷写设置管理员',
-                value: '刷写设置管理员'
-              },
-              {
-                label: '生产任务管理员',
-                value: '生产任务管理员'
-              },
-              {
-                label: '超级管理员',
-                value: '超级管理员'
-              },
-              {
-                label: '日志管理员',
-                value: '日志管理员'
-              }
-            ]
-          },
-          {
-            type: 'checkbox',
-            name: 'rights',
-            label: '权限:',
-            // width: '80',
-            value: [],
-            options: [
-              {
-                label: '刷写工人',
-                value: '刷写工人'
-              },
-              {
-                label: '刷写设置管理员',
-                value: '刷写设置管理员'
-              },
-              {
-                label: '生产任务管理员',
-                value: '生产任务管理员'
-              },
-              {
-                label: '超级管理员',
-                value: '超级管理员'
-              },
-              {
-                label: '日志管理员',
-                value: '日志管理员'
-              }
-            ]
+            type: 'text',
+            size: 'mini',
+            content: '删除',
+            icon: 'el-icon-delete',
+            handle: 'delete'
           }
         ]
-      },
-      table: {
-        size: 'mini',
-        stripe: true, // 是否带有斑马纹路
-        border: true, // 是否要竖直边框
-        multiple: true, // 复选框
-        // height: '414',
-        // maxHeight: '513',
-        width: '80',
-        operation: {
-          show: true,
-          fixed: 'right',
-          size: 'mini',
-          width: 'auto',
-          minWidth: 100,
-          label: '操作',
-          btns: [
-            {
-              type: 'text',
-              size: 'mini',
-              content: '修改密码',
-              icon: 'el-icon-edit',
-              handle: 'update'
-            },
-            {
-              type: 'text',
-              size: 'mini',
-              content: '删除',
-              icon: 'el-icon-delete',
-              handle: 'delete'
-            }
-          ]
-        } // 操作按钮
-      },
-      column: [
-        {
-          'prop': 'username',
-          'label': '用户名',
-          'width': 'auto',
-          'fixed': false,
-          'sortable': false
-        },
-        {
-          'prop': 'roles',
-          'label': '角色',
-          'width': 'auto',
-          'fixed': false,
-          'sortable': false
-        },
-        {
-          'prop': 'rights',
-          'label': '所属权限',
-          'width': 'auto',
-          'fixed': false,
-          'sortable': false
-        },
-        {
-          'prop': 'makeTime',
-          'label': '创建时间',
-          'width': 'auto',
-          'fixed': false,
-          'sortable': false
-        }
-      ],
+      }, // table操作按钮
+      column: [], // table字段
       data: [
         {
+          uid: 1,
           username: 'sdfas',
-          roles: 'dsfgdtg',
-          rights: 'wereq',
+          roles: '超级管理员',
+          rights: '超级管理员',
           makeTime: '2018-01-01'
         }
       ]
     }
   },
   created () {
+    // 获取table字段
+    this.column = getField('user')
+    // 获取form字段
+    this.formItem = getFormField('user', 'item')
+    this.formData = getFormField('user', 'data')
     // this.getUserList()
   },
   methods: {
     // 表单提交
-    submit (form) {
-      var data = {}
+    submit () {
       var _this = this
-      if (this.queryType === 'updateUserInfo') {
-        data = {
-          uid: _this.multipleSelection[0].uid,
-          username: form.username,
-          roles: form.roles.join(',')
-        }
-      } else {
-        data = {
-          username: form.username,
-          roles: form.roles.join(',')
-        }
-      }
-
-      console.log(data)
-      console.log(this.queryType)
-      // return
-      API[this.queryType](data).then(res => {
-        this.dialogVisible = false
-        this.getUserList()
-      }).catch(err => {
-        console.log(err)
+      this.dialogVisible = false
+      console.log(this.formData)
+      var id = this.data[0].uid
+      this.data.push({
+        uid: ++id,
+        username: _this.formData.username,
+        roles: _this.formData.roles.join(','),
+        rights: _this.formData.rights.join(','),
+        makeTime: '2018-01-01'
       })
     },
     // 表单取消提交
-    cancle (form) {
+    cancle () {
+      this.dialogVisible = false
     },
     // 弹框关闭时的回调函数
     handleClose (done) {
@@ -236,13 +135,26 @@ export default {
       })
     },
     // 删除用户
-    deleteUser (row) {
-      API.deleteUser({
-        uid: row.uid
-      }).then(res => {
-        this.getUserList()
-      }).catch(err => {
-        console.log(err)
+    deleteRow (row) {
+      console.log(row)
+      // this.$message({
+      //   message: '正在执行删除' + row.uid + '操作···',
+      //   type: 'warning'
+      // })
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
       })
     },
     // 批量删除
@@ -252,7 +164,7 @@ export default {
         id += item.uid + ','
       })
       if (id) {
-        this.deleteUser({uid: id.slice(0, id.length - 1)})
+        this.deleteRow({uid: id.slice(0, id.length - 1)})
       } else {
         this.$message({
           message: '请至少选择一个用户',
@@ -262,17 +174,33 @@ export default {
     },
     // 显示弹框
     showDialog (row) {
+      // 获取form字段
+      this.formItem = getFormField('user', 'item')
+      this.formData = getFormField('user', 'data')
       if (row.uid) {
-        this.form.formItem.forEach(item => {
-          item.value = row[item.name]
-          if (item.name === 'roles') {
-            item.value = item.value.split(',')
+        // 数据回显
+        for (const key in this.formData) {
+          if (this.formData.hasOwnProperty(key)) {
+            const item = this.formData[key]
+            if (item instanceof Array) {
+              this.formData[key] = row[key].split(',')
+            } else {
+              this.formData[key] = row[key]
+            }
           }
-        })
+        }
         this.queryType = 'updateUserInfo'
       } else {
         this.queryType = 'addUser'
       }
+      this.dialogVisible = true
+    },
+    // 角色关联
+    roleAssociation () {
+      // 获取form字段
+      this.dialogTitle = '角色关联'
+      this.formItem = getFormField('userAndRoles', 'item')
+      this.formData = getFormField('userAndRoles', 'data')
       this.dialogVisible = true
     },
     // 获取选中行

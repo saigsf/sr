@@ -29,6 +29,7 @@
 
 <script>
 import API from '@/api/user.js'
+import {getField} from '@/assets/json/index.js'
 export default {
   name: 'UsersList',
   data () {
@@ -145,22 +146,7 @@ export default {
           ]
         } // 操作按钮
       },
-      column: [
-        {
-          'prop': 'carmakeName',
-          'label': '车企名称',
-          'width': 'auto',
-          'fixed': false,
-          'sortable': false
-        },
-        {
-          'prop': 'makeTime',
-          'label': '创建时间',
-          'width': 'auto',
-          'fixed': false,
-          'sortable': false
-        }
-      ],
+      column: [],
       data: [
         {
           carmakeName: 'dsfgdtg',
@@ -170,6 +156,8 @@ export default {
     }
   },
   created () {
+    // 获取字段
+    this.column = getField('carmake')
     // this.getUserList()
   },
   methods: {
