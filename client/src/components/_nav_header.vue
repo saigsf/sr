@@ -1,32 +1,23 @@
 <template>
   <div class="header">
+    <div class="header-logo">
+      <h1>盛瑞后台管理</h1>
+    </div>
     <div class="header-content">
-      <el-badge is-dot class="item">
-        <el-button size="small" icon="el-icon-bell"></el-button>
-      </el-badge>
-      <el-badge is-dot class="item">
-        <el-button size="small" icon="el-icon-message"></el-button>
-      </el-badge>
-      <el-badge is-dot class="item">
-        <el-button size="small" icon="el-icon-setting"></el-button>
-      </el-badge>
-      <el-input
-        placeholder="搜索"
-        prefix-icon="el-icon-search"
-        v-model="search">
+      <el-input placeholder="请输入内容" v-model="search" class="input-with-select">
+        <!-- <el-select v-model="select" slot="prepend" placeholder="请选择">
+          <el-option label="餐厅名" value="1"></el-option>
+          <el-option label="订单号" value="2"></el-option>
+          <el-option label="用户电话" value="3"></el-option>
+        </el-select> -->
+        <el-button slot="append" icon="el-icon-search"></el-button>
       </el-input>
     </div>
-    <div class="header-logo">
-      <el-dropdown>
-        <span class="el-dropdown-link">
-          用户名<i class="el-icon-caret-bottom el-icon--right"></i>
-        </span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>信息</el-dropdown-item>
-          <el-dropdown-item>推出</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-      <img class="user-logo" src="../assets/img/user.png" alt="">
+    <div class="header-user">
+      <p>欢迎您，<span>系统管理员</span></p>
+      <div class="login-out">
+        <span>退出</span>
+      </div>
     </div>
   </div>
 </template>
@@ -44,53 +35,82 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/base/variables.scss';
+@import '@/assets/base/mixins.scss';
 .header {
   height: 100%;
   width: 100%;
   position: relative;
-  padding: 0 20px;
-  &-logo {
-    padding: 0 20px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 100%;
-    width: $tsaw;
-    background-color: $tbcl;
-    border-bottom-left-radius: 10px;
-  }
-  .el-dropdown {
-    line-height: normal
-  }
-  .el-dropdown .el-dropdown-link {
-    color: #fff;
-  }
-  .user-logo {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    vertical-align: middle;
-    background-color: #eee;
-    margin-left: 20px;
-  }
-  .el-badge  {
-    line-height: normal;
-    &:not(:last-of-type) {
-      margin-right: 40px;
-    }
-  }
-  .el-button {
-    padding: 0;
-    border: none;
-    background-color: transparent;
-    font-size: 24px;
-  }
+  @include padding(0, 20);
   .el-input {
     line-height: normal;
-    width: auto;
-    border: none;
-    box-shadow: 3px 3px 4px rgba($color: #000000, $alpha: .3) inset;
+  }
+  &-logo {
+    @include px2rem(width, 292);
+    @include px2rem(padding-left, 50);
+    height: 100%;
+    float: left;
+    color: #fff;
+    font-family: 'hanYi';
+    background: url(../../static/img/logo.png) no-repeat center left;
+  }
+  &-content {
+    float: left;
+    height: 100%;
+  }
+  &-user {
+    @include px2rem(width, 250);
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    .login-out {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      @include px2rem(width, 102);
+      height: 100%;
+      background-color: $tc;
+      color: #fff;
+      text-align: center;
+      cursor: pointer;
+      transition: all .5s;
+      &:before {
+        content: "";
+        vertical-align: middle;
+        display: inline-block;
+        @include px2rem(width, 35);
+        @include px2rem(height, 35);
+        background: url(../../static/img/login.png) no-repeat center;
+        background-size: cover;
+      }
+      &:hover {
+        background-color: $tc7;
+      }
+      span {
+        line-height: normal;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        @include px2rem(bottom, 10);
+        @include px2rem(font-size, 14);
+      }
+    }
+    p {
+      color: #fff;
+      @include px2rem(font-size, 14);
+      span {
+        color: $tc;
+      }
+    }
+  }
+  .el-input {
+    border-radius: 21px;
     background-color: #fff;
+    overflow: hidden;
+    @include px2rem(height, 42);
+    @include px2rem(width, 443);
+    @include px2rem(margin-left, 86);
   }
 }
 </style>

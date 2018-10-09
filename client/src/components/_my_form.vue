@@ -73,13 +73,13 @@
           :placeholder="item.placeholder">
         </el-input>
         <!-- 其他 -->
-        <el-input v-else :type="item.type" :placeholder="item.placeholder" v-model="item.value"></el-input>
+        <el-input v-else :type="item.type" :placeholder="item.placeholder" v-model="item.value" :style="'width:'+item.width+'%'"></el-input>
       </el-form-item>
       </el-col>
       </el-row>
     </el-form>
     <el-row class="btns" :style="'width:'+form.width+'%'">
-      <el-button type="primary" size="mini" @click="onSubmit">提交</el-button>
+      <el-button type="primary" size="mini" @click="onSubmit">{{form.submitText}}</el-button>
       <!-- <el-button size="mini" @click="onCancel">取消</el-button> -->
     </el-row>
   </div>
@@ -125,21 +125,21 @@ export default {
   text-align: right;
   margin-top: 40px;
   .el-button {
-    background-color: $tbca;
-    border-color: $tbca;
+    background-color: $tc;
+    border-color: $tc;
     // margin-right: -20px;
     &.el-button--mini {
       padding: 7px 20px;
     }
     &.is-active,
     &:active {
-      background-color: rgba(54, 69, 100, .8);
-      border-color: rgba(54, 69, 100, .8);
+      background-color: $tc7;
+    border-color: $tc7;
     }
     &:focus,
     &:hover {
-      background-color: rgba(54, 69, 100, .8);
-      border-color: rgba(54, 69, 100, .8);
+      background-color: $tc7;
+    border-color: $tc7;
     }
   }
 }

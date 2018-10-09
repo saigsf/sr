@@ -1,9 +1,20 @@
 <template>
   <div class="list">
-    <el-row>
-      <el-button type="primary" size="mini" icon="el-icon-minus">删除</el-button>
+    <!-- 标题 -->
+    <el-row class="title">
+      <span>用户权限列表</span>
     </el-row>
-    <MyTable class="mb10" :table="table" :column="column" :data="data"></MyTable>
+    <!-- 按钮 -->
+    <el-row class="btn-group">
+      <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">新增用户</el-button>
+      <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除用户</el-button>
+      <el-button type="primary" size="mini" icon="el-icon-edit" @click="deleteBatch">角色关联</el-button>
+    </el-row>
+    <MyTable
+      :table="table"
+      :column="column"
+      :data="data">
+    </MyTable>
   </div>
 </template>
 
@@ -29,8 +40,11 @@ export default {
           label: '操作',
           btns: [
             {
+              type: 'text',
               size: 'mini',
-              content: '删除'
+              content: '删除',
+              icon: 'el-icon-delete',
+              handle: 'delete'
             }
           ]
         } // 操作按钮

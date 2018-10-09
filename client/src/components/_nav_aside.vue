@@ -1,8 +1,5 @@
 <template>
   <div class="aside">
-    <div class="aside-logo">
-      <h1>盛瑞后台管理</h1>
-    </div>
     <el-menu
       :default-active="currentActive"
       class="el-menu-aside"
@@ -10,7 +7,7 @@
       :unique-opened="unique"
       :collapse="isCollapse"
       text-color="#fff"
-      active-text-color="#ffd04b">
+      active-text-color="rgba(23,189,130,1)">
       <template v-for="(item, index) in navList">
         <el-submenu v-if="!item.meta.leaf && item.meta.show" :index="index+''" :key="index">
           <template slot="title">
@@ -24,7 +21,7 @@
         </el-submenu>
         <el-menu-item v-else-if="item.meta.leaf && item.meta.show" :index="item.path" :key="index">
           <i :class="item.meta.icon"></i>
-          <span slot="title">{{item.meta.title}}</span>
+          <span>{{item.meta.title}}</span>
         </el-menu-item>
       </template>
     </el-menu>
@@ -78,9 +75,7 @@ export default {
   width: 100%;
   &>.el-menu {
     width: 100%;
-    position: absolute;
-    top: 140px;
-    bottom: 60px;
+    height: 100%;
   }
 }
 .aside-logo {

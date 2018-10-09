@@ -1,5 +1,5 @@
 <template>
-  <div class="tasks">
+  <div class="list">
     <MyForm :form="form" @submit="submit" @cancle="cancle"></MyForm>
   </div>
 </template>

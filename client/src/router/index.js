@@ -4,6 +4,7 @@ import Layout from '@/view/layout'
 import Login from '@/view/login'
 import Users from '@/view/users'
 import Tasks from '@/view/tasks'
+import Mes from '@/view/mes'
 
 Vue.use(Router)
 
@@ -24,7 +25,19 @@ export default new Router({
       meta: {
         title: '盛瑞后台管理'
       },
+      redirect: '/mes',
       children: [
+        {
+          path: '/mes',
+          name: 'mes',
+          component: Mes,
+          meta: {
+            title: 'MES对接',
+            show: true,
+            icon: 'icon icon-mes',
+            leaf: false
+          }
+        },
         {
           path: '/users',
           name: 'users',
@@ -32,7 +45,7 @@ export default new Router({
           meta: {
             title: '用户管理',
             show: true,
-            icon: '',
+            icon: 'icon icon-user',
             leaf: false
           },
           children: [
@@ -45,7 +58,7 @@ export default new Router({
               meta: {
                 title: '用户列表',
                 show: true,
-                icon: '',
+                icon: 'icon icon-dot',
                 leaf: true
               }
             },
@@ -58,7 +71,7 @@ export default new Router({
               meta: {
                 title: '角色列表',
                 show: true,
-                icon: '',
+                icon: 'icon icon-dot',
                 leaf: true
               }
             },
@@ -71,7 +84,7 @@ export default new Router({
               meta: {
                 title: '权限列表',
                 show: true,
-                icon: '',
+                icon: 'icon icon-dot',
                 leaf: true
               }
             }
@@ -82,12 +95,51 @@ export default new Router({
           name: 'tasks',
           component: Tasks,
           meta: {
-            title: '任务管理',
+            title: '生产管理',
             show: true,
-            icon: '',
+            icon: 'icon icon-product',
             leaf: false
           },
           children: [
+            {
+              path: '/tasks/carmake',
+              name: 'carmake',
+              component: resolve => {
+                require(['@/view/tasks/carmake'], resolve)
+              },
+              meta: {
+                title: '车企管理',
+                show: true,
+                icon: 'icon icon-dot',
+                leaf: true
+              }
+            },
+            {
+              path: '/tasks/tcu',
+              name: 'tcu',
+              component: resolve => {
+                require(['@/view/tasks/tcu'], resolve)
+              },
+              meta: {
+                title: 'TCU管理',
+                show: true,
+                icon: 'icon icon-dot',
+                leaf: true
+              }
+            },
+            {
+              path: '/tasks/project',
+              name: 'project',
+              component: resolve => {
+                require(['@/view/tasks/project'], resolve)
+              },
+              meta: {
+                title: '项目管理',
+                show: true,
+                icon: 'icon icon-dot',
+                leaf: true
+              }
+            },
             {
               path: '/tasks/tasklist',
               name: 'taskList',
@@ -95,22 +147,35 @@ export default new Router({
                 require(['@/view/tasks/taskList'], resolve)
               },
               meta: {
-                title: '任务列表',
+                title: '任务管理',
                 show: true,
-                icon: '',
+                icon: 'icon icon-dot',
                 leaf: true
               }
             },
             {
-              path: '/tasks/tasking',
-              name: 'tasking',
+              path: '/tasks/productionLog',
+              name: 'productionLog',
               component: resolve => {
-                require(['@/view/tasks/tasking'], resolve)
+                require(['@/view/tasks/productionLog'], resolve)
               },
               meta: {
-                title: '任务分配',
+                title: '生产日志',
                 show: true,
-                icon: '',
+                icon: 'icon icon-dot',
+                leaf: true
+              }
+            },
+            {
+              path: '/tasks/operationLog',
+              name: 'operationLog',
+              component: resolve => {
+                require(['@/view/tasks/operationLog'], resolve)
+              },
+              meta: {
+                title: '操作日志',
+                show: true,
+                icon: 'icon icon-dot',
                 leaf: true
               }
             }

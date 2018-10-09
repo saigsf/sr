@@ -1,0 +1,13 @@
+/* web字体引入 */
+@font-face {
+  font-family: "LedNum";
+  src: url(../fonts/ledNumber.ttf) format("truetype");
+}
+@font-face {
+  font-family: "hanYi";
+  src: url(../fonts/hanYi.ttf) format("truetype");
+}
+@font-face {
+  font-family: "SimHei";
+  src: url(../fonts/SimHei.ttf) format("truetype");
+}

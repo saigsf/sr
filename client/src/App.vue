@@ -15,5 +15,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import './assets/base/index.scss'
+@import './assets/base/index.scss';
+@import './assets/base/icon.scss';
 </style>

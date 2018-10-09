@@ -1,10 +1,13 @@
 // variables
-$theme-background-color-main: #edf2f6;
+$theme-color: rgba(23,189,130,1);
+$theme-color-9: rgba(23,189,130,.9);
+$theme-color-7: rgba(23, 189, 130, 0.7);
+$theme-background-color-main: #f5f5f5;
 $theme-background-color-logo: #3f4f69;
-$theme-background-color-aside: #364564;
-$theme-background-color-aside-active: #4f6793;
+$theme-background-color-aside: rgba(32,36,47,1);
+$theme-background-color-aside-active: rgba(69,84,105,1);
 $theme-background-color-dialog: #2b6193;
-$theme-background-color-header-row: #3b4f72;
+$theme-background-color-header: rgba(40,47,67,1);
 
 $theme-size-header-height: 100px;
 $theme-size-aside-width: 200px;
@@ -14,12 +17,15 @@ $theme-size-aside-line-height: 140px;
 $theme-font-size: 12px;
 
 // Abbreviation
+$tc: $theme-color;
+$tc9: $theme-color-9;
+$tc7: $theme-color-7;
 $tbcm: $theme-background-color-main;
 $tbcl: $theme-background-color-logo;
 $tbca: $theme-background-color-aside;
 $tbcaa: $theme-background-color-aside-active;
 $tbcd: $theme-background-color-dialog;
-$tbchr: $theme-background-color-header-row;
+$tbch: $theme-background-color-header;
 $tshh: $theme-size-header-height;
 $tsaw: $theme-size-aside-width;
 $tsah: $theme-size-aside-height;

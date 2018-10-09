@@ -1,10 +1,16 @@
 <template>
   <div class="list">
-    <el-row>
-      <el-button type="primary" size="mini" icon="el-icon-plus" @click="showDialog">新增</el-button>
-      <el-button type="primary" size="mini" icon="el-icon-minus" @click="deleteBatch">删除</el-button>
+    <!-- 标题 -->
+    <el-row class="title">
+      <span>用户信息列表</span>
     </el-row>
-    <MyTable class="mb10"
+    <!-- 按钮 -->
+    <el-row class="btn-group">
+      <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">新增用户</el-button>
+      <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除用户</el-button>
+      <el-button type="primary" size="mini" icon="el-icon-edit" @click="deleteBatch">角色关联</el-button>
+    </el-row>
+    <MyTable
       :table="table"
       :column="column"
       @delete="deleteUser"
@@ -34,6 +40,7 @@ export default {
       form: {
         title: '',
         ref: 'form1',
+        submitText: '提交',
         showTitle: false,
         labelWidth: '80px',
         labelPositon: 'right',
@@ -51,6 +58,35 @@ export default {
             type: 'checkbox',
             name: 'roles',
             label: '角色:',
+            // width: '80',
+            value: [],
+            options: [
+              {
+                label: '刷写工人',
+                value: '刷写工人'
+              },
+              {
+                label: '刷写设置管理员',
+                value: '刷写设置管理员'
+              },
+              {
+                label: '生产任务管理员',
+                value: '生产任务管理员'
+              },
+              {
+                label: '超级管理员',
+                value: '超级管理员'
+              },
+              {
+                label: '日志管理员',
+                value: '日志管理员'
+              }
+            ]
+          },
+          {
+            type: 'checkbox',
+            name: 'rights',
+            label: '权限:',
             // width: '80',
             value: [],
             options: [
@@ -95,14 +131,18 @@ export default {
           label: '操作',
           btns: [
             {
+              type: 'text',
               size: 'mini',
-              content: '删除',
-              handle: 'delete'
+              content: '修改密码',
+              icon: 'el-icon-edit',
+              handle: 'update'
             },
             {
+              type: 'text',
               size: 'mini',
-              content: '修改',
-              handle: 'update'
+              content: '删除',
+              icon: 'el-icon-delete',
+              handle: 'delete'
             }
           ]
         } // 操作按钮
@@ -121,13 +161,34 @@ export default {
           'width': 'auto',
           'fixed': false,
           'sortable': false
+        },
+        {
+          'prop': 'rights',
+          'label': '所属权限',
+          'width': 'auto',
+          'fixed': false,
+          'sortable': false
+        },
+        {
+          'prop': 'makeTime',
+          'label': '创建时间',
+          'width': 'auto',
+          'fixed': false,
+          'sortable': false
         }
       ],
-      data: []
+      data: [
+        {
+          username: 'sdfas',
+          roles: 'dsfgdtg',
+          rights: 'wereq',
+          makeTime: '2018-01-01'
+        }
+      ]
     }
   },
   created () {
-    this.getUserList()
+    // this.getUserList()
   },
   methods: {
     // 表单提交

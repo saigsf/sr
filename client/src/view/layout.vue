@@ -1,12 +1,12 @@
 <template>
   <el-container>
-    <el-aside width="200px">
-      <NavAside></NavAside>
-    </el-aside>
+    <el-header :height="headerHeight">
+      <NavHeader></NavHeader>
+    </el-header>
     <el-container>
-      <el-header height="100px">
-        <NavHeader></NavHeader>
-      </el-header>
+      <el-aside :width="asideWidth">
+        <NavAside></NavAside>
+      </el-aside>
       <el-main>
         <transition name="slide-left" mode="out-in">
           <keep-alive>
@@ -19,13 +19,21 @@
 </template>
 
 <script>
+import { px2rem } from '@/plugins/util'
 export default {
-  name: 'Layout'
+  name: 'Layout',
+  data () {
+    return {
+      headerHeight: px2rem(95),
+      asideWidth: px2rem(312)
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/base/variables.scss';
+@import '@/assets/base/mixins.scss';
 .layout {
   width: 100%;
   height: 100%;

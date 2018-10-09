@@ -133,3 +133,12 @@ export function dateFtt (fmt, date) {
   }
   return fmt
 }
+/**
+ *px转rem
+ * @export
+ * @param {*} px
+ * @returns
+ */
+export function px2rem (px) {
+  return px * (1366 / 1920) * 1 / 100 + 'rem'
+}

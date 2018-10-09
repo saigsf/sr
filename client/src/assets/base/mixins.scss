@@ -1,6 +1,6 @@
 
 // mixins
-@mixin px2rem($property, $px-values, $baseline-px:75, $support-for-ie:false) {
+@mixin px2remxx($property, $px-values, $baseline-px:100, $support-for-ie:false) {
   //Conver the baseline into rems 
   $baseline-rem: $baseline-px / 1rem * 1; //Print the first line in pixel values 
   @if $support-for-ie {
@@ -19,6 +19,16 @@
       }
     } // Return the property and its list of converted values 
     #{$property}: $rem-values;
+  }
+}
+@mixin px2rem($prop, $value, $important:false) {
+  $rem: (1366 / 1920) * 1rem / 100;
+  
+  @if $important {
+    #{$prop}: $value * $rem !important;
+  }
+  @else {
+    #{$prop}: $value * $rem;
   }
 }
 
