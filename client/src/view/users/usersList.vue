@@ -18,6 +18,10 @@
       :column="column"
       :data="data"
       :operation="operation"
+      :currentPage="currentPage"
+      :pageSize="pageSize"
+      :total="total"
+      @handleCurrentChange="handleCurrentChange"
       @delete="deleteRow"
       @update="showDialog"
       @select="handleSelectionChange">
@@ -33,7 +37,7 @@
 </template>
 
 <script>
-import API from '@/api/user.js'
+// import API from '@/api/user.js'
 import {getField, getFormField} from '@/assets/json/index.js'
 export default {
   name: 'UsersList',
@@ -47,9 +51,9 @@ export default {
         title: '',
         ref: 'form1',
         showTitle: false,
-        labelWidth: '80px',
+        labelWidth: '60px',
         labelPositon: 'right',
-        width: 100,
+        width: '90%',
         column: 1,
         hasSubmit: true,
         submitText: '提交',
@@ -82,26 +86,24 @@ export default {
         ]
       }, // table操作按钮
       column: [], // table字段
-      data: [
-        {
-          uid: 1,
-          username: 'sdfas',
-          roles: '超级管理员',
-          rights: '超级管理员',
-          makeTime: '2018-01-01'
-        }
-      ]
+      data: [],
+      pageSize: 9,
+      currentPage: 1,
+      total: 10
     }
   },
   created () {
-    // 获取table字段
-    this.column = getField('user')
-    // 获取form字段
-    this.formItem = getFormField('user', 'item')
-    this.formData = getFormField('user', 'data')
-    // this.getUserList()
+    this.init()
+    this.getUserList()
   },
   methods: {
+    init () {
+      // 获取table字段
+      this.column = getField('user')
+      // 获取form字段
+      this.formItem = getFormField('user', 'item')
+      this.formData = getFormField('user', 'data')
+    },
     // 表单提交
     submit () {
       var _this = this
@@ -125,14 +127,15 @@ export default {
       done()
     },
     getUserList () {
-      API.getUserList({
-        page: 1,
-        size: 10
-      }).then(res => {
-        this.data = res.data
-      }).catch(err => {
-        console.log(err)
-      })
+      for (let i = 0; i < this.pageSize; i++) {
+        this.data.push({
+          uid: i + 1,
+          username: 'sdfas',
+          roles: '超级管理员',
+          rights: '超级管理员',
+          makeTime: '2018-01-01'
+        })
+      }
     },
     // 删除用户
     deleteRow (row) {
@@ -177,6 +180,7 @@ export default {
       // 获取form字段
       this.formItem = getFormField('user', 'item')
       this.formData = getFormField('user', 'data')
+      console.log(this.formData)
       if (row.uid) {
         // 数据回显
         for (const key in this.formData) {
@@ -206,6 +210,9 @@ export default {
     // 获取选中行
     handleSelectionChange (val) {
       this.multipleSelection = val
+    },
+    handleCurrentChange (index) {
+      this.currentPage = index
     }
   }
 }

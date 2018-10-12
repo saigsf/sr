@@ -1,5 +1,5 @@
 <template>
-  <div class="my-table">
+  <div class="blct-table">
     <!-- 标题 -->
     <el-row class="title" v-if="titleShow">
       <h5>{{title}}</h5>
@@ -20,9 +20,14 @@
       :style="styles"
       tooltip-effect="dark"
       :row-class-name="tableRowClassName"
+      @row-click="rowClick"
       @selection-change="handleSelectionChange">
       <!-- 复选框 -->
-      <el-table-column type="selection" v-if="multiple" :fixed="false"></el-table-column>
+      <el-table-column
+        type="selection"
+        v-if="multiple"
+        :fixed="false">
+      </el-table-column>
       <!-- 序号 -->
       <el-table-column
         v-if="hasIndex"
@@ -34,32 +39,34 @@
         :index="indexMethod">
       </el-table-column>
       <!-- 选项内容 -->
-      <el-table-column v-for="(item, idx) in column" :key="idx"
-        :fixed="item.fixed"
-        :sortable="item.sortable"
-        :prop="item.cprop"
-        :label="item.label"
-        :width="item.width">
-        <template slot-scope="scope">
-          <span v-if="item.cprop">{{ scope.row[item.prop][item.cprop] }}</span>
-          <template v-else-if="item.isArray">
-            <span v-for="(citem, cindex) in scope.row[item.prop]" :key="cindex">
-              {{ citem.name }}
-            </span>
+      <template v-for="(item, idx) in column">
+        <el-table-column v-if="item.show" :key="idx"
+          :fixed="item.fixed"
+          :sortable="item.sortable"
+          :prop="item.cprop"
+          :label="item.label"
+          :width="item.width">
+          <template slot-scope="scope">
+            <span v-if="item.cprop">{{ scope.row[item.prop][item.cprop] }}</span>
+            <template v-else-if="item.isArray">
+              <span v-for="(citem, cindex) in scope.row[item.prop]" :key="cindex">
+                {{ citem.name }}
+              </span>
+            </template>
+            <span v-else>{{ scope.row[item.prop] }}</span>
           </template>
-          <span v-else>{{ scope.row[item.prop] }}</span>
-        </template>
-        <template v-if="item.column">
-          <el-table-column v-for="(item, idx) in item.column" :key="idx"
-            :fixed="item.fixed"
-            :sortable="item.sortable"
-            :prop="item.prop"
-            :label="item.label"
-            :width="item.width">
-            <template v-if="item.column"></template>
-          </el-table-column>
-        </template>
-      </el-table-column>
+          <template v-if="item.column">
+            <el-table-column v-for="(item, idx) in item.column" :key="idx"
+              :fixed="item.fixed"
+              :sortable="item.sortable"
+              :prop="item.prop"
+              :label="item.label"
+              :width="item.width">
+              <template v-if="item.column"></template>
+            </el-table-column>
+          </template>
+        </el-table-column>
+      </template>
       <!-- 操作按钮 -->
       <el-table-column
         v-if="operation.show"
@@ -81,7 +88,6 @@
     <!-- 分页 -->
     <el-row class="pagination">
       <el-pagination
-        @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="currentPage"
         :page-size="pageSize"
@@ -155,7 +161,7 @@ export default {
     },
     total: {
       type: Number,
-      default: 60
+      default: 10
     },
     pageSize: {
       type: Number,
@@ -187,9 +193,8 @@ export default {
       if (rowIndex%2 === 0) {
         return "even-row";
       } else {
-        return "";
+        return "odd-row";
       }
-      
     },
     handle(str, row) {
       this.rowClick(row)
@@ -199,14 +204,16 @@ export default {
       this.$emit('select', val)
     },
     rowClick(row) {
-      console.log(this.$refs)
-      // this.$refs.multipleTable.toggleRowSelection(row);
+      // console.log(this.$refs)
+      this.$refs.multipleTable.toggleRowSelection(row);
     },
     indexMethod(index) {
       return index +1;
     },
     handleSizeChange() {},
-    handleCurrentChange() {}
+    handleCurrentChange(index) {
+      this.$emit('handleCurrentChange', index)
+    }
   }
 };
 </script>

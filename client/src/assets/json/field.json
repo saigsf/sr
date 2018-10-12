@@ -5,28 +5,32 @@
       "label": "用户名",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "roles",
       "label": "角色",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "rights",
       "label": "所属权限",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "makeTime",
       "label": "创建时间",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     }
   ],
   "roles": [
@@ -35,21 +39,24 @@
       "label": "角色名",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "belonged",
       "label": "所属权限",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "makeTime",
       "label": "创建时间",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     }
   ],
   "rights": [
@@ -58,21 +65,24 @@
       "label": "权限编号",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "rightsName",
       "label": "权限名称",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "makeTime",
       "label": "创建时间",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     }
   ],
   "carmake": [
@@ -81,14 +91,16 @@
       "label": "车企名称",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "makeTime",
       "label": "创建时间",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     }
   ],
   "tcu": [
@@ -97,35 +109,40 @@
       "label": "TCU型号",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "tcuCode",
       "label": "TCU代码",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "supplier",
       "label": "供应商",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "supplierCode",
       "label": "供应商代码",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "boot",
       "label": "boot版本号",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     }
   ],
   "project": [
@@ -134,100 +151,114 @@
       "label": "项目名称",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "carmakeName",
       "label": "车企名称",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "tcuCode",
       "label": "TCU型号",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "makeTime",
       "label": "创建时间",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     }
   ],
   "task": [
     {
-      "prop": "employee",
+      "prop": "projectName",
       "label": "项目名称",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
-      "prop": "other",
+      "prop": "productionDate",
       "label": "生产日期",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
-      "prop": "other",
+      "prop": "tcuCode",
       "label": "TCU代码",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
-      "prop": "other",
+      "prop": "batch",
       "label": "批次",
-      "width": "auto",
+      "width": "60px",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
-      "prop": "other",
+      "prop": "batchNumber",
       "label": "批次数量",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
-      "prop": "other",
+      "prop": "creater",
       "label": "创建人",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
-      "prop": "other",
+      "prop": "createTime",
       "label": "创建日期",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
-      "prop": "other",
+      "prop": "finishedNumber",
       "label": "完成数量",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
-      "prop": "allocatedTime",
+      "prop": "status",
       "label": "任务状态",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
-      "prop": "allocatedTime",
+      "prop": "flowCode",
       "label": "初始流水号",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     }
   ],
   "productionLog": [
@@ -236,56 +267,64 @@
       "label": "操作时间",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "projectName",
       "label": "操作人",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "projectName",
       "label": "项目名称",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "tcuCode",
       "label": "TCU型号",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "makeTime",
       "label": "生产任务",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "makeTime",
       "label": "刷写结果",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "makeTime",
       "label": "流水号",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "makeTime",
       "label": "批次号",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     }
   ],
   "operationLog": [
@@ -294,21 +333,24 @@
       "label": "操作人",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "projectName",
       "label": "操作时间",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "projectName",
       "label": "执行动作",
       "width": "auto",
       "fixed": false,
-      "sortable": false
+      "sortable": false,
+      "show": true
     }
   ]
 }

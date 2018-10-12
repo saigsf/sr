@@ -6,16 +6,21 @@
     </el-row>
     <!-- 按钮 -->
     <el-row class="btn-group">
-      <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除项目</el-button>
       <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">添加项目</el-button>
+      <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除项目</el-button>
     </el-row>
     <MyTable
       :table="table"
       :column="column"
+      :data="data"
+      :operation="operation"
+      :currentPage="currentPage"
+      :pageSize="pageSize"
+      :total="total"
+      @handleCurrentChange="handleCurrentChange"
       @delete="deleteRow"
       @update="showDialog"
-      @select="handleSelectionChange"
-      :data="data">
+      @select="handleSelectionChange">
     </MyTable>
     <el-dialog
       :title="dialogTitle"
@@ -57,52 +62,51 @@ export default {
         multiple: true, // 复选框
         // height: '414',
         // maxHeight: '513',
-        width: '80',
-        operation: {
-          show: true,
-          fixed: 'right',
-          size: 'mini',
-          width: 'auto',
-          minWidth: 100,
-          label: '操作',
-          btns: [
-            {
-              type: 'text',
-              size: 'mini',
-              content: '编辑',
-              icon: 'el-icon-edit',
-              handle: 'update'
-            },
-            {
-              type: 'text',
-              size: 'mini',
-              content: '查看',
-              icon: 'el-icon-delete',
-              handle: 'delete'
-            }
-          ]
-        } // 操作按钮
+        width: '80'
+      },
+      operation: { // 操作按钮
+        show: true,
+        fixed: 'right',
+        size: 'mini',
+        width: 'auto',
+        minWidth: 100,
+        label: '操作',
+        btns: [
+          {
+            type: 'text',
+            size: 'mini',
+            content: '编辑',
+            icon: 'el-icon-edit',
+            handle: 'update'
+          },
+          {
+            type: 'text',
+            size: 'mini',
+            content: '查看',
+            icon: 'el-icon-delete',
+            handle: 'delete'
+          }
+        ]
       },
       column: [],
-      data: [
-        {
-          projectName: 'sdfas',
-          carmakeName: 'dsfgdtg',
-          tcuCode: 'wereq',
-          makeTime: '2018-01-01'
-        }
-      ]
+      data: [],
+      pageSize: 9,
+      currentPage: 1,
+      total: 10
     }
   },
   created () {
-    // 获取字段
-    this.column = getField('project')
-    // 获取form字段
-    this.formItem = getFormField('project', 'item')
-    this.formData = getFormField('project', 'data')
-    // this.getUserList()
+    this.init()
+    this.getUserList()
   },
   methods: {
+    init () {
+      // 获取字段
+      this.column = getField('project')
+      // 获取form字段
+      this.formItem = getFormField('project', 'item')
+      this.formData = getFormField('project', 'data')
+    },
     // 表单提交
     submit () {
       console.log()
@@ -114,7 +118,17 @@ export default {
     handleClose (done) {
       done()
     },
-    getUserList () {},
+    getUserList () {
+      for (let i = 0; i < this.pageSize; i++) {
+        this.data.push({
+          uid: i + 1,
+          projectName: 'sdfas',
+          carmakeName: 'dsfgdtg',
+          tcuCode: 'wereq',
+          makeTime: '2018-01-01'
+        })
+      }
+    },
     // 删除用户
     deleteRow (row) {
       this.$message({
@@ -144,6 +158,9 @@ export default {
     // 获取选中行
     handleSelectionChange (val) {
       this.multipleSelection = val
+    },
+    handleCurrentChange (index) {
+      this.currentPage = index
     }
   }
 }

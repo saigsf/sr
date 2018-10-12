@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="header-logo">
-      <h1>盛瑞管理系统</h1>
+      <h1>盛瑞后台管理系统</h1>
     </div>
     <div class="header-content">
       <el-input placeholder="请输入公司员工" v-model="search" size="mini" class="input-with-select">
@@ -41,17 +41,18 @@ export default {
   width: 100%;
   position: relative;
   @include padding(0, 20);
-  .el-input {
-    line-height: normal;
-  }
   &-logo {
     @include px2rem(width, 292);
-    @include px2rem(padding-left, 50);
+    @include px2rem(padding-left, 40);
     height: 100%;
     float: left;
     color: #fff;
     font-family: 'hanYi';
     background: url(../assets/img/logo.png) no-repeat center left;
+    @include px2rem(background-size, 30);
+    h1 {
+      @include px2rem(font-size, 30);
+    }
   }
   &-content {
     float: left;
@@ -98,8 +99,8 @@ export default {
     }
     p {
       color: #fff;
-      // @include px2rem(font-size, 14);
-      font-size: 12px;
+      @include px2rem(font-size, 16);
+      // font-size: 12px;
       span {
         color: $tc;
       }
@@ -109,7 +110,7 @@ export default {
     border-radius: 21px;
     background-color: #fff;
     overflow: hidden;
-    // @include px2rem(height, 34);
+    @include px2rem(height, 40);
     @include px2rem(width, 443);
     @include px2rem(margin-left, 86);
   }

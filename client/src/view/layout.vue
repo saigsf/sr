@@ -8,11 +8,14 @@
         <NavAside></NavAside>
       </el-aside>
       <el-main>
-        <transition name="slide-left" mode="out-in">
+        <!-- <transition name="slide-left" mode="out-in">
           <keep-alive>
             <router-view class="child-view"></router-view>
           </keep-alive>
-        </transition>
+        </transition> -->
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
       </el-main>
     </el-container>
   </el-container>

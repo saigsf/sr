@@ -8,7 +8,7 @@
     <el-row class="btn-group">
       <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">新增角色</el-button>
       <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除角色</el-button>
-      <el-button type="primary" size="mini" icon="el-icon-edit" @click="deleteBatch">角色关联</el-button>
+      <el-button type="primary" size="mini" icon="el-icon-edit" @click="deleteBatch">权限关联</el-button>
     </el-row>
     <MyTable
       :table="table"
@@ -23,13 +23,13 @@
       :visible.sync="dialogVisible"
       width="30%"
       :before-close="handleClose">
-      <MyForm :form="form" @submit="submit" @cancle="cancle"></MyForm>
+      <MyForm :form="form" ref="form" :formData="formData" :formItem="formItem" @submit="submit" @cancle="cancle"></MyForm>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import {getField} from '@/assets/json/index.js'
+import {getField, getFormField} from '@/assets/json/index.js'
 export default {
   name: 'RolesList',
   data () {
@@ -43,46 +43,47 @@ export default {
         labelWidth: '80px',
         labelPositon: 'right',
         width: 100,
-        column: 1,
-        formItem: [
-          {
-            type: 'text',
-            name: 'username',
-            value: '',
-            width: '80',
-            label: '用户名:'
-          },
-          {
-            type: 'checkbox',
-            name: 'roles',
-            label: '角色:',
-            // width: '80',
-            value: [],
-            options: [
-              {
-                label: '刷写工人',
-                value: '刷写工人'
-              },
-              {
-                label: '刷写设置管理员',
-                value: '刷写设置管理员'
-              },
-              {
-                label: '生产任务管理员',
-                value: '生产任务管理员'
-              },
-              {
-                label: '超级管理员',
-                value: '超级管理员'
-              },
-              {
-                label: '日志管理员',
-                value: '日志管理员'
-              }
-            ]
-          }
-        ]
+        column: 1
       },
+      formItem: [
+        {
+          type: 'text',
+          name: 'username',
+          value: '',
+          width: '80',
+          label: '用户名:'
+        },
+        {
+          type: 'checkbox',
+          name: 'roles',
+          label: '角色:',
+          // width: '80',
+          value: [],
+          options: [
+            {
+              label: '刷写工人',
+              value: '刷写工人'
+            },
+            {
+              label: '刷写设置管理员',
+              value: '刷写设置管理员'
+            },
+            {
+              label: '生产任务管理员',
+              value: '生产任务管理员'
+            },
+            {
+              label: '超级管理员',
+              value: '超级管理员'
+            },
+            {
+              label: '日志管理员',
+              value: '日志管理员'
+            }
+          ]
+        }
+      ],
+      formData: {},
       table: {
         size: 'mini',
         stripe: true, // 是否带有斑马纹路
@@ -144,6 +145,9 @@ export default {
   created () {
     // 获取字段
     this.column = getField('roles')
+    // 获取form字段
+    this.formItem = getFormField('roles', 'item')
+    this.formData = getFormField('roles', 'data')
   },
   methods: {
     submit (form) {

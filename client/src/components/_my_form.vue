@@ -27,6 +27,8 @@
               :type="item.type"
               :style="'width: ' + (item.width ? item.width : '100%')"
               :placeholder="item.placeholder"
+              :suffix-icon="item.suffixIcon"
+              :prefix-icon="item.prefixIcon"
               :disabled="item.disabled">
             </el-input>
             <!-- 日期选择框 -->
@@ -66,7 +68,10 @@
               <el-option v-for="(option, idx) in item.options" :key="idx" :label="option.label" :value="option.value"></el-option>
             </el-select>
             <!-- 复选框 -->
-            <el-checkbox-group v-else-if="item.type=='checkbox'" v-model="formData[item.name]">
+            <el-checkbox-group
+              v-else-if="item.type=='checkbox'"
+              v-model="formData[item.name]"
+              :style="'width: ' + (item.width ? item.width : '100%')">
               <el-checkbox v-for="(option, idx) in item.options" :key="idx" :label="option.label">{{option.label}}</el-checkbox>
             </el-checkbox-group>
             <!-- 单选 -->
@@ -92,7 +97,7 @@
         :label="item.label"
         width="auto">
         <template slot-scope="scope">
-          <el-input size="mini" v-model="scope.row[item.prop]"></el-input>
+          <el-input size="mini" v-model="scope.row[item.prop]" :disabled="item.disabled"></el-input>
         </template>
       </el-table-column>
     </el-table>
@@ -203,7 +208,6 @@ export default {
       });
     },
     resetForm(formName) {
-      this.$emit('cancle')
       this.$refs[formName].resetFields();
     }
   }
@@ -234,5 +238,9 @@ export default {
   &:not(:last-of-type) {
     @include px2rem(margin-right, 30)
   }
+}
+.el-input,
+.el-select {
+  border: 1px solid #7e7e7e
 }
 </style>

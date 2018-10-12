@@ -6,113 +6,122 @@
     </el-row>
     <!-- 按钮 -->
     <el-row class="btn-group">
-      <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除车企</el-button>
       <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">添加车企</el-button>
+      <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除车企</el-button>
     </el-row>
     <MyTable
       :table="table"
       :column="column"
+      :operation="operation"
+      :currentPage="currentPage"
+      :pageSize="pageSize"
+      :total="total"
+      @handleCurrentChange="handleCurrentChange"
       @delete="deleteUser"
       @update="showDialog"
       @select="handleSelectionChange"
       :data="data">
     </MyTable>
     <el-dialog
-      title="新增用户"
+      :title="dialogTitle"
       :visible.sync="dialogVisible"
       width="30%"
       :before-close="handleClose">
-      <MyForm :form="form" @submit="submit" @cancle="cancle"></MyForm>
+      <MyForm :form="form" :formData="formData" :formItem="formItem" @submit="submit" @cancle="cancle"></MyForm>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import API from '@/api/user.js'
-import {getField} from '@/assets/json/index.js'
+// import API from '@/api/user.js'
+import {getField, getFormField} from '@/assets/json/index.js'
 export default {
   name: 'UsersList',
   data () {
     return {
+      dialogTitle: '添加车企',
       dialogVisible: false,
       multipleSelection: [],
-      queryType: 'addUser',
       form: {
         title: '',
         ref: 'form1',
         showTitle: false,
-        labelWidth: '80px',
+        labelWidth: '70px',
         labelPositon: 'right',
-        width: 100,
+        width: '90%',
         column: 1,
-        formItem: [
-          {
-            type: 'text',
-            name: 'username',
-            value: '',
-            width: '80',
-            label: '用户名:'
-          },
-          {
-            type: 'checkbox',
-            name: 'roles',
-            label: '角色:',
-            // width: '80',
-            value: [],
-            options: [
-              {
-                label: '刷写工人',
-                value: '刷写工人'
-              },
-              {
-                label: '刷写设置管理员',
-                value: '刷写设置管理员'
-              },
-              {
-                label: '生产任务管理员',
-                value: '生产任务管理员'
-              },
-              {
-                label: '超级管理员',
-                value: '超级管理员'
-              },
-              {
-                label: '日志管理员',
-                value: '日志管理员'
-              }
-            ]
-          },
-          {
-            type: 'checkbox',
-            name: 'rights',
-            label: '权限:',
-            // width: '80',
-            value: [],
-            options: [
-              {
-                label: '刷写工人',
-                value: '刷写工人'
-              },
-              {
-                label: '刷写设置管理员',
-                value: '刷写设置管理员'
-              },
-              {
-                label: '生产任务管理员',
-                value: '生产任务管理员'
-              },
-              {
-                label: '超级管理员',
-                value: '超级管理员'
-              },
-              {
-                label: '日志管理员',
-                value: '日志管理员'
-              }
-            ]
-          }
-        ]
+        hasSubmit: true,
+        submitText: '提交',
+        cancleText: '取消'
       },
+      formItem: [
+        {
+          type: 'text',
+          name: 'username',
+          value: '',
+          width: '80',
+          label: '用户名:'
+        },
+        {
+          type: 'checkbox',
+          name: 'roles',
+          label: '角色:',
+          // width: '80',
+          value: [],
+          options: [
+            {
+              label: '刷写工人',
+              value: '刷写工人'
+            },
+            {
+              label: '刷写设置管理员',
+              value: '刷写设置管理员'
+            },
+            {
+              label: '生产任务管理员',
+              value: '生产任务管理员'
+            },
+            {
+              label: '超级管理员',
+              value: '超级管理员'
+            },
+            {
+              label: '日志管理员',
+              value: '日志管理员'
+            }
+          ]
+        },
+        {
+          type: 'checkbox',
+          name: 'rights',
+          label: '权限:',
+          // width: '80',
+          value: [],
+          options: [
+            {
+              label: '刷写工人',
+              value: '刷写工人'
+            },
+            {
+              label: '刷写设置管理员',
+              value: '刷写设置管理员'
+            },
+            {
+              label: '生产任务管理员',
+              value: '生产任务管理员'
+            },
+            {
+              label: '超级管理员',
+              value: '超级管理员'
+            },
+            {
+              label: '日志管理员',
+              value: '日志管理员'
+            }
+          ]
+        }
+      ],
+      formData: {},
       table: {
         size: 'mini',
         stripe: true, // 是否带有斑马纹路
@@ -120,65 +129,54 @@ export default {
         multiple: true, // 复选框
         // height: '414',
         // maxHeight: '513',
-        width: '80',
-        operation: {
-          show: true,
-          fixed: 'right',
-          size: 'mini',
-          width: 'auto',
-          minWidth: 100,
-          label: '操作',
-          btns: [
-            {
-              type: 'text',
-              size: 'mini',
-              content: '编辑',
-              icon: 'el-icon-edit',
-              handle: 'update'
-            },
-            {
-              type: 'text',
-              size: 'mini',
-              content: '删除',
-              icon: 'el-icon-delete',
-              handle: 'delete'
-            }
-          ]
-        } // 操作按钮
+        width: '80'
       },
+      operation: {
+        show: true,
+        fixed: 'right',
+        size: 'mini',
+        width: 'auto',
+        minWidth: 100,
+        label: '操作',
+        btns: [
+          {
+            type: 'text',
+            size: 'mini',
+            content: '编辑',
+            icon: 'el-icon-edit',
+            handle: 'update'
+          },
+          {
+            type: 'text',
+            size: 'mini',
+            content: '删除',
+            icon: 'el-icon-delete',
+            handle: 'delete'
+          }
+        ]
+      }, // 操作按钮
       column: [],
-      data: [
-        {
-          carmakeName: 'dsfgdtg',
-          makeTime: '2018-01-01'
-        }
-      ]
+      data: [],
+      pageSize: 9,
+      currentPage: 1,
+      total: 10
     }
   },
   created () {
     // 获取字段
-    this.column = getField('carmake')
-    // this.getUserList()
+    this.init()
+    this.getUserList()
   },
   methods: {
+    init () {
+      // 获取table字段
+      this.column = getField('carmake')
+      // 获取form字段
+      this.formItem = getFormField('carmake', 'item')
+      this.formData = getFormField('carmake', 'data')
+    },
     // 表单提交
-    submit (form) {
-      var data = {}
-      var _this = this
-      if (this.queryType === 'updateUserInfo') {
-        data = {
-          uid: _this.multipleSelection[0].uid,
-          username: form.username,
-          roles: form.roles.join(',')
-        }
-      } else {
-        data = {
-          username: form.username,
-          roles: form.roles.join(',')
-        }
-      }
-
-      console.log(data)
+    submit () {
     },
     // 表单取消提交
     cancle (form) {
@@ -188,14 +186,13 @@ export default {
       done()
     },
     getUserList () {
-      API.getUserList({
-        page: 1,
-        size: 10
-      }).then(res => {
-        this.data = res.data
-      }).catch(err => {
-        console.log(err)
-      })
+      for (let i = 0; i < this.pageSize; i++) {
+        this.data.push({
+          uid: i + 1,
+          carmakeName: 'sdfas',
+          makeTime: '2018-01-01'
+        })
+      }
     },
     // 删除用户
     deleteUser (row) {
@@ -228,15 +225,16 @@ export default {
             item.value = item.value.split(',')
           }
         })
-        this.queryType = 'updateUserInfo'
       } else {
-        this.queryType = 'addUser'
       }
       this.dialogVisible = true
     },
     // 获取选中行
     handleSelectionChange (val) {
       this.multipleSelection = val
+    },
+    handleCurrentChange (index) {
+      this.currentPage = index
     }
   }
 }
