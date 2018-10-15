@@ -91,10 +91,14 @@ export default {
       for (let i = 0; i < this.pageSize; i++) {
         this.data.push({
           uid: i + 1,
+          operationTime: '2018-01-01',
+          operator: 'sdfas',
           projectName: 'sdfas',
-          carmakeName: 'dsfgdtg',
           tcuCode: 'wereq',
-          makeTime: '2018-01-01'
+          productiveTask: 'wereq',
+          flashResults: 'wereq',
+          serialNumber: 'wereq',
+          batchNumber: '01'
         })
       }
     },

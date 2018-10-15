@@ -216,14 +216,11 @@ body {
   .el-input {
     @include px2rem(font-size, 16);
   }
-  .el-input--mini .el-input__inner {
-    @include px2rem(height, 40);
-    @include px2rem(line-height, 40);
-  }
 
   .el-form-item__label {
     // @include px2rem(font-size, 20)
-    font-size: 12px
+    font-size: 14px;
+    font-weight: bold
   }
 
   .el-checkbox__label {
@@ -367,23 +364,26 @@ body {
   }
 
   .header {
-    .el-input--small .el-input__inner {
+    .el-input--mini .el-input__inner {
       @include px2rem(height, 40);
       @include px2rem(line-height, 40);
     }
 
-    .el-button--small,
-    .el-button--small.is-round {
+    .el-button--mini,
+    .el-button--mini.is-round {
+      width: 100%;
       padding: 0;
-      @include px2rem(width, 53);
-      @include px2rem(font-size, 28);
+      @include px2rem(font-size, 24);
       @include px2rem(line-height, 40);
-      display: block
+      display: block;
+      margin: -10px 0
     }
-
     /* 搜索框样式 */
     .el-input-group__append,
     .el-input-group__prepend {
+      text-align: center;
+      @include px2rem(width, 53);
+      padding: 0;
       background-color: $tc;
       color: #fff;
       border-color: $tc;
@@ -407,6 +407,7 @@ body {
   .title {
     @include padding(10, 10, 20, 10);
     border-bottom: 2px dashed rgba(229, 229, 229, 1);
+    @include px2rem(border-bottom-width, 2);
     h5,
     span {
       @include px2rem(font-size, 26);

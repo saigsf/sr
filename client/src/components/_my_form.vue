@@ -36,6 +36,7 @@
               v-model="formData[item.name]"
               :type="item.type"
               :placeholder="item.placeholder"
+              :default-time="item.defaultTime"
               :disabled="item.disabled"
               :format="(item.format ? item.format : 'yyyy-MM-dd')"
               :style="'width: ' + (item.width ? item.width : '100%')">
@@ -45,6 +46,7 @@
               v-model="formData[item.name]"
               :type="item.type"
               :placeholder="item.placeholder"
+              :default-time="item.defaultTime"
               :disabled="item.disabled"
               :format="(item.format ? item.format : 'hh:mm:ss')"
               :style="'width: ' + (item.width ? item.width : '100%')">
@@ -64,7 +66,15 @@
             <!-- 开关 -->
             <el-switch v-else-if="item.type=='switch'" v-model="formData[item.name]"></el-switch>
             <!-- select选择框 -->
-            <el-select v-else-if="item.type=='select'" v-model="formData[item.name]" :placeholder="item.placeholder" :style="'width: ' + (item.width ? item.width : '100%')">
+            <el-select
+              v-else-if="item.type=='select'"
+              v-model="formData[item.name]"
+              :placeholder="item.placeholder"
+              :multiple="item.multiple"
+              :collapse-tags="item.collapseTags"
+              :filterable="item.filterable"
+              :allow-create="item.allowCreate"
+              :style="'width: ' + (item.width ? item.width : '100%')">
               <el-option v-for="(option, idx) in item.options" :key="idx" :label="option.label" :value="option.value"></el-option>
             </el-select>
             <!-- 复选框 -->
@@ -241,6 +251,7 @@ export default {
 }
 .el-input,
 .el-select {
-  border: 1px solid #7e7e7e
+  border: 1px solid #ddd;
+  @include px2rem(border-radius, 5)
 }
 </style>

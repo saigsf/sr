@@ -263,7 +263,7 @@
   ],
   "productionLog": [
     {
-      "prop": "projectName",
+      "prop": "operationTime",
       "label": "操作时间",
       "width": "auto",
       "fixed": false,
@@ -271,7 +271,7 @@
       "show": true
     },
     {
-      "prop": "projectName",
+      "prop": "operator",
       "label": "操作人",
       "width": "auto",
       "fixed": false,
@@ -295,7 +295,7 @@
       "show": true
     },
     {
-      "prop": "makeTime",
+      "prop": "productiveTask",
       "label": "生产任务",
       "width": "auto",
       "fixed": false,
@@ -303,7 +303,7 @@
       "show": true
     },
     {
-      "prop": "makeTime",
+      "prop": "flashResults",
       "label": "刷写结果",
       "width": "auto",
       "fixed": false,
@@ -311,7 +311,7 @@
       "show": true
     },
     {
-      "prop": "makeTime",
+      "prop": "serialNumber",
       "label": "流水号",
       "width": "auto",
       "fixed": false,
@@ -319,7 +319,7 @@
       "show": true
     },
     {
-      "prop": "makeTime",
+      "prop": "batchNumber",
       "label": "批次号",
       "width": "auto",
       "fixed": false,

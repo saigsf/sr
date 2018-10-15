@@ -160,16 +160,18 @@
   "productionTask": {
     "item": [
       {
-        "type": "text",
+        "type": "select",
         "name": "projectName",
         "value": "",
         "placeholder": "请选择项目名称",
         "width": "100%",
-        "label": "项目名称:"
+        "label": "项目名称:",
+        "options": []
       },
       {
         "type": "date",
         "name": "productionDate",
+        "placeholder": "请选择生产日期",
         "value": "",
         "width": "100%",
         "label": "生产日期:"
@@ -178,13 +180,16 @@
         "type": "select",
         "name": "tcuCode",
         "value": "",
+        "placeholder": "请选择TCU",
         "width": "100%",
-        "label": "TCU代码:"
+        "label": "TCU代码:",
+        "options": []
       },
       {
         "type": "text",
         "name": "batch",
         "value": "",
+        "placeholder": "请输入批次",
         "width": "100%",
         "label": "批次:"
       },
@@ -192,6 +197,7 @@
         "type": "text",
         "name": "batchNumber",
         "value": "",
+        "placeholder": "请输入批次数量",
         "width": "100%",
         "label": "批次数量:"
       },
@@ -206,13 +212,16 @@
         "type": "date",
         "name": "createTime",
         "value": "",
+        "placeholder": "请选择创建时间",
         "width": "100%",
+        "defaultTime": "2018/01/01",
         "label": "创建日期:"
       },
       {
         "type": "text",
         "name": "finishedNumber",
         "value": "",
+        "placeholder": "请输入完成数量",
         "width": "100%",
         "label": "完成数量:"
       },
@@ -220,6 +229,7 @@
         "type": "text",
         "name": "flowCode",
         "value": "",
+        "placeholder": "请输入初始流水号",
         "width": "100%",
         "label": "初始流水号:"
       }
@@ -242,25 +252,33 @@
         "type": "text",
         "name": "projectName",
         "value": "",
-        "placeholder": "请选择项目名称",
+        "placeholder": "请输入项目名称",
         "width": "100%",
         "label": "项目名称:"
       },
       {
-        "type": "text",
+        "type": "select",
+        "multiple": true,
+        "collapseTags": true,
+        "filterable": false,
+        "allowCreate": false,
         "name": "carmake",
         "value": "",
-        "placeholder": "请选择项目名称",
+        "placeholder": "请选择车企名称",
         "width": "100%",
-        "label": "车企名称:"
+        "label": "车企名称:",
+        "options": []
       },
       {
-        "type": "text",
+        "type": "select",
+        "multiple": true,
+        "collapseTags": true,
         "name": "tcuCode",
         "value": "",
-        "placeholder": "请选择项目名称",
+        "placeholder": "请选择TCU代码",
         "width": "100%",
-        "label": "TCU型号:"
+        "label": "TCU代码:",
+        "options": []
       },
       {
         "type": "text",
@@ -272,7 +290,9 @@
       }
     ],
     "data": {
-      "projectName": ""
+      "projectName": "",
+      "carmake": [],
+      "tcuCode": []
     }
   },
   "carmake": {
