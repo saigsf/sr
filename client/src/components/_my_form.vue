@@ -75,7 +75,7 @@
               :filterable="item.filterable"
               :allow-create="item.allowCreate"
               :style="'width: ' + (item.width ? item.width : '100%')">
-              <el-option v-for="(option, idx) in item.options" :key="idx" :label="option.label" :value="option.value"></el-option>
+              <el-option v-for="(option, idx) in item.options" :key="idx" :label="option.id" :value="option.name"></el-option>
             </el-select>
             <!-- 复选框 -->
             <el-checkbox-group
@@ -112,7 +112,7 @@
       </el-table-column>
     </el-table>
     <el-row v-if="form.hasSubmit" class="btn-group">
-      <el-button v-if="form.cancleShow" size="mini" @click="resetForm(form.ref)">{{form.cancleText}}</el-button>
+      <el-button v-if="form.cancleShow" size="mini" @click="resetForm()">{{form.cancleText}}</el-button>
       <el-button type="primary" size="mini" @click="submitForm(form.ref)">{{form.submitText}}</el-button>
     </el-row>
   </div>
@@ -206,8 +206,8 @@ export default {
       this.getSubmitData(true)
       this.$emit('cancle')
     },
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
+    submitForm() {
+      this.$refs[this.form.ref].validate((valid) => {
         if (valid) {
           // alert('submit!');
           this.$emit('submit')
@@ -217,8 +217,8 @@ export default {
         }
       });
     },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+    resetForm() {
+      this.$refs[this.form.ref].resetFields();
     }
   }
 }
@@ -249,9 +249,5 @@ export default {
     @include px2rem(margin-right, 30)
   }
 }
-.el-input,
-.el-select {
-  border: 1px solid #ddd;
-  @include px2rem(border-radius, 5)
-}
+
 </style>

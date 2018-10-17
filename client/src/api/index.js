@@ -1,5 +1,7 @@
 import Axios from 'axios'
+import Qs from 'qs'
 import iView from 'iview'
+import apiConfig from '../../config/api.config'
 // import bus from '@assets/js/bus.js'
 
 Axios.defaults.withCredentials = true
@@ -8,7 +10,7 @@ Axios.defaults.headers.post['Content-Type'] = 'application/json' // 配置请求
 
 // 添加一个请求拦截器
 Axios.interceptors.request.use(function (config) {
-  // console.dir(config)
+  console.dir(config)
   // bus.$emit('goto', '/login')
   iView.LoadingBar.start()
   return config
@@ -21,7 +23,7 @@ Axios.interceptors.request.use(function (config) {
 // 添加一个返回拦截器
 Axios.interceptors.response.use(function (response) {
   // 对返回的数据进行一些处理，比如说把loading动画关掉
-  console.dir(response.data)
+  console.dir(response)
   iView.LoadingBar.finish()
   return response
 }, function (error) {
@@ -32,12 +34,16 @@ Axios.interceptors.response.use(function (response) {
 })
 
 // 基地址
-let base = '' // 接口代理地址参见：config/index.js中的proxyTable配置
+let base = apiConfig.baseURl // 接口代理地址参见：config/index.js中的proxyTable配置
 // let base = 'http://localhost:3000' // 接口代理地址参见：config/index.js中的proxyTable配置
 
 // 通用方法
 export const POST = (url, params) => {
-  return Axios.post(`${base}${url}`, params).then(res => res.data)
+  return Axios.post(`${base}${url}`, Qs.stringify(params), {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  }).then(res => res.data)
 }
 
 export const GET = (url, params) => {

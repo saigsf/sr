@@ -87,7 +87,7 @@
   ],
   "carmake": [
     {
-      "prop": "carmakeName",
+      "prop": "name",
       "label": "车企名称",
       "width": "auto",
       "fixed": false,
@@ -95,7 +95,7 @@
       "show": true
     },
     {
-      "prop": "makeTime",
+      "prop": "createTime",
       "label": "创建时间",
       "width": "auto",
       "fixed": false,
@@ -105,7 +105,7 @@
   ],
   "tcu": [
     {
-      "prop": "tcuModel",
+      "prop": "type",
       "label": "TCU型号",
       "width": "auto",
       "fixed": false,
@@ -129,7 +129,7 @@
       "show": true
     },
     {
-      "prop": "supplierCode",
+      "prop": "supCode",
       "label": "供应商代码",
       "width": "auto",
       "fixed": false,
@@ -137,7 +137,7 @@
       "show": true
     },
     {
-      "prop": "boot",
+      "prop": "bootVersion",
       "label": "boot版本号",
       "width": "auto",
       "fixed": false,
@@ -147,7 +147,7 @@
   ],
   "project": [
     {
-      "prop": "projectName",
+      "prop": "name",
       "label": "项目名称",
       "width": "auto",
       "fixed": false,
@@ -155,7 +155,9 @@
       "show": true
     },
     {
-      "prop": "carmakeName",
+      "type": "Object",
+      "prop": "name",
+      "fprop": "company",
       "label": "车企名称",
       "width": "auto",
       "fixed": false,
@@ -163,7 +165,27 @@
       "show": true
     },
     {
+      "type": "popover",
       "prop": "tcuCode",
+      "fprop": "tcu",
+      "label": "TCU型号",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": false
+    },
+    {
+      "prop": "createTime",
+      "label": "创建时间",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    }
+  ],
+  "projectDetail": [
+    {
+      "prop": "tcuType",
       "label": "TCU型号",
       "width": "auto",
       "fixed": false,
@@ -171,8 +193,16 @@
       "show": true
     },
     {
-      "prop": "makeTime",
-      "label": "创建时间",
+      "prop": "fileName",
+      "label": "标定文件",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "status",
+      "label": "是否可用",
       "width": "auto",
       "fixed": false,
       "sortable": false,
@@ -189,7 +219,8 @@
       "show": true
     },
     {
-      "prop": "productionDate",
+      "type": "tooltip",
+      "prop": "producedTime",
       "label": "生产日期",
       "width": "auto",
       "fixed": false,
@@ -205,7 +236,7 @@
       "show": true
     },
     {
-      "prop": "batch",
+      "prop": "batchNo",
       "label": "批次",
       "width": "60px",
       "fixed": false,
@@ -215,13 +246,13 @@
     {
       "prop": "batchNumber",
       "label": "批次数量",
-      "width": "auto",
+      "width": "80px",
       "fixed": false,
       "sortable": false,
       "show": true
     },
     {
-      "prop": "creater",
+      "prop": "operator",
       "label": "创建人",
       "width": "auto",
       "fixed": false,
@@ -229,6 +260,7 @@
       "show": true
     },
     {
+      "type": "tooltip",
       "prop": "createTime",
       "label": "创建日期",
       "width": "auto",
@@ -237,9 +269,9 @@
       "show": true
     },
     {
-      "prop": "finishedNumber",
+      "prop": "finishNumber",
       "label": "完成数量",
-      "width": "auto",
+      "width": "80px",
       "fixed": false,
       "sortable": false,
       "show": true
@@ -247,13 +279,13 @@
     {
       "prop": "status",
       "label": "任务状态",
-      "width": "auto",
+      "width": "80px",
       "fixed": false,
       "sortable": false,
       "show": true
     },
     {
-      "prop": "flowCode",
+      "prop": "serialNumber",
       "label": "初始流水号",
       "width": "auto",
       "fixed": false,

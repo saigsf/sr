@@ -153,13 +153,13 @@ input[type="submit"] {
     cursor: pointer
 }
 
-input[type="text"],
+/* input[type="text"],
 input[type="search"],
 input[type="password"] {
     -webkit-appearance: none;
     border: none;
     background: none
-}
+} */
 
 button,
 input[type="radio"],

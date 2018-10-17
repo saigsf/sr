@@ -16,6 +16,10 @@ Vue.use(ElementUI, { size: 'mini' })
 Vue.use(iView)
 Vue.config.productionTip = false
 
+iView.LoadingBar.config({
+  color: '#17bd82'
+})
+
 router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面meta */
   if (to.meta.content) {
@@ -27,12 +31,9 @@ router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */
   if (to.meta.title) {
     var str = ''
-    for (let i = 0; i < to.matched.length; i++) {
-      const item = to.matched[i]
-      str += item.meta.title + '-'
-    }
-    var len = str.length
-    document.title = str.slice(0, len - 1)
+    var len = to.matched.length
+    str = to.matched[0].meta.title + '-' + to.matched[len - 1].meta.title
+    document.title = str
   }
   next()
 })

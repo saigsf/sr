@@ -15,6 +15,7 @@ body,
 body {
   font-size: $tfs;
   @include px2rem(font-size, 16);
+
   #app {
     overflow: hidden;
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -98,12 +99,14 @@ body {
         display: none;
       }
     }
+
     &:hover,
     &.is-opened {
       .el-submenu__title {
         background-color: $tc;
         // border-left: 4px solid #273657;
         position: relative;
+
         &:after {
           content: "";
           display: block;
@@ -134,10 +137,11 @@ body {
         }
       }
     }
+
     &__title {
       @include px2rem(font-size, 22);
-      @include px2rem(height, 76);
-      @include px2rem(line-height, 76);
+      @include px2rem(height, 60);
+      @include px2rem(line-height, 60);
       @include px2rem(padding-left, 0, true);
 
       &:hover,
@@ -161,6 +165,7 @@ body {
 
       &.is-active {
         background-color: $tbcaa;
+
         i.icon-dot:after {
           color: $tc
         }
@@ -181,6 +186,7 @@ body {
     -moz-border-radius: 4px;
     -ms-border-radius: 4px;
     -o-border-radius: 4px;
+
     &--primary {
       background-color: $tc;
       border-color: $tc;
@@ -197,14 +203,17 @@ body {
         border-color: $tc7;
       }
     }
+
     &--mini,
     &--mini.is-round {
       @include padding(8, 15);
       @include px2rem(font-size, 16)
     }
+
     &--default:active {
       color: $tc;
     }
+
     &--default:focus,
     &--default:hover {
       color: $tc;
@@ -212,9 +221,21 @@ body {
       background-color: #fff;
     }
   }
+
   // select样式重写
   .el-input {
     @include px2rem(font-size, 16);
+  }
+  .el-input {
+    .el-input__inner {
+      &:focus,
+      &:active {
+        border-color: $tc
+      }
+    }
+  }
+  .el-select .el-input.is-focus .el-input__inner {
+    border-color: $tc
   }
 
   .el-form-item__label {
@@ -231,17 +252,57 @@ body {
     left: auto;
     right: 5px;
   }
+
   .el-input--prefix .el-input__inner {
     padding-left: 15px;
+  }
+  
+  /* 搜索框样式 */
+  .el-input-group__append,
+  .el-input-group__prepend {
+    text-align: center;
+    @include px2rem(width, 53);
+    padding: 0;
+    background-color: $tc;
+    color: #fff;
+    border-color: $tc;
+    .el-button {
+      width: 100%;
+      height: 100%;
+      &:hover,
+      &:active,
+      &:focus {
+        background-color: $tc;
+        color: #fff
+      }
+    }
+  }
+  .el-input-group__append {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    .el-button {
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+  }
+  .el-input-group__prepend {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    .el-button {
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+    }
   }
 
   // 表格样式重写
   .el-table {
     text-align: center;
+
     // margin-top: 20px;
     thead th {
       text-align: center
     }
+
     .el-button {
       // border-color: $tbca;
       // border-radius: 7px;
@@ -265,21 +326,26 @@ body {
         color: #fff;
       }
     }
+
     .cell {
       @include px2rem(line-height, 39);
       @include px2rem(font-size, 16)
     }
+
     td,
     th.is-leaf {
       border-bottom: none
     }
+
     &:before {
       display: none;
     }
+
     &__fixed-right::before,
     &__fixed::before {
       display: none
     }
+
     td,
     th {
       @include padding(6, 0);
@@ -298,6 +364,7 @@ body {
       }
     }
   }
+
   .el-table .cell,
   .el-table th div,
   .el-table--border td:first-child .cell,
@@ -327,6 +394,14 @@ body {
     background-color: rgba(244, 245, 252, 1);
   }
 
+  .el-table .cell {
+    p {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
   /* dialog样式重写 */
   .el-dialog__header {
     background-color: $tc;
@@ -352,7 +427,7 @@ body {
   /* 通用样式 */
   .list {
     width: 100%;
-    min-height: 100%;
+    height: 100%;
     background-color: #fff;
     border-radius: 36px;
     -webkit-border-radius: 36px;
@@ -367,6 +442,8 @@ body {
     .el-input--mini .el-input__inner {
       @include px2rem(height, 40);
       @include px2rem(line-height, 40);
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
     }
 
     .el-button--mini,
@@ -378,29 +455,10 @@ body {
       display: block;
       margin: -10px 0
     }
-    /* 搜索框样式 */
     .el-input-group__append,
     .el-input-group__prepend {
-      text-align: center;
-      @include px2rem(width, 53);
-      padding: 0;
-      background-color: $tc;
-      color: #fff;
-      border-color: $tc;
       @include px2rem(line-height, 36);
       @include px2rem(height, 38);
-      border-top-right-radius: 21px;
-      border-bottom-right-radius: 21px;
-      .el-button {
-        width: 100%;
-        height: 100%;
-        &:hover,
-        &:active,
-        &:focus {
-          background-color: $tc;
-          color: #fff
-        }
-      }
     }
   }
 
@@ -408,6 +466,7 @@ body {
     @include padding(10, 10, 20, 10);
     border-bottom: 2px dashed rgba(229, 229, 229, 1);
     @include px2rem(border-bottom-width, 2);
+
     h5,
     span {
       @include px2rem(font-size, 26);
@@ -415,29 +474,77 @@ body {
       display: block;
       position: relative;
       padding-left: 8px;
+
       &:before {
         content: "";
         display: block;
         position: absolute;
         left: 0;
         top: 50%;
-        transform: translateY(-50%);        
+        transform: translateY(-50%);
         @include px2rem(height, 24);
-        @include px2rem(width,5);
-        @include px2rem(margin-right,9);
+        @include px2rem(width, 5);
+        @include px2rem(margin-right, 9);
         background-color: $tc;
         -webkit-transform: translateY(-50%);
         -moz-transform: translateY(-50%);
         -ms-transform: translateY(-50%);
         -o-transform: translateY(-50%);
-}
+      }
     }
   }
+
   .btn-group {
     @include padding(20, 10);
+
     .el-button--mini,
     .el-button--small {
       @include px2rem(font-size, 16);
+    }
+    .el-input {
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      -webkit-border-radius: 20px;
+      -moz-border-radius: 20px;
+      -ms-border-radius: 20px;
+      -o-border-radius: 20px;
+    }
+    .el-input__inner {
+      border: none;
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+    }
+
+    .el-input-group__append,
+    .el-input-group__prepend {
+      background-color: #fff;
+      color: $tc;
+      border: none;
+      .el-button {
+        position: relative;
+        &:hover,
+        &:active,
+        &:focus {
+          border: none;
+          background-color: #fff;
+          color: $tc
+        }
+        &:after {
+          content: "";
+          display: block;
+          width: 1px;
+          @include px2rem(height, 20);
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          -webkit-transform: translateY(-50%);
+          -moz-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+          -o-transform: translateY(-50%);
+          background-color: $tc;
+        }
+      }
     }
   }
 
@@ -461,11 +568,14 @@ body {
         box-shadow: 1px 1px 1px 0px rgba(146, 160, 146, 0.52);
       }
     }
+
     .more:before {
       @include px2rem(line-height, 23);
     }
   }
-  .el-pager li.btn-quicknext, .el-pager li.btn-quickprev {
+
+  .el-pager li.btn-quicknext,
+  .el-pager li.btn-quickprev {
     @include px2rem(line-height, 27);
   }
 
@@ -547,5 +657,80 @@ body {
   .el-checkbox__input.is-checked+.el-checkbox__label {
     color: #333;
     // font-weight: 600
+  }
+
+  // 确认框样式重写
+  .el-message-box {
+    @include px2rem(width, 497);
+    @include px2rem(height, 307);
+    padding-bottom: 20px;
+    border: none;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+    &__header {
+      background-color: $tc;
+      * {
+        color: #fff
+      }
+    }
+    &__headerbtn {
+      top: 50%;
+      transform: translateY(-50%);
+      -webkit-transform: translateY(-50%);
+      -moz-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      -o-transform: translateY(-50%);
+      &:hover {
+        .el-message-box__close {
+          color: #fff;
+        }
+      }
+      .el-message-box__close {
+        color: #fff;
+      }
+    }
+    &__content {
+      width: 90%;
+      @include margin(30, auto);
+    }
+    &__status {
+      font-size: 48px !important;
+      top: 57%;
+      @include px2rem(left, 40);
+      &.el-icon-warning {
+        color: $tc;
+      }
+      &+.el-message-box__message {
+        @include px2rem(padding-left, 100);
+      }
+    }
+
+    &__message p {
+      p {
+        margin: 10px 0
+      }
+      span {
+        font-size: 12px
+      }
+    }
+    &__btns {
+      @include px2rem(padding-right, 58);
+      .el-button--small, .el-button--small.is-round {
+        padding: 7px 12px;
+      }
+      .el-button--primary {
+        &:focus {
+          background-color: $tc;
+          color: #fff
+        }
+        &:hover {
+          background-color: $tc7;
+          color: #fff
+        }
+      }
+    }
   }
 }

@@ -43,16 +43,31 @@
         <el-table-column v-if="item.show" :key="idx"
           :fixed="item.fixed"
           :sortable="item.sortable"
-          :prop="item.cprop"
+          :prop="item.prop"
           :label="item.label"
           :width="item.width">
           <template slot-scope="scope">
-            <span v-if="item.cprop">{{ scope.row[item.prop][item.cprop] }}</span>
-            <template v-else-if="item.isArray">
-              <span v-for="(citem, cindex) in scope.row[item.prop]" :key="cindex">
-                {{ citem.name }}
-              </span>
-            </template>
+            <!-- 正常显示 -->
+            <!-- 下拉列表显示 -->
+            <!-- 超出点点显示 -->
+            <el-tooltip v-if="item.type == 'tooltip'" :content="scope.row[item.prop]" placement="top">
+              <p> {{ scope.row[item.prop] }}</p>
+            </el-tooltip>
+            <!-- 超出点点显示模式二 -->
+            <el-popover v-else-if="item.type == 'popover'" trigger="hover" placement="top">
+              <ul>
+                <li v-for="(citem, cidx) in scope.row[item.fprop]" :key="cidx">
+                  <span v-for="(ccitem, ccidx) in citem" :key="ccidx">{{ccitem}}/</span>
+                </li>
+              </ul>
+              <div slot="reference" class="name-wrapper">
+                <p size="medium">
+                  <span>{{scope.row[item.fprop][0][item.prop]}}</span>
+                </p>
+              </div>
+            </el-popover>
+            <!-- 数据是Object -->
+            <span v-else-if="item.type == 'Object'">{{ scope.row[item.fprop][item.prop] }}</span>
             <span v-else>{{ scope.row[item.prop] }}</span>
           </template>
           <template v-if="item.column">
@@ -86,7 +101,7 @@
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <el-row class="pagination">
+    <el-row class="pagination" v-if="total >= pageSize">
       <el-pagination
         @current-change="handleCurrentChange"
         :current-page="currentPage"

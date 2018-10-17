@@ -2,13 +2,13 @@
   <div class="list">
     <!-- 标题 -->
     <el-row class="title">
-      <span>项目管理列表</span>
+      <span>项目详情</span>
     </el-row>
     <!-- 按钮 -->
     <el-row class="btn-group">
       <el-col :span="12">
-        <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">添加项目</el-button>
-        <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除项目</el-button>
+        <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">添加标定文件</el-button>
+        <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除标定文件</el-button>
       </el-col>
       <el-col :span="4" :offset="6">
         <el-input placeholder="请输入内容" v-model="search" class="input-with-select">
@@ -26,7 +26,7 @@
       :total="total"
       @handleCurrentChange="handleCurrentChange"
       @delete="deleteConfirm"
-      @update="detail"
+      @update="update"
       @select="handleSelectionChange">
     </MyTable>
     <!-- 对话框 -->
@@ -53,7 +53,7 @@
 import API from '@/api/task.js'
 import {getField, getFormField} from '@/assets/json/index.js'
 export default {
-  name: 'ProjectList',
+  name: 'ProjectDetail',
   data () {
     // 表单配置
     var form = {
@@ -80,7 +80,7 @@ export default {
         {
           type: 'text',
           size: 'mini',
-          content: '查看',
+          content: '编辑',
           icon: 'el-icon-edit',
           handle: 'update'
         },
@@ -102,7 +102,7 @@ export default {
 
     return {
       confirm: confirm,
-      dialogTitle: '添加项目',
+      dialogTitle: '添加标定文件',
       dialogVisible: false,
       multipleSelection: [],
       ids: null,
@@ -121,37 +121,16 @@ export default {
   },
   created () {
     this.init()
-    this.getCarmake()
     this.getData()
+    console.log(this.$route.params.id)
   },
   methods: {
     init () {
       // 获取字段
-      this.column = getField('project')
+      this.column = getField('projectDetail')
       // 获取form字段
-      this.formItem = getFormField('project', 'item')
-      this.formData = getFormField('project', 'data')
-    },
-    getCarmake () {
-      var data = [
-        {
-          label: '车企a',
-          value: '车企a'
-        },
-        {
-          label: '车企b',
-          value: '车企b'
-        },
-        {
-          label: '车企c',
-          value: '车企c'
-        }
-      ]
-      this.formItem.forEach(item => {
-        if (item.name === 'carmake') {
-          item.options = data
-        }
-      })
+      this.formItem = getFormField('projectDetail', 'item')
+      this.formData = getFormField('projectDetail', 'data')
     },
     getTCU () {},
     // 表单提交
@@ -294,10 +273,6 @@ export default {
           this.formData[key] = row[key]
         }
       }
-    },
-    // 项目详情
-    detail (row) {
-      this.$router.push({path: '/tasks/project/'+row.id})
     },
     // 表单重置
     resetForm () {

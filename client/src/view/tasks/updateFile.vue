@@ -2,13 +2,13 @@
   <div class="list">
     <!-- 标题 -->
     <el-row class="title">
-      <span>项目管理列表</span>
+      <span>文件管理列表</span>
     </el-row>
     <!-- 按钮 -->
     <el-row class="btn-group">
       <el-col :span="12">
-        <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">添加项目</el-button>
-        <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除项目</el-button>
+        <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">添加文件</el-button>
+        <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除文件</el-button>
       </el-col>
       <el-col :span="4" :offset="6">
         <el-input placeholder="请输入内容" v-model="search" class="input-with-select">

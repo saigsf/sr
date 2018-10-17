@@ -128,6 +128,19 @@ export default new Router({
               }
             },
             {
+              path: '/tasks/file',
+              name: 'file',
+              component: resolve => {
+                require(['@/view/tasks/updateFile'], resolve)
+              },
+              meta: {
+                title: '文件管理',
+                show: true,
+                icon: 'icon icon-dot',
+                leaf: true
+              }
+            },
+            {
               path: '/tasks/project',
               name: 'project',
               component: resolve => {
@@ -136,6 +149,19 @@ export default new Router({
               meta: {
                 title: '项目管理',
                 show: true,
+                icon: 'icon icon-dot',
+                leaf: true
+              }
+            },
+            {
+              path: '/tasks/project/:id',
+              name: 'projectDetail',
+              component: resolve => {
+                require(['@/view/tasks/projectDetail'], resolve)
+              },
+              meta: {
+                title: '项目详情',
+                show: false,
                 icon: 'icon icon-dot',
                 leaf: true
               }

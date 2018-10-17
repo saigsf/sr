@@ -142,3 +142,19 @@ export function dateFtt (fmt, date) {
 export function px2rem (px) {
   return px * (1366 / 1920) * 1 / 100 + 'rem'
 }
+
+/**
+ *获取随机数
+ *
+ * @export
+ * @param {*} min
+ * @param {*} max
+ * @returns
+ */
+export function random (min, max) {
+  if (!max) {
+    min = 0
+    max = min
+  }
+  return Math.random() * (max - min) + min
+}

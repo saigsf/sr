@@ -11,11 +11,11 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api': {
-        target: 'http://localhost:3000', // 源地址
+      '/shengruiweb': {
+        target: 'http://192.168.0.101:8080', // 源地址
         changeOrigin: true, // 改变源
         pathRewrite: {
-          '^/api': '/' // 路径重写
+          '^/shengruiweb': '/shengruiweb' // 路径重写
         }
       }
     },
@@ -31,7 +31,7 @@ module.exports = {
     // Use Eslint Loader?
     // If true, your code will be linted during bundling and
     // linting errors and warnings will be shown in the console.
-    useEslint: true,
+    useEslint: false,
     // If true, eslint errors and warnings will also be shown in the error overlay
     // in the browser.
     showEslintErrorsInOverlay: false,

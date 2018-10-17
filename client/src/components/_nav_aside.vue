@@ -14,10 +14,12 @@
             <i :class="item.meta.icon"></i>
             <span>{{item.meta.title}}</span>
           </template>
-          <el-menu-item v-for="(citem, index) in item.children" :key="index" :index="citem.path">
-            <i :class="citem.meta.icon"></i>
-            <span>{{citem.meta.title}}</span>
-          </el-menu-item>
+          <template v-for="(citem, index) in item.children">
+            <el-menu-item :key="index" :index="citem.path"  v-if="citem.meta.leaf && citem.meta.show">
+              <i :class="citem.meta.icon"></i>
+              <span>{{citem.meta.title}}</span>
+            </el-menu-item>
+          </template>
         </el-submenu>
         <el-menu-item v-else-if="item.meta.leaf && item.meta.show" :index="item.path" :key="index">
           <i :class="item.meta.icon"></i>

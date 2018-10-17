@@ -170,7 +170,7 @@
       },
       {
         "type": "date",
-        "name": "productionDate",
+        "name": "producedTime",
         "placeholder": "请选择生产日期",
         "value": "",
         "width": "100%",
@@ -186,8 +186,17 @@
         "options": []
       },
       {
+        "type": "select",
+        "name": "file",
+        "value": "",
+        "placeholder": "请选择标定文件",
+        "width": "100%",
+        "label": "标定文件:",
+        "options": []
+      },
+      {
         "type": "text",
-        "name": "batch",
+        "name": "batchNo",
         "value": "",
         "placeholder": "请输入批次",
         "width": "100%",
@@ -203,8 +212,9 @@
       },
       {
         "type": "text",
-        "name": "creater",
+        "name": "operator",
         "value": "",
+        "placeholder": "请选择创建人姓名",
         "width": "100%",
         "label": "创建者:"
       },
@@ -219,7 +229,7 @@
       },
       {
         "type": "text",
-        "name": "finishedNumber",
+        "name": "finishNumber",
         "value": "",
         "placeholder": "请输入完成数量",
         "width": "100%",
@@ -227,7 +237,7 @@
       },
       {
         "type": "text",
-        "name": "flowCode",
+        "name": "serialNumber",
         "value": "",
         "placeholder": "请输入初始流水号",
         "width": "100%",
@@ -235,15 +245,17 @@
       }
     ],
     "data": {
+      "taskId": "",
       "projectName": "",
-      "productionDate": "",
-      "tcuCode": "",
+      "producedTime": "",
+      "tcuCode": [],
+      "file": [],
       "batch": "",
       "batchNumber": "",
-      "creater": "",
+      "operator": "",
       "createTime": "",
-      "finishedNumber": "",
-      "flowCode": ""
+      "finishNumber": "",
+      "serialNumber": ""
     }
   },
   "project": {
@@ -254,7 +266,10 @@
         "value": "",
         "placeholder": "请输入项目名称",
         "width": "100%",
-        "label": "项目名称:"
+        "label": "项目名称:",
+        "rules": [
+          { "required": true, "message": "请输入车企名称", "trigger": "blur" }
+        ]
       },
       {
         "type": "select",
@@ -262,12 +277,15 @@
         "collapseTags": true,
         "filterable": false,
         "allowCreate": false,
-        "name": "carmake",
+        "name": "companyName",
         "value": "",
         "placeholder": "请选择车企名称",
         "width": "100%",
         "label": "车企名称:",
-        "options": []
+        "options": [],
+        "rules": [
+          { "required": true, "message": "请输入车企名称", "trigger": "blur" }
+        ]
       },
       {
         "type": "select",
@@ -278,56 +296,95 @@
         "placeholder": "请选择TCU代码",
         "width": "100%",
         "label": "TCU代码:",
-        "options": []
-      },
-      {
-        "type": "text",
-        "name": "demarcationFile",
-        "value": "",
-        "placeholder": "请选择项目名称",
-        "width": "100%",
-        "label": "标定文件:"
+        "options": [],
+        "rules": [
+          { "required": true, "message": "请输入车企名称", "trigger": "blur" }
+        ]
       }
     ],
     "data": {
+      "pid": "",
       "projectName": "",
       "carmake": [],
       "tcuCode": []
+    }
+  },
+  "projectDetail": {
+    "item": [
+      {
+        "type": "select",
+        "multiple": false,
+        "name": "tcuType",
+        "value": "",
+        "placeholder": "请选择TCU型号",
+        "width": "100%",
+        "label": "TCU型号:",
+        "options": [],
+        "rules": [
+          { "required": true, "message": "请选择TCU型号", "trigger": "blur" }
+        ]
+      },
+      {
+        "type": "select",
+        "multiple": true,
+        "collapseTags": true,
+        "name": "fileName",
+        "value": "",
+        "placeholder": "请选择标定文件",
+        "width": "100%",
+        "label": "标定文件:",
+        "options": [],
+        "rules": [
+          { "required": true, "message": "请选择标定文件", "trigger": "blur" }
+        ]
+      }
+    ],
+    "data": {
+      "id": "",
+      "tcuType": [],
+      "fileName": []
     }
   },
   "carmake": {
     "item": [
       {
         "type": "text",
-        "name": "carmakeName",
+        "name": "name",
         "value": "",
         "placeholder": "请输入车企名称",
         "width": "100%",
-        "label": "车企名称:"
+        "label": "车企名称:",
+        "rules": [
+          { "required": true, "message": "请输入车企名称", "trigger": "blur" }
+        ]
       },
       {
-        "type": "date",
-        "name": "createDate",
+        "type": "text",
+        "name": "remark",
         "value": "",
-        "placeholder": "请选择创建时间",
+        "placeholder": "请添加备注",
         "width": "100%",
-        "label": "创建时间:"
+        "label": "备注:"
       }
     ],
     "data": {
-      "carmakeName": "",
-      "makeTime": ""
+      "id": "",
+      "name": "",
+      "remark": ""
     }
   },
   "tcu": {
     "item": [
       {
         "type": "text",
-        "name": "tcuModel",
+        "name": "type",
         "value": "",
         "placeholder": "请输入TCU型号",
         "width": "100%",
-        "label": "TCU型号:"
+        "label": "TCU型号:",
+        "rules": [
+          { "required": true, "message": "请输入TCU型号", "trigger": "blur" }
+        ]
       },
       {
         "type": "text",
@@ -335,7 +392,10 @@
         "value": "",
         "placeholder": "请输入TCU代码",
         "width": "100%",
-        "label": "TCU代码:"
+        "label": "TCU代码:",
+        "rules": [
+          { "required": true, "message": "请输入TCU代码", "trigger": "blur" }
+        ]
       },
       {
         "type": "text",
@@ -343,31 +403,41 @@
         "value": "",
         "placeholder": "请输入供应商",
         "width": "100%",
-        "label": "供应商:"
+        "label": "供应商:",
+        "rules": [
+          { "required": true, "message": "请输入供应商名称", "trigger": "blur" }
+        ]
       },
       {
         "type": "text",
-        "name": "supplierCode",
+        "name": "supCode",
         "value": "",
         "placeholder": "请输入供应商代码",
         "width": "100%",
-        "label": "供应商代码:"
+        "label": "供应商代码:",
+        "rules": [
+          { "required": true, "message": "请输入供应商代码", "trigger": "blur" }
+        ]
       },
       {
         "type": "text",
-        "name": "boot",
+        "name": "bootVersion",
         "value": "",
         "placeholder": "请输入boot版本号",
         "width": "100%",
-        "label": "boot版本号:"
+        "label": "boot版本号:",
+        "rules": [
+          { "required": true, "message": "请输入boot版本号", "trigger": "blur" }
+        ]
       }
     ],
     "data": {
-      "tcuModel": "",
+      "id": "",
+      "type": "",
       "tcuCode": "",
       "supplier": "",
-      "supplierCode": "",
-      "boot": ""
+      "supCode": "",
+      "bootVersion": ""
     }
   },
   "productionLog": {
