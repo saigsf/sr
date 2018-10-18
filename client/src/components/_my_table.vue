@@ -68,6 +68,8 @@
             </el-popover>
             <!-- 数据是Object -->
             <span v-else-if="item.type == 'Object'">{{ scope.row[item.fprop][item.prop] }}</span>
+            <!-- 链接 -->
+            <a v-else-if="item.type == 'link'" :href="scope.row[item.prop]"  :download="scope.row.name"> <i class="el-icon-download"></i> 下载</a>
             <span v-else>{{ scope.row[item.prop] }}</span>
           </template>
           <template v-if="item.column">

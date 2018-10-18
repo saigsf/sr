@@ -131,7 +131,7 @@ export default new Router({
               path: '/tasks/file',
               name: 'file',
               component: resolve => {
-                require(['@/view/tasks/updateFile'], resolve)
+                require(['@/view/tasks/uploadFile'], resolve)
               },
               meta: {
                 title: '文件管理',

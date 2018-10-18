@@ -7,7 +7,16 @@
     <!-- 按钮 -->
     <el-row class="btn-group">
       <el-col :span="12">
-        <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">添加文件</el-button>
+        <el-upload
+          class="upload"
+          action="/shengruiweb/tcufile/upload"
+          :before-upload="handleBefore"
+          :on-success="handleSuccess"
+          :on-error="handleError"
+          :show-file-list="false">
+          <el-button type="primary" size="mini" icon="el-icon-circle-plus">添加文件</el-button>
+        </el-upload>
+        <!-- <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">添加文件</el-button> -->
         <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除文件</el-button>
       </el-col>
       <el-col :span="4" :offset="6">
@@ -26,17 +35,16 @@
       :total="total"
       @handleCurrentChange="handleCurrentChange"
       @delete="deleteConfirm"
-      @update="detail"
       @select="handleSelectionChange">
     </MyTable>
     <!-- 对话框 -->
-    <el-dialog
+    <!-- <el-dialog
       :title="dialogTitle"
       :visible.sync="dialogVisible"
       width="30%"
       :before-close="handleClose">
       <MyForm ref="myform" :form="form" :formData="formData" :formItem="formItem" @submit="submit"></MyForm>
-    </el-dialog>
+    </el-dialog> -->
     <!-- myconfirm -->
     <MyConfirm
       ref="myconfirm"
@@ -55,19 +63,6 @@ import {getField, getFormField} from '@/assets/json/index.js'
 export default {
   name: 'ProjectList',
   data () {
-    // 表单配置
-    var form = {
-      title: '',
-      ref: 'project',
-      showTitle: false,
-      labelWidth: '100px',
-      labelPositon: 'right',
-      width: '90%',
-      column: 1,
-      hasSubmit: true,
-      submitText: '提交',
-      cancleText: '取消'
-    }
     // 表格数据操作
     var operation = {
       show: true,
@@ -77,13 +72,6 @@ export default {
       minWidth: 100,
       label: '操作',
       btns: [
-        {
-          type: 'text',
-          size: 'mini',
-          content: '查看',
-          icon: 'el-icon-edit',
-          handle: 'update'
-        },
         {
           type: 'text',
           size: 'mini',
@@ -102,13 +90,8 @@ export default {
 
     return {
       confirm: confirm,
-      dialogTitle: '添加项目',
-      dialogVisible: false,
       multipleSelection: [],
       ids: null,
-      form: form,
-      formItem: [],
-      formData: {},
       operation: operation,
       column: [],
       data: [],
@@ -116,78 +99,18 @@ export default {
       currentPage: 1,
       total: 0,
       search: '',
-      type: 'saveProject'
+      type: 'saveProject',
+      loading: '',
     }
   },
   created () {
     this.init()
-    this.getCarmake()
     this.getData()
   },
   methods: {
     init () {
       // 获取字段
-      this.column = getField('project')
-      // 获取form字段
-      this.formItem = getFormField('project', 'item')
-      this.formData = getFormField('project', 'data')
-    },
-    getCarmake () {
-      var data = [
-        {
-          label: '车企a',
-          value: '车企a'
-        },
-        {
-          label: '车企b',
-          value: '车企b'
-        },
-        {
-          label: '车企c',
-          value: '车企c'
-        }
-      ]
-      this.formItem.forEach(item => {
-        if (item.name === 'carmake') {
-          item.options = data
-        }
-      })
-    },
-    getTCU () {},
-    // 表单提交
-    submit () {
-      API[this.type](this.formData).then(res => {
-        switch (res.code) {
-          case 0:
-            this.$message({
-              message: res.msg,
-              type: 'error'
-            })
-            break;
-          case 1:
-            this.dialogVisible = false
-            this.$message({
-              message: res.msg,
-              type: 'success'
-            })
-            this.getData()
-            break;
-        
-          default:
-            break;
-        }
-      })
-    },
-    // 弹框关闭时的回调函数
-    handleClose (done) {
-      for (const key in this.formData) {
-        if (this.formData.hasOwnProperty(key)) {
-          this.formData[key] = ''
-        }
-      }
-      this.init()
-      this.resetForm()
-      done()
+      this.column = getField('file')
     },
     getData () {
       var _this = this
@@ -198,7 +121,7 @@ export default {
       // 添加查询字段
 
       // 接口调用
-      API.getProjectList(config).then(res => {
+      API.getFileList(config).then(res => {
         switch (res.code) {
           case 0:
             this.$message({
@@ -244,7 +167,7 @@ export default {
     // 删除
     deleteRow (row) {
       var _this = this
-      API.deleteProjectById({ids: _this.ids}).then(res => {
+      API.deleteFileList({ids: _this.ids}).then(res => {
         switch (res.code) {
           case 0:
             this.$message({
@@ -254,7 +177,7 @@ export default {
             break;
           case 1:
             this.$message({
-              message: '删除成功',
+              message: res.msg,
               type: 'success'
             })
             this.getData()
@@ -280,38 +203,56 @@ export default {
         })
       }
     },
-    // 显示弹框
-    showDialog () {
-      this.type = 'saveProject'
-      this.dialogVisible = true
-    },
-    // 编辑数据回显
-    update (row) {
-      this.type = 'updateProjectById'
-      this.dialogVisible = true
-      for (const key in this.formData) {
-        if (this.formData.hasOwnProperty(key)) {
-          this.formData[key] = row[key]
-        }
-      }
-    },
-    // 项目详情
-    detail (row) {
-      this.$router.push({path: '/tasks/project/'+row.id})
-    },
-    // 表单重置
-    resetForm () {
-      if(this.$refs['myform'] != undefined) {
-        this.$refs['myform'].resetForm()
-      }
-    },
     // 获取选中行
     handleSelectionChange (val) {
       this.multipleSelection = val
     },
+    // 分页
     handleCurrentChange (index) {
       this.currentPage = index
       this.getData()
+    },
+    // 上传文件之前
+    handleBefore (res) {
+      console.log(res)
+      this.loading = this.$loading({
+        lock: true,
+        text: '文件正在上传···',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
+    },
+    // 上传文件成功
+    handleSuccess (res) {
+      console.log(res)
+      this.loading.close()
+      switch (res.code) {
+        case 0:
+          this.$message({
+            message: res.msg,
+            type: 'error'
+          })
+          break;
+        case 1:
+          this.$message({
+            message: res.msg,
+            type: 'success'
+          })
+          this.getData()
+          break;
+      
+        default:
+          break;
+      }
+    },
+    // 上传文件失败
+    handleError (err) {
+      console.log(err)
+      this.loading.close()
+      this.$message({
+        message: '文件上传失败',
+        type: 'error'
+      })
     }
   }
 }
@@ -319,4 +260,9 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/base/variables.scss';
+@import '@/assets/base/mixins.scss';
+.upload {
+  float: left;
+  @include px2rem(margin-right, 20)
+}
 </style>

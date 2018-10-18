@@ -145,6 +145,41 @@
       "show": true
     }
   ],
+  "file": [
+    {
+      "prop": "name",
+      "label": "文件名称",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "uploadtime",
+      "label": "上传时间",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "operator",
+      "label": "操作人",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "type": "link",
+      "prop": "url",
+      "label": "下载",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    }
+  ],
   "project": [
     {
       "prop": "name",

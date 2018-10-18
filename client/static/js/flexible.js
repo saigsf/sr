@@ -1,8 +1,8 @@
+/* eslint-disable no-new */
 !(function (a, b) {
   function c() {
     var b = f.getBoundingClientRect().width
     b / i > 540 && (b = 540 * i);
-    console.log(b)
     var c = b / 10;
     f.style.fontSize = c + "px", k.rem = a.rem = c
   }

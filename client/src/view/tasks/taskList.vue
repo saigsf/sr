@@ -58,7 +58,7 @@
 <script>
 import API from '@/api/task.js'
 import {getField, getFormField} from '@/assets/json/index.js'
-import { dateFtt } from '@/plugins/util.js'
+import { dateFtt, px2rem } from '@/plugins/util.js'
 export default {
   name: 'TaskList',
   data () {
@@ -139,8 +139,8 @@ export default {
     // 表单数据初始化
     formInit () {
       // 获取form字段
-      this.formItem = getFormField('productionTask', 'item')
-      this.formData = getFormField('productionTask', 'data')
+      this.formItem = getFormField('task', 'item')
+      this.formData = getFormField('task', 'data')
     },
     // 表单提交
     submit () {

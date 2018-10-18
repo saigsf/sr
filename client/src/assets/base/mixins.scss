@@ -1,8 +1,10 @@
 
 // mixins
-@mixin px2remxx($property, $px-values, $baseline-px:100, $support-for-ie:false) {
+// 设计图尺寸
+$width: 1920;
+@mixin px2rem($property, $px-values, $baseline-px:100, $support-for-ie:false) {
   //Conver the baseline into rems 
-  $baseline-rem: $baseline-px / 1rem * 1; //Print the first line in pixel values 
+  $baseline-rem: $baseline-px / 1rem; //Print the first line in pixel values 
   @if $support-for-ie {
     #{$property}: $px-values;
   } //if there is only one (numeric) value, return the property/value line for it. 
@@ -21,15 +23,17 @@
     #{$property}: $rem-values;
   }
 }
-@mixin px2rem($prop, $value, $important:false) {
-  $rem: (1366 / 1920) * 1rem / 100;
-  
+@mixin px2remx($prop, $value, $important:false) {
   @if $important {
-    #{$prop}: $value * $rem !important;
+    #{$prop}: px2rem($value) !important;
   }
   @else {
-    #{$prop}: $value * $rem;
+    // #{$prop}: $value / $rem;
+    #{$prop}: px2rem($value);
   }
+}
+@function px2rem($px) {
+  @return #{$px / 100}rem;
 }
 
 @mixin padding($top, $right: $top, $bottom: $top, $left: $right) {

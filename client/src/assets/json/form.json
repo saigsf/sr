@@ -157,19 +157,20 @@
       "rights": []
     }
   },
-  "productionTask": {
+  "task": {
     "item": [
       {
         "type": "select",
         "name": "projectName",
         "value": "",
         "placeholder": "请选择项目名称",
+        "filterable": true,
         "width": "100%",
         "label": "项目名称:",
         "options": []
       },
       {
-        "type": "date",
+        "type": "datetime",
         "name": "producedTime",
         "placeholder": "请选择生产日期",
         "value": "",
@@ -177,22 +178,12 @@
         "label": "生产日期:"
       },
       {
-        "type": "select",
+        "type": "text",
         "name": "tcuCode",
         "value": "",
         "placeholder": "请选择TCU",
         "width": "100%",
-        "label": "TCU代码:",
-        "options": []
-      },
-      {
-        "type": "select",
-        "name": "file",
-        "value": "",
-        "placeholder": "请选择标定文件",
-        "width": "100%",
-        "label": "标定文件:",
-        "options": []
+        "label": "TCU代码:"
       },
       {
         "type": "text",
@@ -219,7 +210,7 @@
         "label": "创建者:"
       },
       {
-        "type": "date",
+        "type": "datetime",
         "name": "createTime",
         "value": "",
         "placeholder": "请选择创建时间",
@@ -248,9 +239,8 @@
       "taskId": "",
       "projectName": "",
       "producedTime": "",
-      "tcuCode": [],
-      "file": [],
-      "batch": "",
+      "tcuCode": "",
+      "batchNo": "",
       "batchNumber": "",
       "operator": "",
       "createTime": "",
@@ -286,27 +276,12 @@
         "rules": [
           { "required": true, "message": "请输入车企名称", "trigger": "blur" }
         ]
-      },
-      {
-        "type": "select",
-        "multiple": true,
-        "collapseTags": true,
-        "name": "tcuCode",
-        "value": "",
-        "placeholder": "请选择TCU代码",
-        "width": "100%",
-        "label": "TCU代码:",
-        "options": [],
-        "rules": [
-          { "required": true, "message": "请输入车企名称", "trigger": "blur" }
-        ]
       }
     ],
     "data": {
       "pid": "",
       "projectName": "",
-      "carmake": [],
-      "tcuCode": []
+      "companyName": []
     }
   },
   "projectDetail": {

@@ -140,8 +140,8 @@ body {
 
     &__title {
       @include px2rem(font-size, 22);
-      @include px2rem(height, 60);
-      @include px2rem(line-height, 60);
+      @include px2rem(height, 76);
+      @include px2rem(line-height, 76);
       @include px2rem(padding-left, 0, true);
 
       &:hover,
@@ -161,7 +161,7 @@ body {
       @include px2rem(line-height, 47);
       // @include px2rem(padding-left, 100);
       background-color: #484B54;
-      @include px2rem(padding-left, 90, true);
+      @include px2remx(padding-left, 90, true);
 
       &.is-active {
         background-color: $tbcaa;
@@ -237,15 +237,24 @@ body {
   .el-select .el-input.is-focus .el-input__inner {
     border-color: $tc
   }
+  .el-form-item--mini .el-form-item__content, .el-form-item--mini .el-form-item__label {
+    @include px2rem(line-height, 32)
+  }
 
   .el-form-item__label {
-    // @include px2rem(font-size, 20)
-    font-size: 14px;
-    font-weight: bold
+    @include px2rem(font-size, 16);
+    color: #333
+    // font-weight: bold
+  }
+  .el-form-item__error {
+    @include px2rem(font-size, 14);
+  }
+  .el-form-item--mini.el-form-item, .el-form-item--small.el-form-item {
+    @include px2rem(margin-bottom, 25);
   }
 
   .el-checkbox__label {
-    font-size: 12px
+    @include px2rem(font-size, 14)
   }
 
   .el-input__prefix {
@@ -255,6 +264,15 @@ body {
 
   .el-input--prefix .el-input__inner {
     padding-left: 15px;
+  }
+
+  .el-input--mini .el-input__inner {
+    @include px2rem(font-size, 14);
+    @include px2rem(height, 32);
+    @include px2rem(line-height, 32)
+  }
+  .el-select-dropdown__empty {
+    @include px2rem(font-size, 14);
   }
   
   /* 搜索框样式 */
@@ -328,8 +346,12 @@ body {
     }
 
     .cell {
-      @include px2rem(line-height, 39);
-      @include px2rem(font-size, 16)
+      @include px2rem(line-height, 34);
+      @include px2rem(font-size, 16);
+      a {
+        text-decoration: underline;
+        color: $tc
+      }
     }
 
     td,
@@ -405,7 +427,11 @@ body {
   /* dialog样式重写 */
   .el-dialog__header {
     background-color: $tc;
-    padding: 10px 20px;
+    // padding: 10px 20px;
+    @include px2rem(height, 49);
+    @include px2rem(line-height, 49);
+    @include px2rem(padding, 0);
+    @include px2rem(padding-left, 15);
     position: relative;
 
     .el-dialog__title,
@@ -415,7 +441,7 @@ body {
 
     .el-dialog__title {
       line-height: normal;
-      font-size: 18px;
+      @include px2rem(font-size, 18);
     }
 
     .el-dialog__headerbtn {
@@ -469,7 +495,7 @@ body {
 
     h5,
     span {
-      @include px2rem(font-size, 26);
+      @include px2rem(font-size, 30);
       color: $tc;
       display: block;
       position: relative;
@@ -670,7 +696,15 @@ body {
     -moz-border-radius: 0;
     -ms-border-radius: 0;
     -o-border-radius: 0;
+    &__title {
+      @include px2rem(font-size, 18);
+      @include px2rem(line-height, 49);
+    }
     &__header {
+      @include px2rem(padding, 0);
+      @include px2rem(padding-left, 10);
+      @include px2rem(height, 49);
+      font-weight: 400;
       background-color: $tc;
       * {
         color: #fff
@@ -710,10 +744,11 @@ body {
 
     &__message p {
       p {
-        margin: 10px 0
+        margin: 10px 0;
+        @include px2rem(font-size, 16);
       }
       span {
-        font-size: 12px
+        @include px2rem(font-size, 14);
       }
     }
     &__btns {
@@ -732,5 +767,13 @@ body {
         }
       }
     }
+  }
+
+  .el-message__content {
+    @include px2rem(font-size, 16);
+  }
+
+  .el-tooltip__popper {
+    @include px2rem(font-size, 14);
   }
 }

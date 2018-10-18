@@ -52,6 +52,7 @@
 <script>
 import API from '@/api/task.js'
 import {getField, getFormField} from '@/assets/json/index.js'
+import { dateFtt, px2rem } from '@/plugins/util.js'
 export default {
   name: 'TcuList',
   data () {
@@ -68,7 +69,7 @@ export default {
       title: '',
       ref: 'carmake',
       showTitle: false,
-      labelWidth: '85px',
+      labelWidth: px2rem(120),
       labelPositon: 'right',
       width: '90%',
       column: 1,

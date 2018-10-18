@@ -64,5 +64,17 @@ export default {
   // 更新Task
   updateTaskById: params => {
     return API.POST('/shengruiweb/task/update', params)
+  },
+  // 文件上传
+  uploadFile: params => {
+    return API.POST('/shengruiweb/tcufile/upload', params)
+  },
+  // 获取文件列表
+  getFileList: params => {
+    return API.GET('/shengruiweb/tcufile/pageQuery', params)
+  },
+  // 删除文件列表
+  deleteFileList: params => {
+    return API.POST('/shengruiweb/tcufile/delete', params)
   }
 }

@@ -140,7 +140,7 @@ export function dateFtt (fmt, date) {
  * @returns
  */
 export function px2rem (px) {
-  return px * (1366 / 1920) * 1 / 100 + 'rem'
+  return px / 100 + 'rem'
 }
 
 /**
