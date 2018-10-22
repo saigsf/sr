@@ -128,6 +128,7 @@ export default {
   created () {
     this.fieldInit()
     this.formInit()
+    this.getProject()
     this.getData()
   },
   methods: {
@@ -141,6 +142,16 @@ export default {
       // 获取form字段
       this.formItem = getFormField('task', 'item')
       this.formData = getFormField('task', 'data')
+    },
+    getProject () {
+      API.getProjectAll().then(res => {
+        console.log(res.data)
+        this.formItem.forEach(item => {
+          if (item.name === 'projectId') {
+            item.options = res.data
+          }
+        })
+      }).catch(err => {})
     },
     // 表单提交
     submit () {
@@ -284,6 +295,7 @@ export default {
           this.formData[key] = row[key]
         }
       }
+      console.log(this.formData)
     },
     // 表单重置
     resetForm () {

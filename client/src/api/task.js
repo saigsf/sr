@@ -1,6 +1,10 @@
 import * as API from './index'
 
 export default {
+  // 获取所有车企
+  getCarmakeAll: params => {
+    return API.GET('/shengruiweb/company/findAll', params)
+  },
   // 获取车企列表
   getCarmakeList: params => {
     return API.GET('/shengruiweb/company/pageQuery', params)
@@ -16,6 +20,10 @@ export default {
   // 更新车企--
   updateCarmakeById: params => {
     return API.POST('/shengruiweb/company/update', params)
+  },
+  // 获取所有TCU
+  getTCUAll: params => {
+    return API.GET('/shengruiweb/tcu/findAll', params)
   },
   // 获取TCU列表
   getTCUList: params => {
@@ -33,6 +41,10 @@ export default {
   updateTCUById: params => {
     return API.POST('/shengruiweb/tcu/update', params)
   },
+  // 获取所有Project
+  getProjectAll: params => {
+    return API.GET('/shengruiweb/project/findAll', params)
+  },
   // 获取Project列表
   getProjectList: params => {
     return API.GET('/shengruiweb/project/pageQuery', params)
@@ -48,6 +60,14 @@ export default {
   // 更新Project
   updateProjectById: params => {
     return API.POST('/shengruiweb/project/update', params)
+  },
+  // 获取项目详情
+  getProjectDetailById: params => {
+    return API.GET('/shengruiweb/project/getProjectDetails', params)
+  },
+  // 项目，tcu，文件绑定
+  getProjectAssociate: params => {
+    return API.POST('/shengruiweb/project/associate', params)
   },
   // 获取Task列表
   getTaskList: params => {
@@ -69,6 +89,10 @@ export default {
   uploadFile: params => {
     return API.POST('/shengruiweb/tcufile/upload', params)
   },
+  // 获取所有文件
+  getFillAll: params => {
+    return API.GET('/shengruiweb/tcufile/findAll', params)
+  },
   // 获取文件列表
   getFileList: params => {
     return API.GET('/shengruiweb/tcufile/pageQuery', params)
@@ -76,5 +100,21 @@ export default {
   // 删除文件列表
   deleteFileList: params => {
     return API.POST('/shengruiweb/tcufile/delete', params)
+  },
+  // 获取生产日志
+  getProductionLog: params => {
+    return API.GET('/shengruiweb/tcufile/pageQuery', params)
+  },
+  // 删除生产日志
+  deleteProductionLog: params => {
+    return API.GET('/shengruiweb/tcufile/delete', params)
+  },
+  // 获取操作日志
+  getOperationLog: params => {
+    return API.GET('/shengruiweb/operationlog/pageQuery', params)
+  },
+  // 删除操作日志
+  deleteOperationLog: params => {
+    return API.GET('/shengruiweb/operationlog/delete', params)
   }
 }

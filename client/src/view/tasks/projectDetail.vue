@@ -80,16 +80,9 @@ export default {
         {
           type: 'text',
           size: 'mini',
-          content: '编辑',
+          content: '启用',
           icon: 'el-icon-edit',
           handle: 'update'
-        },
-        {
-          type: 'text',
-          size: 'mini',
-          content: '删除',
-          icon: 'el-icon-delete',
-          handle: 'delete'
         }
       ]
     }
@@ -116,13 +109,17 @@ export default {
       currentPage: 1,
       total: 0,
       search: '',
-      type: 'saveProject'
+      type: 'getProjectAssociate'
     }
   },
   created () {
     this.init()
+    this.getTCU()
+    this.getFile()
+    // this.getData()
+  },
+  activated() {
     this.getData()
-    console.log(this.$route.params.id)
   },
   methods: {
     init () {
@@ -132,7 +129,24 @@ export default {
       this.formItem = getFormField('projectDetail', 'item')
       this.formData = getFormField('projectDetail', 'data')
     },
-    getTCU () {},
+    getTCU () {
+      API.getTCUAll().then(res => {
+        this.formItem.forEach(item => {
+          if (item.name === 'tId') {
+            item.options = res.data
+          }
+        })
+      }).catch(err => {})
+    },
+    getFile () {
+      API.getFillAll().then(res => {
+        this.formItem.forEach(item => {
+          if (item.name === 'fId') {
+            item.options = res.data
+          }
+        })
+      }).catch(err => {})
+    },
     // 表单提交
     submit () {
       API[this.type](this.formData).then(res => {
@@ -170,14 +184,15 @@ export default {
     },
     getData () {
       var _this = this
+      var id = this.$route.params.id
+      this.formData.pId = id
       var config = {
-        pageNo: _this.currentPage,
-        size: _this.pageSize
+        id: id
       }
       // 添加查询字段
 
       // 接口调用
-      API.getProjectList(config).then(res => {
+      API.getProjectDetailById(config).then(res => {
         switch (res.code) {
           case 0:
             this.$message({
@@ -186,8 +201,8 @@ export default {
             })
             break;
           case 1:
-            this.data = res.data.list
-            this.total = res.data.total
+            this.data = res.data
+            this.total = 0
             break;
         
           default:
@@ -261,12 +276,10 @@ export default {
     },
     // 显示弹框
     showDialog () {
-      this.type = 'saveProject'
       this.dialogVisible = true
     },
     // 编辑数据回显
     update (row) {
-      this.type = 'updateProjectById'
       this.dialogVisible = true
       for (const key in this.formData) {
         if (this.formData.hasOwnProperty(key)) {

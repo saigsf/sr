@@ -134,29 +134,17 @@ export default {
       this.formData = getFormField('project', 'data')
     },
     getCarmake () {
-      var data = [
-        {
-          label: '车企a',
-          value: '车企a'
-        },
-        {
-          label: '车企b',
-          value: '车企b'
-        },
-        {
-          label: '车企c',
-          value: '车企c'
-        }
-      ]
-      this.formItem.forEach(item => {
-        if (item.name === 'carmake') {
-          item.options = data
-        }
-      })
+      API.getCarmakeAll().then(res => {
+        this.formItem.forEach(item => {
+          if (item.name === 'company_id') {
+            item.options = res.data
+          }
+        })
+      }).catch(err => {})
     },
-    getTCU () {},
     // 表单提交
     submit () {
+      console.log(this.formData)
       API[this.type](this.formData).then(res => {
         switch (res.code) {
           case 0:

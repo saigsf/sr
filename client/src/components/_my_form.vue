@@ -14,86 +14,89 @@
       :model="formData"
       :label-width="form.labelWidth">
       <el-row>
-        <el-col :span="24/form.column" v-for="(item, index) in formItem" :key="index">
-          <el-form-item
-            :label="item.label"
-            :prop="item.name"
-            :rules="item.rules">
-            <!-- 上传文件 -->
-            <el-input v-if="item.type === 'file'" :type="item.type" v-model="formData[item.name]"></el-input>
-            <!-- 输入框 -->
-            <el-input v-else-if="item.type === 'text'"
-              v-model="formData[item.name]"
-              :type="item.type"
-              :style="'width: ' + (item.width ? item.width : '100%')"
-              :placeholder="item.placeholder"
-              :suffix-icon="item.suffixIcon"
-              :prefix-icon="item.prefixIcon"
-              :disabled="item.disabled">
-            </el-input>
-            <!-- 日期选择框 -->
-            <el-date-picker v-else-if="item.type === 'date'"
-              v-model="formData[item.name]"
-              :type="item.type"
-              :placeholder="item.placeholder"
-              :default-time="item.defaultTime"
-              :disabled="item.disabled"
-              :format="(item.format ? item.format : 'yyyy-MM-dd')"
-              :style="'width: ' + (item.width ? item.width : '100%')">
-            </el-date-picker>
-            <!-- 时间选择框 -->
-            <el-time-picker v-else-if="item.type === 'fixed-time'"
-              v-model="formData[item.name]"
-              :type="item.type"
-              :placeholder="item.placeholder"
-              :default-time="item.defaultTime"
-              :disabled="item.disabled"
-              :format="(item.format ? item.format : 'hh:mm:ss')"
-              :style="'width: ' + (item.width ? item.width : '100%')">
-            </el-time-picker>
-            <!-- 日期时间选择器 -->
-            <el-date-picker v-else-if="item.type == 'datetime'"
-              v-model="formData[item.name]"
-              :type="item.type"
-              :placeholder="item.placeholder"
-              :default-time="item.defaultTime"
-              :align="item.align"
-              :picker-options="item.pickerOptions"
-              :disabled="item.disabled"
-              :format="(item.format ? item.format : 'yyyy-MM-dd hh:mm:ss')"
-              :style="'width: ' + (item.width ? item.width : '100%')">
-            </el-date-picker>
-            <!-- 开关 -->
-            <el-switch v-else-if="item.type=='switch'" v-model="formData[item.name]"></el-switch>
-            <!-- select选择框 -->
-            <el-select
-              v-else-if="item.type=='select'"
-              v-model="formData[item.name]"
-              :placeholder="item.placeholder"
-              :multiple="item.multiple"
-              :collapse-tags="item.collapseTags"
-              :filterable="item.filterable"
-              :allow-create="item.allowCreate"
-              :style="'width: ' + (item.width ? item.width : '100%')">
-              <el-option v-for="(option, idx) in item.options" :key="idx" :label="option.id" :value="option.name"></el-option>
-            </el-select>
-            <!-- 复选框 -->
-            <el-checkbox-group
-              v-else-if="item.type=='checkbox'"
-              v-model="formData[item.name]"
-              :style="'width: ' + (item.width ? item.width : '100%')">
-              <el-checkbox v-for="(option, idx) in item.options" :key="idx" :label="option.label">{{option.label}}</el-checkbox>
-            </el-checkbox-group>
-            <!-- 单选 -->
-            <el-radio-group v-else-if="item.type=='radio'" v-model="formData[item.name]">
-              <el-radio v-for="(option, idx) in item.options" :key="idx" :label="option.label" :disabled="option.disabled"></el-radio>
-            </el-radio-group>
-            <!-- 文本域 -->
-            <el-input v-else-if="item.type=='textarea'" :type="item.type" v-model="formData[item.name]" :placeholder="item.placeholder"></el-input>
-            <!-- 其他 -->
-            <el-input v-else :type="item.type" :placeholder="item.placeholder" v-model="formData[item.name]"></el-input>
-          </el-form-item>
-        </el-col>
+        <template v-for="(item, index) in formItem">
+          <el-col :span="24/form.column" :key="index" v-if="item.show">
+            <el-form-item
+              :label="item.label"
+              :prop="item.name"
+              :rules="item.rules">
+              <!-- 上传文件 -->
+              <el-input v-if="item.type === 'file'" :type="item.type" v-model="formData[item.name]"></el-input>
+              <!-- 输入框 -->
+              <el-input v-else-if="item.type === 'text'"
+                v-model="formData[item.name]"
+                :type="item.type"
+                :style="'width: ' + (item.width ? item.width : '100%')"
+                :placeholder="item.placeholder"
+                :suffix-icon="item.suffixIcon"
+                :prefix-icon="item.prefixIcon"
+                :disabled="item.disabled">
+              </el-input>
+              <!-- 日期选择框 -->
+              <el-date-picker v-else-if="item.type === 'date'"
+                v-model="formData[item.name]"
+                :type="item.type"
+                :placeholder="item.placeholder"
+                :default-time="item.defaultTime"
+                :disabled="item.disabled"
+                :format="(item.format ? item.format : 'yyyy-MM-dd')"
+                :style="'width: ' + (item.width ? item.width : '100%')">
+              </el-date-picker>
+              <!-- 时间选择框 -->
+              <el-time-picker v-else-if="item.type === 'fixed-time'"
+                v-model="formData[item.name]"
+                :type="item.type"
+                :placeholder="item.placeholder"
+                :default-time="item.defaultTime"
+                :disabled="item.disabled"
+                :format="(item.format ? item.format : 'hh:mm:ss')"
+                :style="'width: ' + (item.width ? item.width : '100%')">
+              </el-time-picker>
+              <!-- 日期时间选择器 -->
+              <el-date-picker v-else-if="item.type == 'datetime'"
+                v-model="formData[item.name]"
+                :type="item.type"
+                :placeholder="item.placeholder"
+                :default-time="item.defaultTime"
+                :align="item.align"
+                :picker-options="item.pickerOptions"
+                :disabled="item.disabled"
+                :value-format="(item.format ? item.format : 'yyyy-MM-dd hh:mm:ss')"
+                :format="(item.format ? item.format : 'yyyy-MM-dd hh:mm:ss')"
+                :style="'width: ' + (item.width ? item.width : '100%')">
+              </el-date-picker>
+              <!-- 开关 -->
+              <el-switch v-else-if="item.type=='switch'" v-model="formData[item.name]"></el-switch>
+              <!-- select选择框 -->
+              <el-select
+                v-else-if="item.type=='select'"
+                v-model="formData[item.name]"
+                :placeholder="item.placeholder"
+                :multiple="item.multiple"
+                :collapse-tags="item.collapseTags"
+                :filterable="item.filterable"
+                :allow-create="item.allowCreate"
+                :style="'width: ' + (item.width ? item.width : '100%')">
+                <el-option v-for="(option, idx) in item.options" :key="idx" :label="option[item.cname]" :value="option.id"></el-option>
+              </el-select>
+              <!-- 复选框 -->
+              <el-checkbox-group
+                v-else-if="item.type=='checkbox'"
+                v-model="formData[item.name]"
+                :style="'width: ' + (item.width ? item.width : '100%')">
+                <el-checkbox v-for="(option, idx) in item.options" :key="idx" :label="option.value">{{option.label}}</el-checkbox>
+              </el-checkbox-group>
+              <!-- 单选 -->
+              <el-radio-group v-else-if="item.type=='radio'" v-model="formData[item.name]">
+                <el-radio v-for="(option, idx) in item.options" :key="idx" :label="option.value" :disabled="option.disabled">{{option.label}}</el-radio>
+              </el-radio-group>
+              <!-- 文本域 -->
+              <el-input v-else-if="item.type=='textarea'" :type="item.type" v-model="formData[item.name]" :placeholder="item.placeholder"></el-input>
+              <!-- 其他 -->
+              <el-input v-else :type="item.type" :placeholder="item.placeholder" v-model="formData[item.name]"></el-input>
+            </el-form-item>
+          </el-col>
+        </template>
       </el-row>
     </el-form>
     <!-- 表格式表单 -->

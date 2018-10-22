@@ -6,10 +6,12 @@
     </el-row>
     <!-- 按钮 -->
     <el-row class="btn-group">
-      <el-button type="primary" size="mini" icon="el-icon-download" @click="showDialog">导出日志</el-button>
+      <a :href="downLoadUrl">
+        <el-button type="primary" size="mini" icon="el-icon-download">导出日志</el-button>
+      </a>
+      <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除日志</el-button>
     </el-row>
     <MyTable
-      :table="table"
       :column="column"
       :data="data"
       :operation="operation"
@@ -17,97 +19,162 @@
       :pageSize="pageSize"
       :total="total"
       @handleCurrentChange="handleCurrentChange"
-      @delete="deleteUser"
-      @update="showDialog"
+      @delete="deleteConfirm"
       @select="handleSelectionChange">
     </MyTable>
+    <!-- myconfirm -->
+    <MyConfirm
+      ref="myconfirm"
+      :type="confirm.type"
+      :title="confirm.title"
+      :content="confirm.content"
+      @ok="ok" 
+      @cancle="cancle">
+    </MyConfirm>
   </div>
 </template>
 
 <script>
-// import API from '@/api/user.js'
+import API from '@/api/task.js'
 import {getField} from '@/assets/json/index.js'
+import { dateFtt, px2rem } from '@/plugins/util.js'
+import apiConfig from '../../../config/api.config'
 export default {
-  name: 'UsersList',
+  name: 'OperationLog',
   data () {
+    // 表格操作配置
+    var operation = {
+      show: true,
+      fixed: 'right',
+      size: 'mini',
+      width: 'auto',
+      minWidth: 100,
+      label: '操作',
+      btns: [
+        {
+          type: 'text',
+          size: 'mini',
+          content: '删除',
+          icon: 'el-icon-delete',
+          handle: 'delete'
+        }
+      ]
+    }
+    // 确认信息配置
+    var confirm = {
+      type: 'warning',
+      title: '提示信息',
+      content: '此操作将永久删除该记录, 是否继续?'
+    }
     return {
-      dialogVisible: false,
+      confirm: confirm,
+      downLoadUrl:  apiConfig.baseURl + '/shengruiweb/operationlog/getExcel',
       multipleSelection: [],
-      operation: {
-        show: false
-      },
+      operation: operation,
       column: [],
       data: [],
       pageSize: 9,
       currentPage: 1,
-      total: 10
+      total: 0,
+      ids: ''
     }
   },
   created () {
     // 获取字段
     this.init()
-    this.getUserList()
+    this.getData()
   },
   methods: {
     init () {
       // 获取table字段
       this.column = getField('operationLog')
     },
-    // 表单提交
-    submit () {
-    },
-    // 表单取消提交
-    cancle (form) {
-    },
-    // 弹框关闭时的回调函数
-    handleClose (done) {
-      done()
-    },
-    getUserList () {
-      for (let i = 0; i < this.pageSize; i++) {
-        this.data.push({
-          uid: i + 1,
-          projectName: 'sdfas',
-          carmakeName: 'dsfgdtg',
-          tcuCode: 'wereq',
-          makeTime: '2018-01-01'
-        })
+    getData () {
+      var _this = this
+      var config = {
+        pageNo: _this.currentPage,
+        size: _this.pageSize
       }
+      API.getOperationLog(config).then(res => {
+        switch (res.code) {
+          case 0:
+            this.$message({
+              message: res.msg,
+              type: 'error'
+            })
+            break;
+          case 1:
+            this.data = res.data.list
+            this.total = res.data.total
+            break;
+        
+          default:
+            break;
+        }
+      }).catch(err => {})
+      
+    },
+    // 删除确认
+    deleteConfirm (row) {
+      this.getIds(row)
+      this.$refs.myconfirm.confirm()
+    },
+    // 确认
+    ok () {
+      this.deleteRow()
+    },
+    // 取消
+    cancle () {
+      this.ids = null
+    },
+    // 获取操作数据id集合
+    getIds (row) {
+      var ids = []
+      if (typeof row.id === 'number') {
+        ids.push(row.id)
+      } else {
+        ids = row.id
+      }
+      this.ids = ids.join()
     },
     // 删除用户
-    deleteUser (row) {
-      this.$message({
-        message: '正在执行删除操作···',
-        type: 'warning'
+    deleteRow (row) {
+      var _this = this
+      API.deleteOperationLog({ids: _this.ids}).then(res => {
+        switch (res.code) {
+          case 0:
+            this.$message({
+              message: res.msg,
+              type: 'error'
+            })
+            break;
+          case 1:
+            this.$message({
+              message: res.msg,
+              type: 'success'
+            })
+            this.getData()
+            break;
+        
+          default:
+            break;
+        }
       })
     },
     // 批量删除
     deleteBatch () {
       var id = ''
       this.multipleSelection.forEach(item => {
-        id += item.uid + ','
+        id.push(item.id)
       })
       if (id) {
-        this.deleteUser({uid: id.slice(0, id.length - 1)})
+        this.deleteConfirm({id: id})
       } else {
         this.$message({
-          message: '请至少选择一个用户',
+          message: '请至少选择一条数据',
           type: 'warning'
         })
       }
-    },
-    // 显示弹框
-    showDialog (row) {
-      if (row.uid) {
-        this.form.formItem.forEach(item => {
-          item.value = row[item.name]
-          if (item.name === 'roles') {
-            item.value = item.value.split(',')
-          }
-        })
-      } else {
-      }
-      this.dialogVisible = true
     },
     // 获取选中行
     handleSelectionChange (val) {

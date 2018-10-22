@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var carmakerRouter = require('./routes/carmaker'); // 车企管理
 
 var app = express();
 
@@ -28,8 +29,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/shengruiweb/', indexRouter);
+app.use('/shengruiweb/users', usersRouter);
+app.use('/shengruiweb/company', carmakerRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

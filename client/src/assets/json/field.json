@@ -200,14 +200,24 @@
       "show": true
     },
     {
-      "type": "popover",
-      "prop": "tcuCode",
+      "type": "Object",
+      "prop": "type",
       "fprop": "tcu",
       "label": "TCU型号",
       "width": "auto",
       "fixed": false,
       "sortable": false,
-      "show": false
+      "show": true
+    },
+    {
+      "type": "Object",
+      "prop": "tcuCode",
+      "fprop": "tcu",
+      "label": "TCU代码",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
     },
     {
       "prop": "createTime",
@@ -220,8 +230,8 @@
   ],
   "projectDetail": [
     {
-      "prop": "tcuType",
-      "label": "TCU型号",
+      "prop": "tcuCode",
+      "label": "TCU代码",
       "width": "auto",
       "fixed": false,
       "sortable": false,
@@ -236,8 +246,13 @@
       "show": true
     },
     {
+      "type": "needChange",
+      "change": {
+        "0": "已禁用",
+        "1": "使用中"
+      },
       "prop": "status",
-      "label": "是否可用",
+      "label": "使用状态",
       "width": "auto",
       "fixed": false,
       "sortable": false,
@@ -312,6 +327,12 @@
       "show": true
     },
     {
+      "type": "needChange",
+      "change": {
+        "0": "已删除",
+        "1": "正常",
+        "2": "挂起"
+      },
       "prop": "status",
       "label": "任务状态",
       "width": "80px",
@@ -396,7 +417,7 @@
   ],
   "operationLog": [
     {
-      "prop": "projectName",
+      "prop": "operator",
       "label": "操作人",
       "width": "auto",
       "fixed": false,
@@ -404,7 +425,7 @@
       "show": true
     },
     {
-      "prop": "projectName",
+      "prop": "operateTime",
       "label": "操作时间",
       "width": "auto",
       "fixed": false,
@@ -412,7 +433,15 @@
       "show": true
     },
     {
-      "prop": "projectName",
+      "prop": "operateIp",
+      "label": "IP地址",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "action",
       "label": "执行动作",
       "width": "auto",
       "fixed": false,

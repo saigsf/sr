@@ -161,13 +161,18 @@
     "item": [
       {
         "type": "select",
-        "name": "projectName",
+        "name": "projectId",
+        "cname": "name",
         "value": "",
         "placeholder": "请选择项目名称",
         "filterable": true,
         "width": "100%",
         "label": "项目名称:",
-        "options": []
+        "show": true,
+        "options": [],
+        "rules": [
+          { "required": true, "message": "请选择项目名称", "trigger": "blur" }
+        ]
       },
       {
         "type": "datetime",
@@ -175,7 +180,12 @@
         "placeholder": "请选择生产日期",
         "value": "",
         "width": "100%",
-        "label": "生产日期:"
+        "label": "生产日期:",
+        "show": true,
+        "format": "yyyy-MM-dd hh:mm:ss",
+        "rules": [
+          { "required": true, "message": "请输入生产日期", "trigger": "blur" }
+        ]
       },
       {
         "type": "text",
@@ -183,7 +193,11 @@
         "value": "",
         "placeholder": "请选择TCU",
         "width": "100%",
-        "label": "TCU代码:"
+        "label": "TCU代码:",
+        "show": false,
+        "rules": [
+          { "required": true, "message": "请输入TCU代码", "trigger": "blur" }
+        ]
       },
       {
         "type": "text",
@@ -191,7 +205,11 @@
         "value": "",
         "placeholder": "请输入批次",
         "width": "100%",
-        "label": "批次:"
+        "label": "批次:",
+        "show": true,
+        "rules": [
+          { "required": true, "message": "请输入批次", "trigger": "blur" }
+        ]
       },
       {
         "type": "text",
@@ -199,7 +217,11 @@
         "value": "",
         "placeholder": "请输入批次数量",
         "width": "100%",
-        "label": "批次数量:"
+        "label": "批次数量:",
+        "show": true,
+        "rules": [
+          { "required": true, "message": "请输入批次数量", "trigger": "blur" }
+        ]
       },
       {
         "type": "text",
@@ -207,7 +229,11 @@
         "value": "",
         "placeholder": "请选择创建人姓名",
         "width": "100%",
-        "label": "创建者:"
+        "label": "创建者:",
+        "show": false,
+        "rules": [
+          { "required": true, "message": "请输入创建人", "trigger": "blur" }
+        ]
       },
       {
         "type": "datetime",
@@ -216,7 +242,11 @@
         "placeholder": "请选择创建时间",
         "width": "100%",
         "defaultTime": "2018/01/01",
-        "label": "创建日期:"
+        "label": "创建日期:",
+        "show": false,
+        "rules": [
+          { "required": true, "message": "请输入创建日期", "trigger": "blur" }
+        ]
       },
       {
         "type": "text",
@@ -224,7 +254,11 @@
         "value": "",
         "placeholder": "请输入完成数量",
         "width": "100%",
-        "label": "完成数量:"
+        "label": "完成数量:",
+        "show": false,
+        "rules": [
+          { "required": true, "message": "请输入完成数量", "trigger": "blur" }
+        ]
       },
       {
         "type": "text",
@@ -232,7 +266,11 @@
         "value": "",
         "placeholder": "请输入初始流水号",
         "width": "100%",
-        "label": "初始流水号:"
+        "label": "初始流水号:",
+        "show": true,
+        "rules": [
+          { "required": true, "message": "请输入初始流水号", "trigger": "blur" }
+        ]
       }
     ],
     "data": {
@@ -252,26 +290,25 @@
     "item": [
       {
         "type": "text",
-        "name": "projectName",
+        "name": "name",
         "value": "",
         "placeholder": "请输入项目名称",
         "width": "100%",
         "label": "项目名称:",
+        "show": true,
         "rules": [
           { "required": true, "message": "请输入车企名称", "trigger": "blur" }
         ]
       },
       {
         "type": "select",
-        "multiple": true,
-        "collapseTags": true,
-        "filterable": false,
-        "allowCreate": false,
-        "name": "companyName",
+        "name": "company_id",
+        "cname": "name",
         "value": "",
         "placeholder": "请选择车企名称",
         "width": "100%",
         "label": "车企名称:",
+        "show": true,
         "options": [],
         "rules": [
           { "required": true, "message": "请输入车企名称", "trigger": "blur" }
@@ -279,9 +316,9 @@
       }
     ],
     "data": {
-      "pid": "",
-      "projectName": "",
-      "companyName": []
+      "id": "",
+      "name": "",
+      "company_id": ""
     }
   },
   "projectDetail": {
@@ -289,11 +326,13 @@
       {
         "type": "select",
         "multiple": false,
-        "name": "tcuType",
+        "name": "tId",
+        "cname": "tcuCode",
         "value": "",
         "placeholder": "请选择TCU型号",
         "width": "100%",
         "label": "TCU型号:",
+        "show": true,
         "options": [],
         "rules": [
           { "required": true, "message": "请选择TCU型号", "trigger": "blur" }
@@ -301,23 +340,45 @@
       },
       {
         "type": "select",
-        "multiple": true,
-        "collapseTags": true,
-        "name": "fileName",
+        "multiple": false,
+        "name": "fId",
+        "cname": "name",
         "value": "",
         "placeholder": "请选择标定文件",
         "width": "100%",
         "label": "标定文件:",
+        "show": true,
         "options": [],
         "rules": [
           { "required": true, "message": "请选择标定文件", "trigger": "blur" }
         ]
+      },
+      {
+        "type": "radio",
+        "name": "status",
+        "value": "",
+        "placeholder": "请选择标定文件",
+        "width": "100%",
+        "label": "是否使用:",
+        "show": true,
+        "options": [
+          {
+            "label": "是",
+            "value": 1
+          },
+          {
+            "label": "否",
+            "value": 0
+          }
+        ]
       }
     ],
     "data": {
-      "id": "",
-      "tcuType": [],
-      "fileName": []
+      "ptfId": "",
+      "pId": "",
+      "tId": "",
+      "fId": "",
+      "status": 1
     }
   },
   "carmake": {
@@ -329,6 +390,7 @@
         "placeholder": "请输入车企名称",
         "width": "100%",
         "label": "车企名称:",
+        "show": true,
         "rules": [
           { "required": true, "message": "请输入车企名称", "trigger": "blur" }
         ]
@@ -339,7 +401,11 @@
         "value": "",
         "placeholder": "请添加备注",
         "width": "100%",
-        "label": "备注:"
+        "label": "备注:",
+        "show": true,
+        "rules": [
+          { "required": false, "message": "请输入备注", "trigger": "blur" }
+        ]
       }
     ],
     "data": {
@@ -357,6 +423,7 @@
         "placeholder": "请输入TCU型号",
         "width": "100%",
         "label": "TCU型号:",
+        "show": true,
         "rules": [
           { "required": true, "message": "请输入TCU型号", "trigger": "blur" }
         ]
@@ -368,6 +435,7 @@
         "placeholder": "请输入TCU代码",
         "width": "100%",
         "label": "TCU代码:",
+        "show": true,
         "rules": [
           { "required": true, "message": "请输入TCU代码", "trigger": "blur" }
         ]
@@ -379,6 +447,7 @@
         "placeholder": "请输入供应商",
         "width": "100%",
         "label": "供应商:",
+        "show": true,
         "rules": [
           { "required": true, "message": "请输入供应商名称", "trigger": "blur" }
         ]
@@ -390,6 +459,7 @@
         "placeholder": "请输入供应商代码",
         "width": "100%",
         "label": "供应商代码:",
+        "show": true,
         "rules": [
           { "required": true, "message": "请输入供应商代码", "trigger": "blur" }
         ]
@@ -401,6 +471,7 @@
         "placeholder": "请输入boot版本号",
         "width": "100%",
         "label": "boot版本号:",
+        "show": true,
         "rules": [
           { "required": true, "message": "请输入boot版本号", "trigger": "blur" }
         ]
@@ -421,6 +492,7 @@
         "type": "checkbox",
         "name": "fieldFilter",
         "label": "字段筛选:",
+        "show": true,
         "value": [],
         "options": [
           {
@@ -447,7 +519,7 @@
       }
     ],
     "data": {
-      "fieldFilter": ["超级管理员"]
+      "fieldFilter": []
     }
   }
 }
