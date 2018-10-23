@@ -25,8 +25,8 @@
       :pageSize="pageSize"
       :total="total"
       @handleCurrentChange="handleCurrentChange"
-      @delete="deleteConfirm"
-      @update="update"
+      @enable="enableConfirm"
+      @disable="disableConfirm"
       @select="handleSelectionChange">
     </MyTable>
     <!-- 对话框 -->
@@ -42,9 +42,7 @@
       ref="myconfirm"
       :type="confirm.type"
       :title="confirm.title"
-      :content="confirm.content"
-      @ok="ok" 
-      @cancle="cancle">
+      :content="confirm.content">
     </MyConfirm>
   </div>
 </template>
@@ -82,7 +80,14 @@ export default {
           size: 'mini',
           content: '启用',
           icon: 'el-icon-edit',
-          handle: 'update'
+          handle: 'enable'
+        },
+        {
+          type: 'text',
+          size: 'mini',
+          content: '禁用',
+          icon: 'el-icon-edit',
+          handle: 'disable'
         }
       ]
     }
@@ -109,7 +114,8 @@ export default {
       currentPage: 1,
       total: 0,
       search: '',
-      type: 'getProjectAssociate'
+      type: 'getProjectAssociate',
+      project: {}
     }
   },
   created () {
@@ -147,7 +153,11 @@ export default {
         })
       }).catch(err => {})
     },
-    // 表单提交
+    // 添加数据
+    showDialog () {
+      this.dialogVisible = true
+    },
+    // 提交数据
     submit () {
       API[this.type](this.formData).then(res => {
         switch (res.code) {
@@ -182,6 +192,7 @@ export default {
       this.resetForm()
       done()
     },
+    // 获取数据
     getData () {
       var _this = this
       var id = this.$route.params.id
@@ -212,33 +223,10 @@ export default {
         console.log(err)
       })
     },
-    // 删除确认
-    deleteConfirm (row) {
-      this.getIds(row)
-      this.$refs.myconfirm.confirm()
-    },
-    // 确认
-    ok () {
-      this.deleteRow()
-    },
-    // 取消
-    cancle () {
-      this.ids = null
-    },
-    // 获取操作数据id集合
-    getIds (row) {
-      var ids = []
-      if (typeof row.id === 'number') {
-        ids.push(row.id)
-      } else {
-        ids = row.id
-      }
-      this.ids = ids.join()
-    },
     // 删除
-    deleteRow (row) {
+    delete () {
       var _this = this
-      API.deleteProjectById({ids: _this.ids}).then(res => {
+      API.deleteAssociate({ids: _this.ids}).then(res => {
         switch (res.code) {
           case 0:
             this.$message({
@@ -263,10 +251,10 @@ export default {
     deleteBatch () {
       var id = []
       this.multipleSelection.forEach(item => {
-        id.push(item.id)
+        id.push(item.ptfId)
       })
       if (id.length > 0) {
-        this.deleteConfirm({id: id})
+        this.deleteConfirm({ptfId: id})
       } else {
         this.$message({
           message: '请至少选择一个选项',
@@ -274,18 +262,97 @@ export default {
         })
       }
     },
-    // 显示弹框
-    showDialog () {
-      this.dialogVisible = true
-    },
-    // 编辑数据回显
-    update (row) {
-      this.dialogVisible = true
-      for (const key in this.formData) {
-        if (this.formData.hasOwnProperty(key)) {
-          this.formData[key] = row[key]
-        }
+    // 删除确认
+    deleteConfirm (row) {
+      var _this = this
+      var ids = []
+      if (typeof row.ptfId === 'number') {
+        ids.push(row.ptfId)
+      } else {
+        ids = row.ptfId
       }
+      this.ids = ids.join()
+      this.$refs.myconfirm.confirm(_this.delete, _this.cancle)
+    },
+    // 取消
+    cancle () {
+      this.ids = null
+    },
+    // 启用
+    enable () {
+      var _this = this
+      API.setProjectEnable(_this.project).then(res => {
+        switch (res.code) {
+          case 0:
+            this.$message({
+              message: res.msg,
+              type: 'error'
+            })
+            break;
+          case 1:
+            this.$message({
+              message: '删除成功',
+              type: 'success'
+            })
+            this.getData()
+            break;
+        
+          default:
+            break;
+        }
+      })
+    },
+    // 启用控制
+    enableConfirm (row) {
+      var _this = this
+      _this.project = {
+        pId: row.projectId,
+        ptfId: row.ptfId
+      }
+      _this.confirm = {
+        type: 'warning',
+        title: '提示信息',
+        content: '启用这条数据, 是否继续?'
+      }
+      this.$refs.myconfirm.confirm(_this.enable, _this.cancle)
+    },
+    // 禁用
+    disable () {
+      var _this = this
+      API.setProjectDisable(_this.project).then(res => {
+        switch (res.code) {
+          case 0:
+            this.$message({
+              message: res.msg,
+              type: 'error'
+            })
+            break;
+          case 1:
+            this.$message({
+              message: '删除成功',
+              type: 'success'
+            })
+            this.getData()
+            break;
+        
+          default:
+            break;
+        }
+      })
+    },
+    // 禁用控制
+    disableConfirm (row) {
+      var _this = this
+      this.project = {
+        pId: row.projectId,
+        ptfId: row.ptfId
+      }
+      this.confirm = {
+        type: 'warning',
+        title: '提示信息',
+        content: '禁用这条数据, 是否继续?'
+      }
+      this.$refs.myconfirm.confirm(_this.disable, _this.cancle)
     },
     // 表单重置
     resetForm () {

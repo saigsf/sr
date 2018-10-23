@@ -42,9 +42,7 @@
       ref="myconfirm"
       :type="confirm.type"
       :title="confirm.title"
-      :content="confirm.content"
-      @ok="ok" 
-      @cancle="cancle">
+      :content="confirm.content">
     </MyConfirm>
   </div>
 </template>
@@ -132,7 +130,29 @@ export default {
       this.formItem = getFormField('tcu', 'item')
       this.formData = getFormField('tcu', 'data')
     },
-    // 表单提交
+    // 添加数据
+    showDialog () {
+      this.type = 'saveTCU'
+      this.dialogVisible = true
+    },
+    // 更新数据
+    update (row) {
+      console.log(row)
+      this.formItem.forEach(item => {
+        if (item.name === 'files') {
+          item.options = row.files
+        }
+      })
+
+      this.type = 'updateTCUById'
+      this.dialogVisible = true
+      for (const key in this.formData) {
+        if (this.formData.hasOwnProperty(key)) {
+          this.formData[key] = row[key]
+        }
+      }
+    },
+    // 提交数据
     submit () {
       API[this.type](this.formData).then(res => {
         switch (res.code) {
@@ -167,6 +187,7 @@ export default {
       }
       done()
     },
+    // 获取数据
     getData () {
       var _this = this
       var config = {
@@ -196,31 +217,8 @@ export default {
         console.log(err)
       })
     },
-    // 删除确认
-    deleteConfirm (row) {
-      this.getIds(row)
-      this.$refs.myconfirm.confirm()
-    },
-    // 确认
-    ok () {
-      this.deleteRow()
-    },
-    // 取消
-    cancle () {
-      this.ids = null
-    },
-    // 获取操作数据id集合
-    getIds (row) {
-      var ids = []
-      if (typeof row.tcuId === 'number') {
-        ids.push(row.tcuId)
-      } else {
-        ids = row.tcuId
-      }
-      this.ids = ids.join()
-    },
     // 删除用户
-    deleteRow (row) {
+    delete () {
       var _this = this
       API.deleteTCUById({ids: _this.ids}).then(res => {
         switch (res.code) {
@@ -247,10 +245,10 @@ export default {
     deleteBatch () {
       var id = []
       this.multipleSelection.forEach(item => {
-        id.push(item.tcuId)
+        id.push(item.id)
       })
       if (id.length > 0) {
-        this.deleteConfirm({tcuId: id})
+        this.deleteConfirm({id: id})
       } else {
         this.$message({
           message: '请至少选择一个选项',
@@ -258,27 +256,22 @@ export default {
         })
       }
     },
-    // 显示弹框
-    showDialog () {
-      this.type = 'saveTCU'
-      this.dialogVisible = true
-    },
-    // 编辑数据回显
-    update (row) {
+    // 删除确认
+    deleteConfirm (row) {
       console.log(row)
-      this.formItem.forEach(item => {
-        if (item.name === 'files') {
-          item.options = row.files
-        }
-      })
-
-      this.type = 'updateTCUById'
-      this.dialogVisible = true
-      for (const key in this.formData) {
-        if (this.formData.hasOwnProperty(key)) {
-          this.formData[key] = row[key]
-        }
+      var _this = this
+      var ids = []
+      if (typeof row.id === 'number') {
+        ids.push(row.id)
+      } else {
+        ids = row.id
       }
+      this.ids = ids.join()
+      this.$refs.myconfirm.confirm(_this.delete, _this.cancle)
+    },
+    // 取消删除
+    cancle () {
+      this.ids = null
     },
     // 表单重置
     resetForm () {
@@ -290,6 +283,7 @@ export default {
     handleSelectionChange (val) {
       this.multipleSelection = val
     },
+    // 分页
     handleCurrentChange (index) {
       this.currentPage = index
       this.getData()

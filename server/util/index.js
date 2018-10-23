@@ -1,12 +1,11 @@
 /**
  *时间格式化
  *
- * @export
  * @param {*} fmt
  * @param {*} date
  * @returns
  */
-function dateFtt (fmt, date) {
+var dateFtt = function (fmt, date) {
   var o = {
     'M+': date.getMonth() + 1,
     'd+': date.getDate(),
@@ -25,4 +24,8 @@ function dateFtt (fmt, date) {
     }
   }
   return fmt
+}
+
+module.exports = {
+  dateFtt
 }

@@ -5,7 +5,7 @@
       <div class="login-box">
         <div class="login-logo"></div>
         <div class="login-form">
-          <MyForm :form="form" :formData="formData" :formItem="formItem" @submit="submit" @cancle="cancle"></MyForm>
+          <MyForm :form="form" ref="myform" :formData="formData" :formItem="formItem" @submit="submit"></MyForm>
         </div>
       </div>
     </div>
@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import API from '@/api/user.js'
+import {getFormField} from '@/assets/json/index.js'
 export default {
   name: 'Login',
   data () {
@@ -28,35 +30,36 @@ export default {
         width: '90%',
         column: 1
       },
-      formItem: [
-        {
-          type: 'text',
-          name: 'username',
-          placeholder: '请输入用户名',
-          value: '',
-          width: '100',
-          label: '用户名'
-        },
-        {
-          type: 'password',
-          name: 'password',
-          placeholder: '请输入用户密码',
-          value: '',
-          width: '100',
-          label: '密码'
-        }
-      ],
-      formData: {
-        username: '',
-        password: ''
-      }
+      formItem: [],
+      formData: {}
     }
   },
+  created () {
+    this.init()
+  },
   methods: {
-    // 表单提交
-    submit (form) {
-      console.log(form)
-      this.$router.push({path: '/'})
+    init () {
+      this.formItem = getFormField('login', 'item')
+      this.formData = getFormField('login', 'data')  
+    },
+    // 提交数据
+    submit () {
+      var _this = this
+      console.log(this.formData)
+      API.login(this.formData).then(res => {
+        switch (res.code) {
+          case 0:
+            
+            break;
+          case 1:
+            _this.$router.push({path: '/'})
+            break;
+        
+          default:
+            break;
+        }
+      }).catch(err => {})
+      
     },
     // 表单取消提交
     cancle (form) {

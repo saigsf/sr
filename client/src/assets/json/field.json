@@ -9,12 +9,28 @@
       "show": true
     },
     {
+      "prop": "telephone",
+      "label": "电话",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "mail",
+      "label": "邮箱",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
       "prop": "roles",
       "label": "角色",
       "width": "auto",
       "fixed": false,
       "sortable": false,
-      "show": true
+      "show": false
     },
     {
       "prop": "rights",
@@ -22,10 +38,10 @@
       "width": "auto",
       "fixed": false,
       "sortable": false,
-      "show": true
+      "show": false
     },
     {
-      "prop": "makeTime",
+      "prop": "operateTime",
       "label": "创建时间",
       "width": "auto",
       "fixed": false,

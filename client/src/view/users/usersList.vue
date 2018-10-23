@@ -22,8 +22,8 @@
       :pageSize="pageSize"
       :total="total"
       @handleCurrentChange="handleCurrentChange"
-      @delete="deleteRow"
-      @update="showDialog"
+      @delete="deleteConfirm"
+      @update="update"
       @select="handleSelectionChange">
     </MyTable>
     <el-dialog
@@ -33,68 +33,86 @@
       :before-close="handleClose">
       <MyForm :form="form" ref="form" :formData="formData" :formItem="formItem" @submit="submit" @cancle="cancle"></MyForm>
     </el-dialog>
+     <!-- myconfirm -->
+    <MyConfirm
+      ref="myconfirm"
+      :type="confirm.type"
+      :title="confirm.title"
+      :content="confirm.content">
+    </MyConfirm>
   </div>
 </template>
 
 <script>
-// import API from '@/api/user.js'
+import API from '@/api/user.js'
 import {getField, getFormField} from '@/assets/json/index.js'
+import { dateFtt, px2rem } from '@/plugins/util.js'
 export default {
   name: 'UsersList',
   data () {
+    var form = {
+      title: '',
+      ref: 'form1',
+      showTitle: false,
+      labelWidth: px2rem(80),
+      labelPositon: 'right',
+      width: '90%',
+      column: 1,
+      hasSubmit: true,
+      submitText: '提交',
+      cancleText: '取消'
+    }
+    var operation = {
+      show: true,
+      fixed: 'right',
+      size: 'mini',
+      width: 'auto',
+      minWidth: 100,
+      label: '操作',
+      btns: [
+        {
+          type: 'text',
+          size: 'mini',
+          content: '修改',
+          icon: 'el-icon-edit',
+          handle: 'update'
+        },
+        {
+          type: 'text',
+          size: 'mini',
+          content: '删除',
+          icon: 'el-icon-delete',
+          handle: 'delete'
+        }
+      ]
+    }
+    // 确认信息配置
+    var confirm = {
+      type: 'warning',
+      title: '提示信息',
+      content: '此操作将删除该用户, 是否继续?'
+    }
     return {
+      confirm: confirm,
       dialogTitle: '新增用户',
       dialogVisible: false,
       multipleSelection: [],
-      queryType: 'addUser',
-      form: {
-        title: '',
-        ref: 'form1',
-        showTitle: false,
-        labelWidth: '60px',
-        labelPositon: 'right',
-        width: '90%',
-        column: 1,
-        hasSubmit: true,
-        submitText: '提交',
-        cancleText: '取消'
-      },
+      ids: null,
+      form: form,
       formItem: [],
       formData: {},
-      operation: {
-        show: true,
-        fixed: 'right',
-        size: 'mini',
-        width: 'auto',
-        minWidth: 100,
-        label: '操作',
-        btns: [
-          {
-            type: 'text',
-            size: 'mini',
-            content: '修改密码',
-            icon: 'el-icon-edit',
-            handle: 'update'
-          },
-          {
-            type: 'text',
-            size: 'mini',
-            content: '删除',
-            icon: 'el-icon-delete',
-            handle: 'delete'
-          }
-        ]
-      }, // table操作按钮
+      operation: operation, // table操作按钮
       column: [], // table字段
       data: [],
       pageSize: 9,
       currentPage: 1,
-      total: 10
+      total: 0,
+      type: 'saveUser',
     }
   },
   created () {
     this.init()
-    this.getUserList()
+    this.getData()
   },
   methods: {
     init () {
@@ -104,18 +122,43 @@ export default {
       this.formItem = getFormField('user', 'item')
       this.formData = getFormField('user', 'data')
     },
+    // 显示弹框
+    showDialog () {
+      this.type = 'saveUser'
+      this.dialogVisible = true
+    },
+    // 更新数据
+    update (row) {
+      this.type = 'updateUser'
+      this.dialogVisible = true
+      for (const key in this.formData) {
+        if (this.formData.hasOwnProperty(key)) {
+          this.formData[key] = row[key]
+        }
+      }
+    },
     // 表单提交
     submit () {
-      var _this = this
-      this.dialogVisible = false
-      console.log(this.formData)
-      var id = this.data[0].uid
-      this.data.push({
-        uid: ++id,
-        username: _this.formData.username,
-        roles: _this.formData.roles.join(','),
-        rights: _this.formData.rights.join(','),
-        makeTime: '2018-01-01'
+      API[this.type](this.formData).then(res => {
+        switch (res.code) {
+          case 0:
+            this.$message({
+              message: res.msg,
+              type: 'error'
+            })
+            break;
+          case 1:
+            this.dialogVisible = false
+            this.$message({
+              message: res.msg,
+              type: 'success'
+            })
+            this.getData()
+            break;
+        
+          default:
+            break;
+        }
       })
     },
     // 表单取消提交
@@ -124,50 +167,72 @@ export default {
     },
     // 弹框关闭时的回调函数
     handleClose (done) {
+      this.init()
+      this.resetForm()
+      for (const key in this.formData) {
+        if (this.formData.hasOwnProperty(key)) {
+          this.formData[key] = ''
+        }
+      }
       done()
     },
-    getUserList () {
-      for (let i = 0; i < this.pageSize; i++) {
-        this.data.push({
-          uid: i + 1,
-          username: 'sdfas',
-          roles: '超级管理员',
-          rights: '超级管理员',
-          makeTime: '2018-01-01'
-        })
+    getData () {
+      var _this = this
+      var config = {
+        pageNo: _this.currentPage,
+        size: _this.pageSize
       }
+      API.getUser(config).then(res => {
+        switch (res.code) {
+          case 0:
+            this.$message({
+              message: res.msg,
+              type: 'error'
+            })
+            break;
+          case 1:
+            this.data = res.data.list
+            this.total = res.data.total
+            break;
+        
+          default:
+            break;
+        }
+      }).catch(err => {})
     },
     // 删除用户
-    deleteRow (row) {
-      console.log(row)
-      // this.$message({
-      //   message: '正在执行删除' + row.uid + '操作···',
-      //   type: 'warning'
-      // })
-      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
+    delete () {
+      var _this = this
+      API.deleteUser({ids: _this.ids}).then(res => {
+        _this.ids = null
+        switch (res.code) {
+          case 0:
+            this.$message({
+              message: res.msg,
+              type: 'error'
+            })
+            break;
+          case 1:
+            this.$message({
+              message: res.msg,
+              type: 'success'
+            })
+            this.getData()
+            break;
+        
+          default:
+            break;
+        }
       })
     },
     // 批量删除
     deleteBatch () {
-      var id = ''
+      var id = []
       this.multipleSelection.forEach(item => {
-        id += item.uid + ','
+        id.push(item.id)
       })
-      if (id) {
-        this.deleteRow({uid: id.slice(0, id.length - 1)})
+      if (id.length > 0) {
+        this.deleteConfirm({id: id})
       } else {
         this.$message({
           message: '请至少选择一个用户',
@@ -175,29 +240,21 @@ export default {
         })
       }
     },
-    // 显示弹框
-    showDialog (row) {
-      // 获取form字段
-      this.formItem = getFormField('user', 'item')
-      this.formData = getFormField('user', 'data')
-      console.log(this.formData)
-      if (row.uid) {
-        // 数据回显
-        for (const key in this.formData) {
-          if (this.formData.hasOwnProperty(key)) {
-            const item = this.formData[key]
-            if (item instanceof Array) {
-              this.formData[key] = row[key].split(',')
-            } else {
-              this.formData[key] = row[key]
-            }
-          }
-        }
-        this.queryType = 'updateUserInfo'
+    // 删除确认
+    deleteConfirm (row) {
+      var _this = this
+      var ids = []
+      if (typeof row.id === 'number') {
+        ids.push(row.id)
       } else {
-        this.queryType = 'addUser'
+        ids = row.id
       }
-      this.dialogVisible = true
+      this.ids = ids.join()
+      this.$refs.myconfirm.confirm(_this.delete, _this.cancle)
+    },
+    // 取消删除
+    cancle () {
+      this.ids = null
     },
     // 角色关联
     roleAssociation () {
@@ -207,12 +264,19 @@ export default {
       this.formData = getFormField('userAndRoles', 'data')
       this.dialogVisible = true
     },
+    // 表单重置
+    resetForm () {
+      if(this.$refs['myform'] != undefined) {
+        this.$refs['myform'].resetForm()
+      }
+    },
     // 获取选中行
     handleSelectionChange (val) {
       this.multipleSelection = val
     },
     handleCurrentChange (index) {
       this.currentPage = index
+      this.getData()
     }
   }
 }

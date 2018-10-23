@@ -69,6 +69,18 @@ export default {
   getProjectAssociate: params => {
     return API.POST('/shengruiweb/project/associate', params)
   },
+  // 标定文件启用
+  setProjectEnable: params => {
+    return API.POST('/shengruiweb/project/enable', params)
+  },
+  // 标定文件禁用
+  setProjectDisable: params => {
+    return API.POST('/shengruiweb/project/disable', params)
+  },
+  // 删除标定文件
+  deleteAssociate: params => {
+    return API.POST('/shengruiweb/project/deleteAssociate', params)
+  },
   // 获取Task列表
   getTaskList: params => {
     return API.GET('/shengruiweb/task/pageQuery', params)
@@ -84,6 +96,10 @@ export default {
   // 更新Task
   updateTaskById: params => {
     return API.POST('/shengruiweb/task/update', params)
+  },
+  // 挂起Task
+  hangUpTaskById: params => {
+    return API.POST('/shengruiweb/task/cancleTask', params)
   },
   // 文件上传
   uploadFile: params => {
@@ -115,6 +131,6 @@ export default {
   },
   // 删除操作日志
   deleteOperationLog: params => {
-    return API.GET('/shengruiweb/operationlog/delete', params)
+    return API.POST('/shengruiweb/operationlog/delete', params)
   }
 }

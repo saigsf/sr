@@ -42,9 +42,7 @@
       ref="myconfirm"
       :type="confirm.type"
       :title="confirm.title"
-      :content="confirm.content"
-      @ok="ok" 
-      @cancle="cancle">
+      :content="confirm.content">
     </MyConfirm>
   </div>
 </template>
@@ -146,7 +144,22 @@ export default {
       this.formItem[0].rules.push(this.rule)
       this.formData = getFormField('carmake', 'data')
     },
-    // 表单提交
+    // 添加数据
+    showDialog () {
+      this.type = 'saveCarmake'
+      this.dialogVisible = true
+    },
+    // 更新数据
+    update (row) {
+      this.type = 'updateCarmakeById'
+      this.dialogVisible = true
+      for (const key in this.formData) {
+        if (this.formData.hasOwnProperty(key)) {
+          this.formData[key] = row[key]
+        }
+      }
+    },
+    // 提交数据
     submit () {
       API[this.type](this.formData).then(res => {
         switch (res.code) {
@@ -211,33 +224,11 @@ export default {
         console.log(err)
       })
     },
-    // 删除确认
-    deleteConfirm (row) {
-      this.getIds(row)
-      this.$refs.myconfirm.confirm()
-    },
-    // 确认
-    ok () {
-      this.deleteRow()
-    },
-    // 取消
-    cancle () {
-      this.ids = null
-    },
-    // 获取操作数据id集合
-    getIds (row) {
-      var ids = []
-      if (typeof row.id === 'number') {
-        ids.push(row.id)
-      } else {
-        ids = row.id
-      }
-      this.ids = ids.join()
-    },
-    // 删除用户
-    deleteRow () {
+    // 删除
+    delete () {
       var _this = this
       API.deleteCarmakeById({ids: _this.ids}).then(res => {
+        _this.ids = null
         switch (res.code) {
           case 0:
             this.$message({
@@ -273,20 +264,21 @@ export default {
         })
       }
     },
-    // 显示弹框
-    showDialog () {
-      this.type = 'saveCarmake'
-      this.dialogVisible = true
-    },
-    // 编辑数据回显
-    update (row) {
-      this.type = 'updateCarmakeById'
-      this.dialogVisible = true
-      for (const key in this.formData) {
-        if (this.formData.hasOwnProperty(key)) {
-          this.formData[key] = row[key]
-        }
+    // 删除确认
+    deleteConfirm (row) {
+      var _this = this
+      var ids = []
+      if (typeof row.id === 'number') {
+        ids.push(row.id)
+      } else {
+        ids = row.id
       }
+      this.ids = ids.join()
+      this.$refs.myconfirm.confirm(_this.delete, _this.cancle)
+    },
+    // 取消删除
+    cancle () {
+      this.ids = null
     },
     // 表单重置
     resetForm () {

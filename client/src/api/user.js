@@ -1,21 +1,25 @@
 import * as API from './index'
 
 export default {
+  // 用户登陆
+  login: params => {
+    return API.POST('/shengruiweb/user/login', params)
+  },
   // 获取用户列表
-  getUserList: params => {
-    return API.GET('/api/users/getList', params)
+  getUser: params => {
+    return API.GET('/shengruiweb/sysuser/pageQuery', params)
   },
   // 修改用户信息
-  updateUserInfo: params => {
-    return API.GET('/api/users/update', params)
+  updateUser: params => {
+    return API.GET('/shengruiweb/sysuser/upadte', params)
   },
   // 删除用户信息
   deleteUser: params => {
-    return API.GET('/api/users/deleteById', params)
+    return API.GET('/shengruiweb/sysuser/delete', params)
   },
   // 添加用户信息
-  addUser: params => {
-    return API.POST('/api/users/add', params)
+  saveUser: params => {
+    return API.POST('/shengruiweb/sysuser/save', params)
   },
   // 获取角色列表
   getRoleList: params => {

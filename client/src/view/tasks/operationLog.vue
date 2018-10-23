@@ -27,9 +27,7 @@
       ref="myconfirm"
       :type="confirm.type"
       :title="confirm.title"
-      :content="confirm.content"
-      @ok="ok" 
-      @cancle="cancle">
+      :content="confirm.content">
     </MyConfirm>
   </div>
 </template>
@@ -114,31 +112,8 @@ export default {
       }).catch(err => {})
       
     },
-    // 删除确认
-    deleteConfirm (row) {
-      this.getIds(row)
-      this.$refs.myconfirm.confirm()
-    },
-    // 确认
-    ok () {
-      this.deleteRow()
-    },
-    // 取消
-    cancle () {
-      this.ids = null
-    },
-    // 获取操作数据id集合
-    getIds (row) {
-      var ids = []
-      if (typeof row.id === 'number') {
-        ids.push(row.id)
-      } else {
-        ids = row.id
-      }
-      this.ids = ids.join()
-    },
-    // 删除用户
-    deleteRow (row) {
+    // 删除
+    delete (ro) {
       var _this = this
       API.deleteOperationLog({ids: _this.ids}).then(res => {
         switch (res.code) {
@@ -163,7 +138,7 @@ export default {
     },
     // 批量删除
     deleteBatch () {
-      var id = ''
+      var id = []
       this.multipleSelection.forEach(item => {
         id.push(item.id)
       })
@@ -175,6 +150,22 @@ export default {
           type: 'warning'
         })
       }
+    },
+    // 删除确认
+    deleteConfirm (row) {
+      var _this = this
+      var ids = []
+      if (typeof row.id === 'number') {
+        ids.push(row.id)
+      } else {
+        ids = row.id
+      }
+      this.ids = ids.join()
+      this.$refs.myconfirm.confirm(_this.delete, _this.cancle)
+    },
+    // 取消删除
+    cancle () {
+      this.ids = null
     },
     // 获取选中行
     handleSelectionChange (val) {

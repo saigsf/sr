@@ -42,9 +42,7 @@
       ref="myconfirm"
       :type="confirm.type"
       :title="confirm.title"
-      :content="confirm.content"
-      @ok="ok" 
-      @cancle="cancle">
+      :content="confirm.content">
     </MyConfirm>
   </div>
 </template>
@@ -133,6 +131,7 @@ export default {
       this.formItem = getFormField('project', 'item')
       this.formData = getFormField('project', 'data')
     },
+    // 获取车企
     getCarmake () {
       API.getCarmakeAll().then(res => {
         this.formItem.forEach(item => {
@@ -142,7 +141,22 @@ export default {
         })
       }).catch(err => {})
     },
-    // 表单提交
+    // 添加数据
+    showDialog () {
+      this.type = 'saveProject'
+      this.dialogVisible = true
+    },
+    // 更新数据
+    update (row) {
+      this.type = 'updateProjectById'
+      this.dialogVisible = true
+      for (const key in this.formData) {
+        if (this.formData.hasOwnProperty(key)) {
+          this.formData[key] = row[key]
+        }
+      }
+    },
+    // 提交数据
     submit () {
       console.log(this.formData)
       API[this.type](this.formData).then(res => {
@@ -178,6 +192,7 @@ export default {
       this.resetForm()
       done()
     },
+    // 获取数据
     getData () {
       var _this = this
       var config = {
@@ -207,31 +222,8 @@ export default {
         console.log(err)
       })
     },
-    // 删除确认
-    deleteConfirm (row) {
-      this.getIds(row)
-      this.$refs.myconfirm.confirm()
-    },
-    // 确认
-    ok () {
-      this.deleteRow()
-    },
-    // 取消
-    cancle () {
-      this.ids = null
-    },
-    // 获取操作数据id集合
-    getIds (row) {
-      var ids = []
-      if (typeof row.id === 'number') {
-        ids.push(row.id)
-      } else {
-        ids = row.id
-      }
-      this.ids = ids.join()
-    },
     // 删除
-    deleteRow (row) {
+    delete () {
       var _this = this
       API.deleteProjectById({ids: _this.ids}).then(res => {
         switch (res.code) {
@@ -269,20 +261,21 @@ export default {
         })
       }
     },
-    // 显示弹框
-    showDialog () {
-      this.type = 'saveProject'
-      this.dialogVisible = true
-    },
-    // 编辑数据回显
-    update (row) {
-      this.type = 'updateProjectById'
-      this.dialogVisible = true
-      for (const key in this.formData) {
-        if (this.formData.hasOwnProperty(key)) {
-          this.formData[key] = row[key]
-        }
+    // 删除确认
+    deleteConfirm (row) {
+      var _this = this
+      var ids = []
+      if (typeof row.id === 'number') {
+        ids.push(row.id)
+      } else {
+        ids = row.id
       }
+      this.ids = ids.join()
+      this.$refs.myconfirm.confirm(_this.delete, _this.cancle)
+    },
+    // 取消删除
+    cancle () {
+      this.ids = null
     },
     // 项目详情
     detail (row) {
@@ -298,6 +291,7 @@ export default {
     handleSelectionChange (val) {
       this.multipleSelection = val
     },
+    // 分页
     handleCurrentChange (index) {
       this.currentPage = index
       this.getData()

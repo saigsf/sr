@@ -9,7 +9,7 @@
       <el-col :span="12">
         <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">添加任务</el-button>
         <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除任务</el-button>
-        <el-button type="primary" size="mini" icon="el-icon-edit">任务挂起</el-button>
+        <el-button type="primary" size="mini" icon="el-icon-edit" @click="hangUpBatch">任务挂起</el-button>
       </el-col>
       <el-col :span="4" :offset="6">
         <el-input placeholder="请输入内容" v-model="search" class="input-with-select">
@@ -48,9 +48,7 @@
       ref="myconfirm"
       :type="confirm.type"
       :title="confirm.title"
-      :content="confirm.content"
-      @ok="ok" 
-      @cancle="cancle">
+      :content="confirm.content">
     </MyConfirm>
   </div>
 </template>
@@ -143,6 +141,7 @@ export default {
       this.formItem = getFormField('task', 'item')
       this.formData = getFormField('task', 'data')
     },
+    // 获取项目列表
     getProject () {
       API.getProjectAll().then(res => {
         console.log(res.data)
@@ -153,7 +152,22 @@ export default {
         })
       }).catch(err => {})
     },
-    // 表单提交
+    // 添加数据
+    showDialog () {
+      this.type = 'saveTask'
+      this.dialogVisible = true
+    },
+    // 更新数据
+    update (row) {
+      this.type = 'updateTaskById'
+      this.dialogVisible = true
+      for (const key in this.formData) {
+        if (this.formData.hasOwnProperty(key)) {
+          this.formData[key] = row[key]
+        }
+      }
+    },
+    // 提交数据
     submit () {
       API[this.type](this.formData).then(res => {
         switch (res.code) {
@@ -218,34 +232,11 @@ export default {
         console.log(err)
       })
     },
-    // 删除确认
-    deleteConfirm (row) {
-      this.getIds(row)
-      this.$refs.myconfirm.confirm()
-    },
-    // 确认
-    ok () {
-      this.deleteRow()
-    },
-    // 取消
-    cancle () {
-      this.ids = null
-    },
-    // 获取操作数据id集合
-    getIds (row) {
-      var ids = []
-      if (typeof row.taskId === 'number') {
-        ids.push(row.taskId)
-      } else {
-        ids = row.taskId
-      }
-      console.log(ids)
-      this.ids = ids.join()
-    },
-    // 删除用户
-    deleteRow () {
+    // 删除
+    delete () {
       var _this = this
       API.deleteTaskById({ids: _this.ids}).then(res => {
+        _this.ids = null
         switch (res.code) {
           case 0:
             this.$message({
@@ -281,21 +272,78 @@ export default {
         })
       }
     },
-    // 显示弹框
-    showDialog () {
-      this.type = 'saveTask'
-      this.dialogVisible = true
-    },
-    // 编辑数据回显
-    update (row) {
-      this.type = 'updateTaskById'
-      this.dialogVisible = true
-      for (const key in this.formData) {
-        if (this.formData.hasOwnProperty(key)) {
-          this.formData[key] = row[key]
-        }
+    // 删除确认
+    deleteConfirm (row) {
+      var _this = this
+      var ids = []
+      if (typeof row.taskId === 'number') {
+        ids.push(row.taskId)
+      } else {
+        ids = row.taskId
       }
-      console.log(this.formData)
+      this.ids = ids.join()
+      this.$refs.myconfirm.confirm(_this.delete, _this.cancle)
+    },
+    // 取消删除
+    cancle () {
+      this.ids = null
+    },
+    // 挂起任务
+    hangUp () {
+      var _this = this
+      API.hangUpTaskById({ids: _this.ids}).then(res => {
+        _this.ids = null
+        switch (res.code) {
+          case 0:
+            this.$message({
+              message: res.msg,
+              type: 'error'
+            })
+            break;
+          case 1:
+            this.$message({
+              message: '挂起成功',
+              type: 'success'
+            })
+            this.getData()
+            break;
+        
+          default:
+            break;
+        }
+      }).catch(err => {})
+    },
+    // 挂起控制
+    hangUpConfirm (row) {
+      var _this = this
+      var ids = []
+      if (typeof row.taskId === 'number') {
+        ids.push(row.taskId)
+      } else {
+        ids = row.taskId
+      }
+      this.ids = ids.join()
+      this.confirm = {
+        type: 'warning',
+        title: '提示信息',
+        content: '是否执行挂起操作, 是否继续?'
+      }
+      this.$refs.myconfirm.confirm(_this.hangUp, _this.cancle)
+    },
+    // 批量挂起
+    hangUpBatch () {
+      var id = []
+      this.multipleSelection.forEach(item => {
+        id.push(item.taskId)
+      })
+      if (id.length > 0) {
+        this.hangUpConfirm({taskId: id})
+      } else {
+        this.$message({
+          message: '请至少选择一个选项',
+          type: 'warning'
+        })
+      }
     },
     // 表单重置
     resetForm () {

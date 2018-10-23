@@ -5,12 +5,55 @@
         "type": "text",
         "name": "username",
         "value": "",
-        "label": "用户名:"
+        "placeholder": "请输入用户名",
+        "width": "100%",
+        "label": "用户名:",
+        "show": true,
+        "rules": [
+          { "required": true, "message": "请输入用户名", "trigger": "blur" }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "telephone",
+        "value": "",
+        "placeholder": "请输入电话",
+        "width": "100%",
+        "label": "电话:",
+        "show": true,
+        "rules": [
+          { "required": true, "message": "请输入电话", "trigger": "blur" }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "mail",
+        "value": "",
+        "placeholder": "请输入邮箱",
+        "width": "100%",
+        "label": "邮箱:",
+        "show": true,
+        "rules": [
+          { "required": true, "message": "请输入邮箱", "trigger": "blur" }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "remark",
+        "value": "",
+        "placeholder": "请输入备注",
+        "width": "100%",
+        "label": "备注:",
+        "show": true,
+        "rules": [
+          { "required": false, "message": "请输入备注", "trigger": "blur" }
+        ]
       },
       {
         "type": "checkbox",
         "name": "roles",
         "label": "角色:",
+        "show": false,
         "value": [],
         "options": [
           {
@@ -39,6 +82,7 @@
         "type": "checkbox",
         "name": "rights",
         "label": "权限:",
+        "show": false,
         "value": [],
         "options": [
           {
@@ -66,6 +110,9 @@
     ],
     "data": {
       "username": "",
+      "telephone": "",
+      "mail": "",
+      "remark": "",
       "roles": [],
       "rights": []
     }
@@ -520,6 +567,36 @@
     ],
     "data": {
       "fieldFilter": []
+    }
+  },
+  "login": {
+    "item": [
+      {
+        "type": "text",
+        "name": "username",
+        "placeholder": "请输入用户名",
+        "value": "",
+        "label": "用户名",
+        "show": true,
+        "rules": [
+          { "required": true, "message": "用户名不能为空", "trigger": "blur" }
+        ]
+      },
+      {
+        "type": "password",
+        "name": "password",
+        "value": "",
+        "label": "密码",
+        "placeholder": "请输入用户名",
+        "show": true,
+        "rules": [
+          { "required": true, "message": "密码不能为空", "trigger": "blur" }
+        ]
+      }
+    ],
+    "data": {
+      "username": "",
+      "password": ""
     }
   }
 }

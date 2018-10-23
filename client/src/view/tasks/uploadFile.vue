@@ -37,22 +37,11 @@
       @delete="deleteConfirm"
       @select="handleSelectionChange">
     </MyTable>
-    <!-- 对话框 -->
-    <!-- <el-dialog
-      :title="dialogTitle"
-      :visible.sync="dialogVisible"
-      width="30%"
-      :before-close="handleClose">
-      <MyForm ref="myform" :form="form" :formData="formData" :formItem="formItem" @submit="submit"></MyForm>
-    </el-dialog> -->
-    <!-- myconfirm -->
     <MyConfirm
       ref="myconfirm"
       :type="confirm.type"
       :title="confirm.title"
-      :content="confirm.content"
-      @ok="ok" 
-      @cancle="cancle">
+      :content="confirm.content">
     </MyConfirm>
   </div>
 </template>
@@ -141,31 +130,8 @@ export default {
         console.log(err)
       })
     },
-    // 删除确认
-    deleteConfirm (row) {
-      this.getIds(row)
-      this.$refs.myconfirm.confirm()
-    },
-    // 确认
-    ok () {
-      this.deleteRow()
-    },
-    // 取消
-    cancle () {
-      this.ids = null
-    },
-    // 获取操作数据id集合
-    getIds (row) {
-      var ids = []
-      if (typeof row.id === 'number') {
-        ids.push(row.id)
-      } else {
-        ids = row.id
-      }
-      this.ids = ids.join()
-    },
     // 删除
-    deleteRow (row) {
+    delete () {
       var _this = this
       API.deleteFileList({ids: _this.ids}).then(res => {
         switch (res.code) {
@@ -202,6 +168,22 @@ export default {
           type: 'warning'
         })
       }
+    },
+     // 删除确认
+    deleteConfirm (row) {
+      var _this = this
+      var ids = []
+      if (typeof row.id === 'number') {
+        ids.push(row.id)
+      } else {
+        ids = row.id
+      }
+      this.ids = ids.join()
+      this.$refs.myconfirm.confirm(_this.delete, _this.cancle)
+    },
+    // 取消
+    cancle () {
+      this.ids = null
     },
     // 获取选中行
     handleSelectionChange (val) {

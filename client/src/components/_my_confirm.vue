@@ -16,7 +16,7 @@ export default {
     },
     content: {
       type: String,
-      default: '此操作将永久删除该文件, 是否继续?'
+      default: '此操作将删除该数据, 是否继续?'
     },
     tip: {
       type: String,
@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     // 确认
-    confirm () {
+    confirm (ok, cancle) {
       var _this = this
       this.$confirm('<p>' + _this.content + '</p><span>' + _this.tip + '</span>', _this.title, {
         confirmButtonText: '确定',
@@ -44,17 +44,13 @@ export default {
         type: _this.type,
         dangerouslyUseHTMLString: true
       }).then(() => {
-        // this.$message({
-        //   type: 'success',
-        //   message: _this.successMsg
-        // })
-        this.$emit('ok')
+        ok && ok()
       }).catch(() => {
         this.$message({
           type: 'info',
           message: _this.infoMsg
         })
-        this.$emit('cancle')
+        cancle && cancle()
       })
     }
   }
