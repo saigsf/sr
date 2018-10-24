@@ -5,6 +5,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
@@ -14,6 +16,8 @@ import 'iview/dist/styles/iview.css'
 import '@/components/_globals.js'
 Vue.use(ElementUI, { size: 'mini' })
 Vue.use(iView)
+// axios.defaults.withCredentials = true
+Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 
 iView.LoadingBar.config({

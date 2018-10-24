@@ -22,7 +22,7 @@ requireComponent.keys().forEach(fileName => {
       fileName.replace(/^\.\/(.*)\.\w+$/, '$1')
     )
   )
-  console.log(componentName)
+  // console.log(componentName)
 
   // 全局注册组件
   Vue.component(componentName, componentConfig.default || componentConfig)

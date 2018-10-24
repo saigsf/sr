@@ -14,8 +14,8 @@
       </el-input>
     </div>
     <div class="header-user">
-      <p>欢迎您，<span>系统管理员</span></p>
-      <div class="login-out">
+      <p>欢迎您，<span>{{username}}</span></p>
+      <div class="login-out" @click="logout">
         <span>退出</span>
       </div>
     </div>
@@ -23,11 +23,48 @@
 </template>
 
 <script>
+import API from '@/api/user.js'
+import {
+  dateFtt,
+  px2rem,
+  getCookie,
+  delCookie
+} from '@/plugins/util.js'
 export default {
   name: 'NavHeader',
   data () {
     return {
-      search: ''
+      search: '',
+      username: '系统管理员'
+    }
+  },
+  created () {
+    this.getUserName()
+  },
+  methods: {
+    getUserName () {
+      this.username = getCookie('username')
+    },
+    logout () {
+      var _this = this
+      API.logout().then(res => {
+        switch (res.code) {
+          case 0:
+            this.$message({
+              message: res.msg,
+              type: 'error'
+            })
+            break;
+          case 1:
+            delCookie('username')
+            delCookie('token')
+            _this.$router.push({path: '/login'})
+            break;
+        
+          default:
+            break;
+        }
+      }).catch(err => {})
     }
   }
 }
@@ -59,16 +96,17 @@ export default {
     height: 100%;
   }
   &-user {
-    @include px2rem(width, 250);
+    // @include px2rem(min-width, 250);
     height: 100%;
     position: absolute;
     top: 0;
     right: 0;
     .login-out {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
+      position: relative;
+      // top: 0;
+      // right: 0;
+      // bottom: 0;
+      float: right;
       @include px2rem(width, 102);
       height: 100%;
       background-color: $tc;
@@ -99,8 +137,9 @@ export default {
     }
     p {
       color: #fff;
+      float: left;
       @include px2rem(font-size, 16);
-      // font-size: 12px;
+      @include px2rem(margin-right, 10);
       span {
         color: $tc;
       }

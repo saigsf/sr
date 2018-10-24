@@ -23,7 +23,7 @@ Axios.interceptors.request.use(function (config) {
 // 添加一个返回拦截器
 Axios.interceptors.response.use(function (response) {
   // 对返回的数据进行一些处理，比如说把loading动画关掉
-  console.dir(response)
+  console.dir(response.data)
   iView.LoadingBar.finish()
   return response
 }, function (error) {
@@ -41,7 +41,8 @@ let base = apiConfig.baseURl // 接口代理地址参见：config/index.js中的
 export const POST = (url, params) => {
   return Axios.post(`${base}${url}`, Qs.stringify(params), {
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'cookies': ''
     }
   }).then(res => res.data)
 }

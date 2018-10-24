@@ -11,15 +11,15 @@
   background-size: cover;
   &-user {
     background-image: url("./assets/img/user.png");
-    @include margin(0, 10, 0, 60)
+    @include margin(0, 10, 0, 30)
   }
   &-product {
     background-image: url("./assets/img/product.png");
-    @include margin(0, 10, 0, 60)
+    @include margin(0, 10, 0, 30)
   }
   &-mes {
     background-image: url("./assets/img/mes.png");
-    @include margin(0, 10, 0, 60)
+    @include margin(0, 10, 0, 30)
   }
   &-dot {
     &:after {

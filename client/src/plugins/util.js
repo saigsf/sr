@@ -75,8 +75,12 @@ export function assert (condition, msg) {
 export function getCookie (name) {
   var arr
   var reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)')
-  if (arr === document.cookie.match(reg)) return (arr[2])
-  else return null
+  arr = document.cookie.match(reg)
+  if (arr) {
+    return arr[2]
+  } else {
+    return null
+  }
 }
 
 /**
@@ -90,6 +94,7 @@ export function getCookie (name) {
 export function setCookie (cname, value, expiredays) {
   var exdate = new Date()
   exdate.setDate(exdate.getDate() + expiredays)
+  console.log(exdate)
   document.cookie = cname + '=' + escape(value) + ((expiredays == null) ? '' : ';expires=' + exdate.toGMTString())
 }
 
@@ -157,4 +162,27 @@ export function random (min, max) {
     max = min
   }
   return Math.random() * (max - min) + min
+}
+/**
+ *通过ID冒泡排序
+ *
+ * @export
+ * @param {*} arr
+ * @returns
+ */
+export function bubbleSortById (arr) {
+  var i = arr.length
+  var j
+  var tempExchangVal
+  while (i > 0) {
+    for (j = 0; j < i - 1; j++) {
+      if (arr[j].id > arr[j + 1].id) {
+        tempExchangVal = arr[j]
+        arr[j] = arr[j + 1]
+        arr[j + 1] = tempExchangVal
+      }
+    }
+    i--
+  }
+  return arr
 }

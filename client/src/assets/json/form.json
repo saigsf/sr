@@ -32,7 +32,7 @@
         "placeholder": "请输入邮箱",
         "width": "100%",
         "label": "邮箱:",
-        "show": true,
+        "show": false,
         "rules": [
           { "required": true, "message": "请输入邮箱", "trigger": "blur" }
         ]
@@ -55,28 +55,7 @@
         "label": "角色:",
         "show": false,
         "value": [],
-        "options": [
-          {
-            "label": "刷写工人",
-            "value": "刷写工人"
-          },
-          {
-            "label": "超级管理员",
-            "value": "超级管理员"
-          },
-          {
-            "label": "日志管理员",
-            "value": "日志管理员"
-          },
-          {
-            "label": "刷写设置管理员",
-            "value": "刷写设置管理员"
-          },
-          {
-            "label": "生产任务管理员",
-            "value": "生产任务管理员"
-          }
-        ]
+        "options": []
       },
       {
         "type": "checkbox",
@@ -84,34 +63,13 @@
         "label": "权限:",
         "show": false,
         "value": [],
-        "options": [
-          {
-            "label": "刷写工人",
-            "value": "刷写工人"
-          },
-          {
-            "label": "超级管理员",
-            "value": "超级管理员"
-          },
-          {
-            "label": "日志管理员",
-            "value": "日志管理员"
-          },
-          {
-            "label": "刷写设置管理员",
-            "value": "刷写设置管理员"
-          },
-          {
-            "label": "生产任务管理员",
-            "value": "生产任务管理员"
-          }
-        ]
+        "options": []
       }
     ],
     "data": {
+      "id": "",
       "username": "",
       "telephone": "",
-      "mail": "",
       "remark": "",
       "roles": [],
       "rights": []
@@ -125,83 +83,103 @@
         "value": "",
         "width": "80",
         "disabled": true,
-        "label": "用户名:"
+        "label": "用户名:",
+        "show": true
       },
       {
         "type": "checkbox",
-        "name": "roles",
+        "name": "roleIds",
         "label": "角色:",
+        "show": true,
         "value": [],
-        "options": [
-          {
-            "label": "刷写工人",
-            "value": "刷写工人"
-          },
-          {
-            "label": "超级管理员",
-            "value": "超级管理员"
-          },
-          {
-            "label": "日志管理员",
-            "value": "日志管理员"
-          },
-          {
-            "label": "刷写设置管理员",
-            "value": "刷写设置管理员"
-          },
-          {
-            "label": "生产任务管理员",
-            "value": "生产任务管理员"
-          }
-        ]
+        "options": []
       }
     ],
     "data": {
       "username": "",
-      "roles": []
+      "userId": "",
+      "roleIds": []
     }
   },
   "roles": {
     "item": [
       {
         "type": "text",
-        "name": "roles",
+        "name": "name",
+        "placeholder": "请输入角色名",
         "value": "",
         "width": "80",
-        "label": "角色:"
+        "label": "角色名:",
+        "show": true,
+        "rules": [
+          { "required": true, "message": "请输入角色名", "trigger": "blur" }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "keyword",
+        "placeholder": "请输入关键字",
+        "value": "",
+        "width": "80",
+        "label": "关键字:",
+        "show": true,
+        "rules": [
+          { "required": true, "message": "请输入关键字", "trigger": "blur" }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "remark",
+        "placeholder": "请输入备注",
+        "value": "",
+        "width": "80",
+        "label": "备注:",
+        "show": true,
+        "rules": [
+          { "required": false, "message": "请输入备注", "trigger": "blur" }
+        ]
       },
       {
         "type": "checkbox",
         "name": "rights",
         "label": "权限:",
+        "show": false,
         "value": [],
-        "options": [
-          {
-            "label": "超级管理员",
-            "value": "超级管理员"
-          },
-          {
-            "label": "日志管理员",
-            "value": "日志管理员"
-          },
-          {
-            "label": "刷写工人",
-            "value": "刷写工人"
-          },
-          {
-            "label": "刷写设置管理员",
-            "value": "刷写设置管理员"
-          },
-          {
-            "label": "生产任务管理员",
-            "value": "生产任务管理员"
-          }
-        ]
+        "options": []
       }
     ],
     "data": {
-      "roles": "",
+      "id": "",
+      "name": "",
+      "keyword": "",
+      "remark": "",
       "rights": []
+    }
+  },
+  "rolesBindRights": {
+    "item": [
+      {
+        "type": "text",
+        "name": "name",
+        "value": "",
+        "width": "80",
+        "disabled": true,
+        "label": "角色名:",
+        "show": true
+      },
+      {
+        "type": "checkbox",
+        "name": "aclIds",
+        "label": "权限:",
+        "show": true,
+        "value": [],
+        "options": []
+      }
+    ],
+    "data": {
+      "name": "",
+      "roleId": "",
+      "aclIds": []
     }
   },
   "task": {

@@ -22,7 +22,7 @@
       "width": "auto",
       "fixed": false,
       "sortable": false,
-      "show": true
+      "show": false
     },
     {
       "prop": "roles",
@@ -42,7 +42,7 @@
     },
     {
       "prop": "operateTime",
-      "label": "创建时间",
+      "label": "更新时间",
       "width": "auto",
       "fixed": false,
       "sortable": false,
@@ -51,8 +51,24 @@
   ],
   "roles": [
     {
-      "prop": "roles",
+      "prop": "name",
       "label": "角色名",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "keyword",
+      "label": "关键字",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "remark",
+      "label": "备注",
       "width": "auto",
       "fixed": false,
       "sortable": false,
@@ -64,11 +80,11 @@
       "width": "auto",
       "fixed": false,
       "sortable": false,
-      "show": true
+      "show": false
     },
     {
-      "prop": "makeTime",
-      "label": "创建时间",
+      "prop": "operateTime",
+      "label": "更新时间",
       "width": "auto",
       "fixed": false,
       "sortable": false,
@@ -77,15 +93,7 @@
   ],
   "rights": [
     {
-      "prop": "rightsNo",
-      "label": "权限编号",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    },
-    {
-      "prop": "rightsName",
+      "prop": "name",
       "label": "权限名称",
       "width": "auto",
       "fixed": false,
@@ -93,8 +101,24 @@
       "show": true
     },
     {
-      "prop": "makeTime",
-      "label": "创建时间",
+      "prop": "keyword",
+      "label": "关键字",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "remark",
+      "label": "备注",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "operateTime",
+      "label": "更新时间",
       "width": "auto",
       "fixed": false,
       "sortable": false,

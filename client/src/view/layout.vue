@@ -13,9 +13,9 @@
             <router-view class="child-view"></router-view>
           </keep-alive>
         </transition> -->
-        <keep-alive>
-          <router-view></router-view>
-        </keep-alive>
+        <!-- <keep-alive> -->
+        <router-view></router-view>
+        <!-- </keep-alive> -->
       </el-main>
     </el-container>
   </el-container>

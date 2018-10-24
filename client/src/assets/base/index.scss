@@ -276,6 +276,25 @@ body {
   .el-select-dropdown__empty {
     @include px2rem(font-size, 14);
   }
+
+  /* 单选框样式重重写 */
+  .el-radio__input{
+    &.is-checked {
+      .el-radio__inner{
+        background-color: #7d7d7d;
+        border-color: #7d7d7d;
+      }
+      &+.el-radio__label {
+        color: #333
+      }
+    }
+    .el-radio__inner {
+      &:hover {
+        border-color: #7d7d7d
+      }
+    }
+  }
+  
   
   /* 搜索框样式 */
   .el-input-group__append,
@@ -691,7 +710,7 @@ body {
   // 确认框样式重写
   .el-message-box {
     @include px2rem(width, 497);
-    @include px2rem(height, 307);
+    @include px2rem(height, 277);
     padding-bottom: 20px;
     border: none;
     border-radius: 0;
@@ -705,7 +724,7 @@ body {
     }
     &__header {
       @include px2rem(padding, 0);
-      @include px2rem(padding-left, 10);
+      @include px2rem(padding-left, 15);
       @include px2rem(height, 49);
       font-weight: 400;
       background-color: $tc;
@@ -735,7 +754,7 @@ body {
     }
     &__status {
       font-size: 48px !important;
-      top: 57%;
+      top: 50%;
       @include px2rem(left, 40);
       &.el-icon-warning {
         color: $tc;
@@ -746,12 +765,13 @@ body {
     }
 
     &__message p {
+      letter-spacing: 1px;
       p {
-        margin: 10px 0;
+        @include px2rem(margin, 10 0);
         @include px2rem(font-size, 16);
       }
       span {
-        @include px2rem(font-size, 14);
+        @include px2rem(font-size, 16);
       }
     }
     &__btns {
@@ -770,6 +790,10 @@ body {
         }
       }
     }
+  }
+
+  .el-message {
+    top: 50%;
   }
 
   .el-message__content {

@@ -8,7 +8,7 @@
     <el-row class="btn-group">
       <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">新增用户</el-button>
       <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除用户</el-button>
-      <el-button type="primary" size="mini" icon="el-icon-edit" @click="roleAssociation">角色关联</el-button>
+      <el-button type="primary" size="mini" icon="el-icon-edit" @click="userBindRoles">角色关联</el-button>
     </el-row>
     <MyTable
       size="mini"
@@ -31,7 +31,7 @@
       :visible.sync="dialogVisible"
       width="30%"
       :before-close="handleClose">
-      <MyForm :form="form" ref="form" :formData="formData" :formItem="formItem" @submit="submit" @cancle="cancle"></MyForm>
+      <MyForm :form="form" ref="form" :formData="formData" :formItem="formItem" @submit="submit"></MyForm>
     </el-dialog>
      <!-- myconfirm -->
     <MyConfirm
@@ -46,13 +46,20 @@
 <script>
 import API from '@/api/user.js'
 import {getField, getFormField} from '@/assets/json/index.js'
-import { dateFtt, px2rem } from '@/plugins/util.js'
+import { dateFtt, px2rem, bubbleSortById } from '@/plugins/util.js'
 export default {
   name: 'UsersList',
   data () {
+    // 表单验证
+    var validate = (rule, value, callback) => {
+      if (!(/^1[345789]\d{9}$/.test(value))) {
+        callback(new Error('请输入正确的电话号码'));
+      } else {
+        callback();
+      }
+    }
     var form = {
-      title: '',
-      ref: 'form1',
+      ref: 'userForm',
       showTitle: false,
       labelWidth: px2rem(80),
       labelPositon: 'right',
@@ -94,6 +101,7 @@ export default {
     }
     return {
       confirm: confirm,
+      rule: { validator: validate, trigger: 'blur' },
       dialogTitle: '新增用户',
       dialogVisible: false,
       multipleSelection: [],
@@ -112,15 +120,26 @@ export default {
   },
   created () {
     this.init()
+    this.userFormInit()
     this.getData()
   },
   methods: {
     init () {
       // 获取table字段
       this.column = getField('user')
+    },
+    userFormInit () {
       // 获取form字段
+      this.dialogTitle = '新增用户'
       this.formItem = getFormField('user', 'item')
+      this.formItem[1].rules.push(this.rule)
       this.formData = getFormField('user', 'data')
+    },
+    rolesFormInit () {
+      // 获取form字段
+      this.dialogTitle = '角色关联'
+      this.formItem = getFormField('userAndRoles', 'item')
+      this.formData = getFormField('userAndRoles', 'data')
     },
     // 显示弹框
     showDialog () {
@@ -137,8 +156,11 @@ export default {
         }
       }
     },
-    // 表单提交
+    // 提交数据
     submit () {
+      if (this.type == 'setUserBindRole') {
+        this.formData.roleIds = this.formData.roleIds.join(',')
+      }
       API[this.type](this.formData).then(res => {
         switch (res.code) {
           case 0:
@@ -161,21 +183,20 @@ export default {
         }
       })
     },
-    // 表单取消提交
-    cancle () {
-      this.dialogVisible = false
-    },
     // 弹框关闭时的回调函数
     handleClose (done) {
-      this.init()
-      this.resetForm()
+      // 初始化为添加表单
+      this.userFormInit()
       for (const key in this.formData) {
         if (this.formData.hasOwnProperty(key)) {
           this.formData[key] = ''
         }
       }
+      // 表单重置
+      this.resetForm()
       done()
     },
+    // 获取数据
     getData () {
       var _this = this
       var config = {
@@ -257,12 +278,39 @@ export default {
       this.ids = null
     },
     // 角色关联
-    roleAssociation () {
-      // 获取form字段
-      this.dialogTitle = '角色关联'
-      this.formItem = getFormField('userAndRoles', 'item')
-      this.formData = getFormField('userAndRoles', 'data')
-      this.dialogVisible = true
+    userBindRoles () {
+      this.type = 'setUserBindRole'
+      var len = this.multipleSelection.length
+      if (len === 1) {
+        var row = this.multipleSelection[0]
+        var userId = row.id
+        // 获取角色关联表单
+        this.rolesFormInit()
+        // 获取username显示
+        this.formData.username = row.username
+        // 获取id提交数据
+        this.formData.userId = userId
+        this.formData.roleIds = []
+        // 获取角色列表
+        API.getUserAndRoles({userId}).then(res => {
+          this.formItem[1].options = bubbleSortById((res.data.inBind).concat(res.data.noBind))
+          res.data.inBind.forEach(item => {
+            this.formData.roleIds.push(item.id)
+          });
+        }).catch(err => {})
+        
+        this.dialogVisible = true
+      } else if (len >= 1) {
+        this.$message({
+          message: '请只选择一个用户',
+          type: 'warning'
+        })
+      } else {
+        this.$message({
+          message: '请选择一个用户',
+          type: 'warning'
+        })
+      }
     },
     // 表单重置
     resetForm () {
@@ -274,6 +322,7 @@ export default {
     handleSelectionChange (val) {
       this.multipleSelection = val
     },
+    // 分页
     handleCurrentChange (index) {
       this.currentPage = index
       this.getData()

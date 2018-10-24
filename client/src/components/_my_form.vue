@@ -84,7 +84,7 @@
                 v-else-if="item.type=='checkbox'"
                 v-model="formData[item.name]"
                 :style="'width: ' + (item.width ? item.width : '100%')">
-                <el-checkbox v-for="(option, idx) in item.options" :key="idx" :label="option.value">{{option.label}}</el-checkbox>
+                <el-checkbox v-for="(option, idx) in item.options" :key="idx" :label="option.id">{{option.name}}</el-checkbox>
               </el-checkbox-group>
               <!-- 单选 -->
               <el-radio-group v-else-if="item.type=='radio'" v-model="formData[item.name]">

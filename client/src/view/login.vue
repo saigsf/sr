@@ -14,7 +14,12 @@
 
 <script>
 import API from '@/api/user.js'
-import {getFormField} from '@/assets/json/index.js'
+import { getFormField } from '@/assets/json/index.js'
+import {
+  dateFtt,
+  px2rem,
+  setCookie
+} from '@/plugins/util.js'
 export default {
   name: 'Login',
   data () {
@@ -23,7 +28,7 @@ export default {
         title: '',
         ref: 'login',
         showTitle: false,
-        labelWidth: '60px',
+        labelWidth: px2rem(80),
         labelPositon: 'right',
         submitText: '登录',
         hasSubmit: true,
@@ -45,13 +50,17 @@ export default {
     // 提交数据
     submit () {
       var _this = this
-      console.log(this.formData)
       API.login(this.formData).then(res => {
         switch (res.code) {
           case 0:
-            
+            this.$message({
+              message: res.msg,
+              type: 'error'
+            })
             break;
-          case 1:
+          case 1: 
+            setCookie('username', res.data.username, 1000*60*60*24)
+            setCookie('token', res.data.token, 1000*60*60*24)
             _this.$router.push({path: '/'})
             break;
         
@@ -60,9 +69,6 @@ export default {
         }
       }).catch(err => {})
       
-    },
-    // 表单取消提交
-    cancle (form) {
     }
   }
 }

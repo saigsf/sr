@@ -72,7 +72,7 @@
             <a v-else-if="item.type == 'link'" :href="scope.row[item.prop]"  :download="scope.row.name"> <i class="el-icon-download"></i> 下载</a>
             <!-- 内容需要转换 -->
             <span v-else-if="item.type == 'needChange'">{{ item.change[scope.row[item.prop]] }}</span>
-            <span v-else>{{ scope.row[item.prop] ? scope.row[item.prop] : '-' }}</span>
+            <span v-else>{{ (scope.row[item.prop] || scope.row[item.prop] == 0) ? scope.row[item.prop] : '-' }}</span>
           </template>
           <template v-if="item.column">
             <el-table-column v-for="(item, idx) in item.column" :key="idx"
@@ -180,11 +180,11 @@ export default {
     },
     total: {
       type: Number,
-      default: 10
+      default: 0
     },
     pageSize: {
       type: Number,
-      default: 5
+      default: 10
     },
     currentPage: {
       type: Number,

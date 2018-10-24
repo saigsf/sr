@@ -67,7 +67,7 @@ export default {
       title: '',
       ref: 'carmake',
       showTitle: false,
-      labelWidth: px2rem(120),
+      labelWidth: px2rem(100),
       labelPositon: 'right',
       width: '90%',
       column: 1,
