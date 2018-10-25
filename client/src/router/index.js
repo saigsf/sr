@@ -9,6 +9,7 @@ import Mes from '@/view/mes'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/login',
@@ -25,7 +26,7 @@ export default new Router({
       meta: {
         title: '盛瑞后台管理'
       },
-      redirect: '/mes',
+      redirect: '/tasks/tasklist',
       children: [
         {
           path: '/mes',
@@ -33,7 +34,7 @@ export default new Router({
           component: Mes,
           meta: {
             title: 'MES对接',
-            show: true,
+            show: false,
             icon: 'icon icon-mes',
             leaf: false
           }

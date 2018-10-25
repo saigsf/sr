@@ -1,5 +1,20 @@
-@import './mixins.scss';
-@import './variables.scss';
+@import '@/assets/base/mixins.scss';
+@import '@/assets/base/variables.scss';
+@import '@/assets/base/reset.min.scss';
+
+/* web字体引入 */
+@font-face {
+  font-family: "LedNum";
+  src: url(./assets/fonts/ledNumber.ttf) format("truetype");
+}
+@font-face {
+  font-family: "hanYi";
+  src: url(./assets/fonts/hanYi.ttf) format("truetype");
+}
+@font-face {
+  font-family: "SimHei";
+  src: url(./assets/fonts/SimHei.ttf) format("truetype");
+}
 
 /* 通用样式 */
 html,
@@ -18,7 +33,7 @@ body {
 
   #app {
     overflow: hidden;
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    font-family: ''Avenir', Helvetica, Arial, sans-serif';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -794,7 +809,7 @@ body {
   }
 
   .el-message {
-    top: 50%;
+    top: 35%;
   }
 
   .el-message__content {

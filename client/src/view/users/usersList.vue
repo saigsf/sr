@@ -8,7 +8,7 @@
     <el-row class="btn-group">
       <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">新增用户</el-button>
       <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除用户</el-button>
-      <el-button type="primary" size="mini" icon="el-icon-edit" @click="userBindRoles">角色关联</el-button>
+      <el-button type="primary" size="mini" icon="el-icon-edit-outline" @click="userBindRoles">角色关联</el-button>
     </el-row>
     <MyTable
       size="mini"
@@ -81,7 +81,7 @@ export default {
           type: 'text',
           size: 'mini',
           content: '修改',
-          icon: 'el-icon-edit',
+          icon: 'el-icon-edit-outline',
           handle: 'update'
         },
         {

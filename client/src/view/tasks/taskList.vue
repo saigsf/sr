@@ -9,7 +9,7 @@
       <el-col :span="12">
         <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">添加任务</el-button>
         <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除任务</el-button>
-        <el-button type="primary" size="mini" icon="el-icon-edit" @click="hangUpBatch">任务挂起</el-button>
+        <el-button type="primary" size="mini" icon="el-icon-edit-outline" @click="hangUpBatch">任务挂起</el-button>
       </el-col>
       <el-col :span="4" :offset="6">
         <el-input placeholder="请输入内容" v-model="search" class="input-with-select">
@@ -86,7 +86,7 @@ export default {
           type: 'text',
           size: 'mini',
           content: '编辑',
-          icon: 'el-icon-edit',
+          icon: 'el-icon-edit-outline',
           handle: 'update'
         },
         {

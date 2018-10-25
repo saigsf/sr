@@ -79,14 +79,14 @@ export default {
           type: 'text',
           size: 'mini',
           content: '启用',
-          icon: 'el-icon-edit',
+          icon: 'el-icon-edit-outline',
           handle: 'enable'
         },
         {
           type: 'text',
           size: 'mini',
           content: '禁用',
-          icon: 'el-icon-edit',
+          icon: 'el-icon-edit-outline',
           handle: 'disable'
         }
       ]
@@ -291,7 +291,7 @@ export default {
             break;
           case 1:
             this.$message({
-              message: '删除成功',
+              message: res.msg,
               type: 'success'
             })
             this.getData()
@@ -329,7 +329,7 @@ export default {
             break;
           case 1:
             this.$message({
-              message: '删除成功',
+              message: res.msg,
               type: 'success'
             })
             this.getData()

@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import API from '@/api/user.js'
 export default {
   name: 'NavAside',
   data () {
@@ -39,10 +40,12 @@ export default {
       hasRouter: true,
       unique: true,
       navList: [],
+      menuTree: [],
       currentActive: '/'
     }
   },
   created () {
+    // this.getMenu()
     this.getNavList()
     this.resetCurrent()
   },
@@ -59,6 +62,11 @@ export default {
     },
     resetCurrent () {
       this.currentActive = this.$router.history.current.path
+    },
+    getMenu () {
+      API.getMenuTree().then(res => {
+        this.menuTree = res.data
+      }).catch(err => {})
     }
   },
   watch: {

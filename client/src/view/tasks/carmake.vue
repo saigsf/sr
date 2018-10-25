@@ -88,7 +88,7 @@ export default {
           type: 'text',
           size: 'mini',
           content: '编辑',
-          icon: 'el-icon-edit',
+          icon: 'el-icon-edit-outline',
           handle: 'update'
         },
         {

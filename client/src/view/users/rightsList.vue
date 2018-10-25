@@ -9,7 +9,7 @@
       <el-col v-if="false" :span="12">
         <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">新增用户</el-button>
         <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除用户</el-button>
-        <el-button type="primary" size="mini" icon="el-icon-edit" @click="deleteBatch">角色关联</el-button>
+        <el-button type="primary" size="mini" icon="el-icon-edit-outline" @click="deleteBatch">角色关联</el-button>
       </el-col>
     </el-row>
     <MyTable

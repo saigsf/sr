@@ -8,7 +8,7 @@
     <el-row class="btn-group">
       <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">新增角色</el-button>
       <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除角色</el-button>
-      <el-button type="primary" size="mini" icon="el-icon-edit" @click="rolesBindRights">权限关联</el-button>
+      <el-button type="primary" size="mini" icon="el-icon-edit-outline" @click="rolesBindRights">权限关联</el-button>
     </el-row>
     <MyTable
       :column="column"
@@ -76,7 +76,7 @@ export default {
           type: 'text',
           size: 'mini',
           content: '修改',
-          icon: 'el-icon-edit',
+          icon: 'el-icon-edit-outline',
           handle: 'update'
         },
         {

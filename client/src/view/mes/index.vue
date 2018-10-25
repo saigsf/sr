@@ -1,5 +1,5 @@
 <template>
-  <div class="mes"></div>
+  <div class="list"></div>
 </template>
 
 <script>
