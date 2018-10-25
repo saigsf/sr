@@ -9,7 +9,7 @@
       <el-col :span="12">
         <el-upload
           class="upload"
-          action="/shengruiweb/tcufile/upload"
+          :action="upLoadUrl"
           :before-upload="handleBefore"
           :on-success="handleSuccess"
           :on-error="handleError"
@@ -49,6 +49,7 @@
 <script>
 import API from '@/api/task.js'
 import {getField, getFormField} from '@/assets/json/index.js'
+import apiConfig from '../../../config/api.config'
 export default {
   name: 'ProjectList',
   data () {
@@ -79,6 +80,7 @@ export default {
 
     return {
       confirm: confirm,
+      upLoadUrl: apiConfig.baseURl + '/tcufile/upload',
       multipleSelection: [],
       ids: null,
       operation: operation,

@@ -94,7 +94,6 @@ export function getCookie (name) {
 export function setCookie (cname, value, expiredays) {
   var exdate = new Date()
   exdate.setDate(exdate.getDate() + expiredays)
-  console.log(exdate)
   document.cookie = cname + '=' + escape(value) + ((expiredays == null) ? '' : ';expires=' + exdate.toGMTString())
 }
 
@@ -173,13 +172,13 @@ export function random (min, max) {
 export function bubbleSortById (arr) {
   var i = arr.length
   var j
-  var tempExchangVal
+  var temp
   while (i > 0) {
     for (j = 0; j < i - 1; j++) {
       if (arr[j].id > arr[j + 1].id) {
-        tempExchangVal = arr[j]
+        temp = arr[j]
         arr[j] = arr[j + 1]
-        arr[j + 1] = tempExchangVal
+        arr[j + 1] = temp
       }
     }
     i--

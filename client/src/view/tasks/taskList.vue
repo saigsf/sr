@@ -144,7 +144,6 @@ export default {
     // 获取项目列表
     getProject () {
       API.getProjectAll().then(res => {
-        console.log(res.data)
         this.formItem.forEach(item => {
           if (item.name === 'projectId') {
             item.options = res.data

@@ -66,7 +66,7 @@ export default {
     }
     return {
       confirm: confirm,
-      downLoadUrl:  apiConfig.baseURl + '/shengruiweb/operationlog/getExcel',
+      downLoadUrl:  apiConfig.baseURl + '/operationlog/getExcel',
       multipleSelection: [],
       operation: operation,
       column: [],

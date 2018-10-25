@@ -9,8 +9,23 @@
 </template>
 
 <script>
+import { px2rem, getCookie } from '@/plugins/util'
 export default {
-  name: 'App'
+  name: 'App',
+  created () {
+    this.isLogin()
+  },
+  methods: {
+    goto (path) {
+      this.$router.push({path: path})
+    },
+    isLogin () {
+      console.log(getCookie('token'))
+      if(getCookie('token') === null) {
+        this.goto('/login')
+      }
+    }
+  }
 }
 </script>
 

@@ -42,7 +42,7 @@
 <script>
 import API from '@/api/user.js'
 import { getField, getFormField } from '@/assets/json/index.js'
-import { dateFtt, px2rem } from '@/plugins/util.js'
+import { dateFtt, px2rem, bubbleSortById } from '@/plugins/util.js'
 export default {
   name: 'RolesList',
   data () {
@@ -278,6 +278,7 @@ export default {
     },
     // 角色绑定权限
     rolesBindRights () {
+      var _this = this
       this.type = 'roleBindAcl'
       var len = this.multipleSelection.length
       if (len === 1) {
@@ -293,12 +294,13 @@ export default {
         this.formData.aclIds = []
         // 获取角色列表
         API.getAclDto({roleId}).then(res => {
-          this.formItem[1].options = bubbleSortById((res.data.inBind).concat(res.data.noBind))
+          _this.formItem[1].options = bubbleSortById((res.data.inBind).concat(res.data.noBind))
           res.data.inBind.forEach(item => {
-            this.formData.aclIds.push(item.id)
-          });
+            _this.formData.aclIds.push(item.id)
+          })
+          
         }).catch(err => {})
-        
+        console.log(this.formItem)
         this.dialogVisible = true
       } else if (len >= 1) {
         this.$message({

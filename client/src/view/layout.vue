@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { px2rem } from '@/plugins/util'
+import { px2rem, getCookie } from '@/plugins/util'
 export default {
   name: 'Layout',
   data () {

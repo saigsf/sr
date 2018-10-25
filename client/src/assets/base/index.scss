@@ -516,7 +516,7 @@ body {
 
     h5,
     span {
-      @include px2rem(font-size, 30);
+      @include px2rem(font-size, 28);
       color: $tc;
       display: block;
       position: relative;
@@ -569,6 +569,7 @@ body {
       border: none;
       .el-button {
         position: relative;
+        margin: 0;
         &:hover,
         &:active,
         &:focus {
@@ -580,7 +581,7 @@ body {
           content: "";
           display: block;
           width: 1px;
-          @include px2rem(height, 20);
+          @include px2rem(height, 15);
           position: absolute;
           left: 0;
           top: 50%;
@@ -803,4 +804,5 @@ body {
   .el-tooltip__popper {
     @include px2rem(font-size, 14);
   }
+
 }
