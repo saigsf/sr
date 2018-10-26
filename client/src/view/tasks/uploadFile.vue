@@ -2,7 +2,7 @@
   <div class="list">
     <!-- 标题 -->
     <el-row class="title">
-      <span>文件管理列表</span>
+      <span>文件管理</span>
     </el-row>
     <!-- 按钮 -->
     <el-row class="btn-group">

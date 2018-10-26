@@ -3,7 +3,6 @@ import Qs from 'qs'
 import iView from 'iview'
 import apiConfig from '../../config/api.config'
 import {getCookie} from '@/plugins/util'
-// import bus from '@/components/bus.js'
 
 Axios.defaults.withCredentials = false
 // Axios.defaults.headers.common['Authorization'] = getCookie('token')
@@ -29,10 +28,8 @@ Axios.interceptors.response.use(function (response) {
   console.dir(response)
   // 顶部进度条结束
   iView.LoadingBar.finish()
-  // console.log(response.data.code)
-  // if (response.data.code === 1) {
-  //   bus.$emit('goto', '/login')
-  // }
+  console.log(response.data.code)
+  console.log(response.status)
   return response
 }, function (error) {
   // 对返回的错误进行一些处理

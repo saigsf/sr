@@ -2,7 +2,7 @@
   <div class="list">
     <!-- 标题 -->
     <el-row class="title">
-      <span>TCU管理列表</span>
+      <span>TCU管理</span>
     </el-row>
     <!-- 按钮 -->
     <el-row class="btn-group">

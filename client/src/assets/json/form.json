@@ -521,30 +521,42 @@
         "value": [],
         "options": [
           {
-            "label": "刷写工人",
-            "value": "刷写工人"
+            "id": "operationTime",
+            "name": "操作时间"
           },
           {
-            "label": "超级管理员",
-            "value": "超级管理员"
+            "id": "operator",
+            "name": "操作人"
           },
           {
-            "label": "日志管理员",
-            "value": "日志管理员"
+            "id": "projectName",
+            "name": "项目名称"
           },
           {
-            "label": "刷写设置管理员",
-            "value": "刷写设置管理员"
+            "id": "tcuCode",
+            "name": "TCU代码"
           },
           {
-            "label": "生产任务管理员",
-            "value": "生产任务管理员"
+            "id": "productiveTask",
+            "name": "生产任务"
+          },
+          {
+            "id": "flashResults",
+            "name": "刷写结果"
+          },
+          {
+            "id": "serialNumber",
+            "name": "流水号"
+          },
+          {
+            "id": "batchNumber",
+            "name": "批次号"
           }
         ]
       }
     ],
     "data": {
-      "fieldFilter": []
+      "fieldFilter": ["operationTime", "operator", "projectName", "tcuCode", "productiveTask", "flashResults", "serialNumber", "batchNumber"]
     }
   },
   "login": {

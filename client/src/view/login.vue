@@ -118,6 +118,7 @@ export default {
     width: 40%;
     height: 100%;
     background: url(../assets/img/userlogo.png) no-repeat center;
+    @include px2rem(background-size, 130)
   }
   &-form {
     float: left;

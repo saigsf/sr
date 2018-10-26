@@ -1,5 +1,5 @@
-@import './mixins.scss';
-@import './variables.scss';
+@import '@/assets/base/mixins.scss';
+@import '@/assets/base/variables.scss';
 /* 图标 */
 .icon {
   display: inline-block;
@@ -10,15 +10,15 @@
   background-position: center;
   background-size: cover;
   &-user {
-    background-image: url("./assets/img/user.png");
+    background-image: url("../../assets/img/user.png");
     @include margin(0, 10, 0, 30)
   }
   &-product {
-    background-image: url("./assets/img/product.png");
+    background-image: url("../../assets/img/product.png");
     @include margin(0, 10, 0, 30)
   }
   &-mes {
-    background-image: url("./assets/img/mes.png");
+    background-image: url("../../assets/img/mes.png");
     @include margin(0, 10, 0, 30)
   }
   &-dot {

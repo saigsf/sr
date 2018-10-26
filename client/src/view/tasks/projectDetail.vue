@@ -2,7 +2,7 @@
   <div class="list">
     <!-- 标题 -->
     <el-row class="title">
-      <span>项目详情</span>
+      <span>项目—{{projectName}}</span>
     </el-row>
     <!-- 按钮 -->
     <el-row class="btn-group">
@@ -81,13 +81,6 @@ export default {
           content: '启用',
           icon: 'el-icon-edit-outline',
           handle: 'enable'
-        },
-        {
-          type: 'text',
-          size: 'mini',
-          content: '禁用',
-          icon: 'el-icon-edit-outline',
-          handle: 'disable'
         }
       ]
     }
@@ -115,7 +108,8 @@ export default {
       total: 0,
       search: '',
       type: 'getProjectAssociate',
-      project: {}
+      project: {},
+      projectName: '项目名称'
     }
   },
   created () {
@@ -125,6 +119,7 @@ export default {
     // this.getData()
   },
   activated() {
+    this.projectName = this.$route.query.projectName
     this.getData()
   },
   methods: {

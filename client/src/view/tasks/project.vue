@@ -279,7 +279,12 @@ export default {
     },
     // 项目详情
     detail (row) {
-      this.$router.push({path: '/tasks/project/'+row.id})
+      this.$router.push({
+        path: '/tasks/project/'+row.id,
+        query: {
+          projectName: row.name
+        }
+      })
     },
     // 表单重置
     resetForm () {

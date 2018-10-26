@@ -2,7 +2,7 @@
   <div class="list">
     <!-- 标题 -->
     <el-row class="title">
-      <h5>生产任务管理列表</h5>
+      <h5>生产任务管理</h5>
     </el-row>
     <!-- 按钮操作 -->
     <el-row class="btn-group">

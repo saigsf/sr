@@ -2,7 +2,7 @@
   <div class="list">
     <!-- 标题 -->
     <el-row class="title">
-      <span>车企管理列表</span>
+      <span>车企管理</span>
     </el-row>
     <!-- 按钮操作 -->
     <el-row class="btn-group">
@@ -51,6 +51,7 @@
 import API from '@/api/task.js'
 import {getField, getFormField} from '@/assets/json/index.js'
 import { dateFtt, px2rem } from '@/plugins/util.js'
+import bus from '@/components/bus.js'
 export default {
   name: 'TcuList',
   data () {
@@ -180,6 +181,11 @@ export default {
         
           default:
             break;
+        }
+      }).catch(err => {
+        console.log(err)
+        if (err.response.status === 403) {
+          this.$router.push({path: '/login'})
         }
       })
     },
