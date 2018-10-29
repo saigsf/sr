@@ -2,11 +2,15 @@ import Axios from 'axios'
 import Qs from 'qs'
 import iView from 'iview'
 import apiConfig from '../../config/api.config'
-import {getCookie} from '@/plugins/util'
+import { getCookie } from '@/plugins/util'
+import router from '@/router/index'
+import { Message } from 'element-ui'
 
 Axios.defaults.withCredentials = false
 // Axios.defaults.headers.common['Authorization'] = getCookie('token')
 Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded' // 配置请求头
+
+Axios.defaults.timeout = 10000
 
 // 添加一个请求拦截器
 Axios.interceptors.request.use(function (config) {
@@ -28,14 +32,77 @@ Axios.interceptors.response.use(function (response) {
   console.dir(response)
   // 顶部进度条结束
   iView.LoadingBar.finish()
-  console.log(response.data.code)
-  console.log(response.status)
-  return response
-}, function (error) {
+  if (response && response.data) {
+    if (response.data.code === 1) {
+      return response
+    } else if (response.data.code === 0) {
+      Message({
+        message: response.data.msg,
+        type: 'error'
+      })
+    } else if (response.data.code === 301) {
+      Message({
+        message: response.data.msg,
+        type: 'error'
+      })
+    } else {
+      return response
+    }
+  }
+}, function (err) {
+  console.log(router)
   // 对返回的错误进行一些处理
-  console.log(error)
   iView.LoadingBar.error()
-  return Promise.reject(error)
+  if (err && err.response) {
+    switch (err.response.status) {
+      case 400:
+        err.message = '错误请求'
+        break
+      case 401:
+        err.message = '拒绝访问'
+        break
+      case 403:
+        router.replace({ path: '/login' })
+        err.message = '未授权，请重新登录'
+        break
+      case 404:
+        err.message = '请求错误,未找到该资源'
+        break
+      case 405:
+        err.message = '请求方法未允许'
+        break
+      case 408:
+        err.message = '请求超时'
+        break
+      case 500:
+        err.message = '服务器端出错'
+        break
+      case 501:
+        err.message = '网络未实现'
+        break
+      case 502:
+        err.message = '网络错误'
+        break
+      case 503:
+        err.message = '服务不可用'
+        break
+      case 504:
+        err.message = '网络超时'
+        break
+      case 505:
+        err.message = 'http版本不支持该请求'
+        break
+      default:
+        err.message = `连接错误${err.response.status}`
+    }
+  } else {
+    err.message = '连接到服务器失败'
+  }
+  Message({
+    message: err.message,
+    type: 'error'
+  })
+  return Promise.resolve(err)
 })
 
 // 基地址

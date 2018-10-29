@@ -26,11 +26,13 @@
       <el-table-column
         type="selection"
         v-if="multiple"
+        :align="'center'"
         :fixed="false">
       </el-table-column>
       <!-- 序号 -->
       <el-table-column
         v-if="hasIndex"
+        :align="'center'"
         :fixed="'left'"
         type="index"
         label="序号"
@@ -41,13 +43,13 @@
       <!-- 选项内容 -->
       <template v-for="(item, idx) in column">
         <el-table-column v-if="item.show" :key="idx"
+          :align="'center'"
           :fixed="item.fixed"
           :sortable="item.sortable"
           :prop="item.prop"
           :label="item.label"
           :width="item.width">
           <template slot-scope="scope">
-            <!-- 正常显示 -->
             <!-- 下拉列表显示 -->
             <!-- 超出点点显示 -->
             <el-tooltip v-if="item.type == 'tooltip'" :content="scope.row[item.prop]" placement="top">
@@ -72,7 +74,8 @@
             <a v-else-if="item.type == 'link'" :href="scope.row[item.prop]"  :download="scope.row.name"> <i class="el-icon-download"></i> 下载</a>
             <!-- 内容需要转换 -->
             <span v-else-if="item.type == 'needChange'">{{ item.change[scope.row[item.prop]] }}</span>
-            <span v-else>{{ (scope.row[item.prop] || scope.row[item.prop] == 0) ? scope.row[item.prop] : '-' }}</span>
+            <!-- 正常显示 -->
+            <span v-else>{{ (scope.row[item.prop] != '' || scope.row[item.prop] == 0) ? scope.row[item.prop] : '-' }}</span>
           </template>
           <template v-if="item.column">
             <el-table-column v-for="(item, idx) in item.column" :key="idx"
@@ -89,6 +92,7 @@
       <!-- 操作按钮 -->
       <el-table-column
         v-if="operation.show"
+        :align="'center'"
         :fixed="operation.fixed"
         :label="operation.label"
         :width="operation.width"

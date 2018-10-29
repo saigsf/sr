@@ -20,11 +20,12 @@ export default new Router({
       }
     },
     {
-      path: '/',
+      path: '/home',
       name: 'Home',
       component: Layout,
       meta: {
-        title: '盛瑞后台管理'
+        title: '盛瑞后台管理',
+        requireAuth: true
       },
       redirect: '/tasks/tasklist',
       children: [
@@ -60,7 +61,8 @@ export default new Router({
                 title: '用户列表',
                 show: true,
                 icon: 'icon icon-dot',
-                leaf: true
+                leaf: true,
+                requireAuth: true
               }
             },
             {
@@ -73,7 +75,8 @@ export default new Router({
                 title: '角色列表',
                 show: true,
                 icon: 'icon icon-dot',
-                leaf: true
+                leaf: true,
+                requireAuth: true
               }
             },
             {
@@ -86,7 +89,8 @@ export default new Router({
                 title: '权限列表',
                 show: true,
                 icon: 'icon icon-dot',
-                leaf: true
+                leaf: true,
+                requireAuth: true
               }
             }
           ]
@@ -112,7 +116,8 @@ export default new Router({
                 title: '车企管理',
                 show: true,
                 icon: 'icon icon-dot',
-                leaf: true
+                leaf: true,
+                requireAuth: true
               }
             },
             {
@@ -125,7 +130,8 @@ export default new Router({
                 title: 'TCU管理',
                 show: true,
                 icon: 'icon icon-dot',
-                leaf: true
+                leaf: true,
+                requireAuth: true
               }
             },
             {
@@ -138,7 +144,8 @@ export default new Router({
                 title: '文件管理',
                 show: true,
                 icon: 'icon icon-dot',
-                leaf: true
+                leaf: true,
+                requireAuth: true
               }
             },
             {
@@ -151,7 +158,8 @@ export default new Router({
                 title: '项目管理',
                 show: true,
                 icon: 'icon icon-dot',
-                leaf: true
+                leaf: true,
+                requireAuth: true
               }
             },
             {
@@ -164,7 +172,8 @@ export default new Router({
                 title: '项目详情',
                 show: false,
                 icon: 'icon icon-dot',
-                leaf: true
+                leaf: true,
+                requireAuth: true
               }
             },
             {
@@ -177,7 +186,8 @@ export default new Router({
                 title: '任务管理',
                 show: true,
                 icon: 'icon icon-dot',
-                leaf: true
+                leaf: true,
+                requireAuth: true
               }
             },
             {
@@ -190,7 +200,8 @@ export default new Router({
                 title: '生产日志',
                 show: true,
                 icon: 'icon icon-dot',
-                leaf: true
+                leaf: true,
+                requireAuth: true
               }
             },
             {
@@ -203,7 +214,8 @@ export default new Router({
                 title: '操作日志',
                 show: true,
                 icon: 'icon icon-dot',
-                leaf: true
+                leaf: true,
+                requireAuth: true
               }
             }
           ]

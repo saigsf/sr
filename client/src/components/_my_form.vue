@@ -12,7 +12,8 @@
       :inline="false"
       size="mini"
       :model="formData"
-      :label-width="form.labelWidth">
+      :label-width="form.labelWidth"
+      @submit.native.prevent>
       <el-row>
         <template v-for="(item, index) in formItem">
           <el-col :span="24/form.column" :key="index" v-if="item.show">
@@ -93,6 +94,13 @@
               <!-- 文本域 -->
               <el-input v-else-if="item.type=='textarea'" :type="item.type" v-model="formData[item.name]" :placeholder="item.placeholder"></el-input>
               <!-- 其他 -->
+              <el-input
+                v-else-if="item.type=='password'"
+                :type="item.type"
+                :placeholder="item.placeholder"
+                v-model="formData[item.name]"
+                @keyup.enter.native="submitForm(form.ref)">
+              </el-input>
               <el-input v-else :type="item.type" :placeholder="item.placeholder" v-model="formData[item.name]"></el-input>
             </el-form-item>
           </el-col>

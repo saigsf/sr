@@ -59,13 +59,15 @@ export default {
       },
       column: [],
       data: [],
-      pageSize: 9,
+      pageSize: 10,
       currentPage: 1,
       total: 0
     }
   },
   created () {
     this.init()
+  },
+  activated () {
     this.getData()
   },
   methods: {
@@ -100,6 +102,7 @@ export default {
     },
     // 获取数据
     getData () {
+      this.data = []
       for (let i = 0; i < this.pageSize; i++) {
         this.data.push({
           uid: i + 1,

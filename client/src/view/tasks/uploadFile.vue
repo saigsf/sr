@@ -9,6 +9,7 @@
       <el-col :span="12">
         <el-upload
           class="upload"
+          :headers="headers"
           :action="upLoadUrl"
           :before-upload="handleBefore"
           :on-success="handleSuccess"
@@ -19,10 +20,8 @@
         <!-- <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">添加文件</el-button> -->
         <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除文件</el-button>
       </el-col>
-      <el-col :span="4" :offset="6">
-        <el-input placeholder="请输入内容" v-model="search" class="input-with-select">
-          <el-button slot="append" class="el-icon-search"></el-button>
-        </el-input>
+      <el-col :span="12">
+        <MySearch class="search" :formData="searchFormData" :formItem="searchFormItem" @submit="searchSubmit"></MySearch>
       </el-col>
     </el-row>
     <!-- 表格数据 -->
@@ -48,7 +47,8 @@
 
 <script>
 import API from '@/api/task.js'
-import {getField, getFormField} from '@/assets/json/index.js'
+import {getField, getFormField, getSearchField} from '@/assets/json/index.js'
+import { dateFtt, px2rem, getCookie } from '@/plugins/util.js'
 import apiConfig from '../../../config/api.config'
 export default {
   name: 'ProjectList',
@@ -78,7 +78,12 @@ export default {
       content: '此操作将永久删除该文件, 是否继续?'
     }
 
+    var headers = {
+      Authorization: getCookie('token')
+    }
+
     return {
+      headers: headers,
       confirm: confirm,
       upLoadUrl: apiConfig.baseURl + '/tcufile/upload',
       multipleSelection: [],
@@ -89,19 +94,28 @@ export default {
       pageSize: 9,
       currentPage: 1,
       total: 0,
-      search: '',
       type: 'saveProject',
       loading: '',
+      searchFormData: [],
+      searchFormItem: {}
     }
   },
   created () {
     this.init()
+    this.searchFormInit()
+  },
+  activated () {
+    this.headers.Authorization = getCookie('token')
     this.getData()
   },
   methods: {
     init () {
       // 获取字段
       this.column = getField('file')
+    },
+    searchFormInit () {
+      this.searchFormItem = getSearchField('file', 'item')
+      this.searchFormData = getSearchField('file', 'data')
     },
     getData () {
       var _this = this
@@ -110,27 +124,12 @@ export default {
         size: _this.pageSize
       }
       // 添加查询字段
-
+      config = $.extend(config, this.searchFormData)
       // 接口调用
       API.getFileList(config).then(res => {
-        switch (res.code) {
-          case 0:
-            this.$message({
-              message: res.msg,
-              type: 'error'
-            })
-            break;
-          case 1:
-            this.data = res.data.list
-            this.total = res.data.total
-            break;
-        
-          default:
-            break;
-        }
-      }).catch(err => {
-        console.log(err)
-      })
+        this.data = res.data.list
+        this.total = res.data.total
+      }).catch(err => {})
     },
     // 删除
     delete () {
@@ -237,6 +236,10 @@ export default {
         message: '文件上传失败',
         type: 'error'
       })
+    },
+    // 搜索
+    searchSubmit () {
+      this.getData()
     }
   }
 }

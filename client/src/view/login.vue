@@ -36,11 +36,16 @@ export default {
         column: 1
       },
       formItem: [],
-      formData: {}
+      formData: {},
+      path: '/home'
     }
   },
   created () {
     this.init()
+  },
+  activated () {
+    this.path =  this.$route.query.redirect ? this.$route.query.redirect : '/home'
+    console.log(this.$route.query)
   },
   methods: {
     init () {
@@ -61,7 +66,7 @@ export default {
           case 1: 
             setCookie('username', res.data.username, 7)
             setCookie('token', res.data.token, 7)
-            _this.$router.push({path: '/'})
+            _this.$router.push({path: _this.path})
             break;
         
           default:

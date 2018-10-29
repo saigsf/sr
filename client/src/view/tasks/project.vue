@@ -10,10 +10,8 @@
         <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">添加项目</el-button>
         <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除项目</el-button>
       </el-col>
-      <el-col :span="4" :offset="6">
-        <el-input placeholder="请输入内容" v-model="search" class="input-with-select">
-          <el-button slot="append" class="el-icon-search"></el-button>
-        </el-input>
+      <el-col :span="12">
+        <MySearch class="search" :formData="searchFormData" :formItem="searchFormItem" @submit="searchSubmit"></MySearch>
       </el-col>
     </el-row>
     <!-- 表格数据 -->
@@ -49,7 +47,7 @@
 
 <script>
 import API from '@/api/task.js'
-import {getField, getFormField} from '@/assets/json/index.js'
+import {getField, getFormField, getSearchField} from '@/assets/json/index.js'
 import { dateFtt, px2rem } from '@/plugins/util.js'
 export default {
   name: 'ProjectList',
@@ -114,13 +112,20 @@ export default {
       pageSize: 9,
       currentPage: 1,
       total: 0,
-      search: '',
-      type: 'saveProject'
+      type: 'saveProject',
+      searchFormData: [],
+      searchFormItem: {}
     }
   },
   created () {
     this.init()
+    this.searchFormInit()
     this.getCarmake()
+  },
+  mounted () {
+    this.resetForm()
+  },
+  activated () {
     this.getData()
   },
   methods: {
@@ -131,6 +136,10 @@ export default {
       this.formItem = getFormField('project', 'item')
       this.formData = getFormField('project', 'data')
     },
+    searchFormInit () {
+      this.searchFormItem = getSearchField('project', 'item')
+      this.searchFormData = getSearchField('project', 'data')
+    },
     // 获取车企
     getCarmake () {
       API.getCarmakeAll().then(res => {
@@ -139,7 +148,7 @@ export default {
             item.options = res.data
           }
         })
-      }).catch(err => {})
+      })
     },
     // 添加数据
     showDialog () {
@@ -160,25 +169,12 @@ export default {
     submit () {
       console.log(this.formData)
       API[this.type](this.formData).then(res => {
-        switch (res.code) {
-          case 0:
-            this.$message({
-              message: res.msg,
-              type: 'error'
-            })
-            break;
-          case 1:
-            this.dialogVisible = false
-            this.$message({
-              message: res.msg,
-              type: 'success'
-            })
-            this.getData()
-            break;
-        
-          default:
-            break;
-        }
+        this.dialogVisible = false
+        this.$message({
+          message: res.msg,
+          type: 'success'
+        })
+        this.getData()
       })
     },
     // 弹框关闭时的回调函数
@@ -200,50 +196,22 @@ export default {
         size: _this.pageSize
       }
       // 添加查询字段
-
+      config = $.extend(config, this.searchFormData)
       // 接口调用
       API.getProjectList(config).then(res => {
-        switch (res.code) {
-          case 0:
-            this.$message({
-              message: res.msg,
-              type: 'error'
-            })
-            break;
-          case 1:
-            this.data = res.data.list
-            this.total = res.data.total
-            break;
-        
-          default:
-            break;
-        }
-      }).catch(err => {
-        console.log(err)
+        this.data = res.data.list
+        this.total = res.data.total
       })
     },
     // 删除
     delete () {
       var _this = this
       API.deleteProjectById({ids: _this.ids}).then(res => {
-        switch (res.code) {
-          case 0:
-            this.$message({
-              message: res.msg,
-              type: 'error'
-            })
-            break;
-          case 1:
-            this.$message({
-              message: '删除成功',
-              type: 'success'
-            })
-            this.getData()
-            break;
-        
-          default:
-            break;
-        }
+        this.$message({
+          message: '删除成功',
+          type: 'success'
+        })
+        this.getData()
       })
     },
     // 批量删除
@@ -299,6 +267,10 @@ export default {
     // 分页
     handleCurrentChange (index) {
       this.currentPage = index
+      this.getData()
+    },
+    // 搜索
+    searchSubmit () {
       this.getData()
     }
   }

@@ -12,24 +12,15 @@
 import { px2rem, getCookie } from '@/plugins/util'
 export default {
   name: 'App',
-  created () {
-    this.isLogin()
-  },
+  created () {},
   methods: {
     goto (path) {
       this.$router.push({path: path})
-    },
-    isLogin () {
-      console.log(getCookie('token'))
-      if(getCookie('token') === null) {
-        this.goto('/login')
-      }
     }
   }
 }
 </script>
 
 <style lang="scss">
-// @import '@/assets/base/index.scss';
-// @import '@/assets/base/icon.scss';
+@import './style.scss';
 </style>

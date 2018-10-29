@@ -10,10 +10,8 @@
         <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog()">添加车企</el-button>
         <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除车企</el-button>
       </el-col>
-      <el-col :span="4" :offset="6">
-        <el-input placeholder="请输入内容" v-model="search" class="input-with-select">
-          <el-button slot="append" class="el-icon-search"></el-button>
-        </el-input>
+      <el-col :span="12">
+        <MySearch class="search" :formData="searchFormData" :formItem="searchFormItem" @submit="searchSubmit"></MySearch>
       </el-col>
     </el-row>
     <!-- 表格数据 -->
@@ -35,7 +33,7 @@
       :visible.sync="dialogVisible"
       width="30%"
       :before-close="handleClose">
-      <MyForm ref="myform" :form="form" :formData="formData" :formItem="formItem" @submit="submit" @cancle="cancle"></MyForm>
+      <MyForm ref="myform" :form="form" :formData="formData" :formItem="formItem" @submit="submit"></MyForm>
     </el-dialog>
     <!-- myconfirm -->
     <MyConfirm
@@ -49,7 +47,7 @@
 
 <script>
 import API from '@/api/task.js'
-import {getField, getFormField} from '@/assets/json/index.js'
+import { getField, getFormField, getSearchField } from '@/assets/json/index.js'
 import { dateFtt, px2rem } from '@/plugins/util.js'
 import bus from '@/components/bus.js'
 export default {
@@ -124,17 +122,21 @@ export default {
       pageSize: 9,
       currentPage: 1,
       total: 0,
-      search: '', // 搜索字段
       type: 'saveCarmake', // 请求方式
+      searchFormData: [],
+      searchFormItem: {}
     }
   },
   created () {
     // 获取字段
     this.init()
-    this.getData()
+    this.searchFormInit()
   },
   mounted () {
     this.resetForm()
+  },
+  activated () {
+    this.getData()
   },
   methods: {
     init () {
@@ -144,6 +146,10 @@ export default {
       this.formItem = getFormField('carmake', 'item')
       this.formItem[0].rules.push(this.rule)
       this.formData = getFormField('carmake', 'data')
+    },
+    searchFormInit () {
+      this.searchFormItem = getSearchField('carmake', 'item')
+      this.searchFormData = getSearchField('carmake', 'data')
     },
     // 添加数据
     showDialog () {
@@ -163,30 +169,12 @@ export default {
     // 提交数据
     submit () {
       API[this.type](this.formData).then(res => {
-        switch (res.code) {
-          case 0:
-            this.$message({
-              message: res.msg,
-              type: 'error'
-            })
-            break;
-          case 1:
-            this.dialogVisible = false
-            this.$message({
-              message: res.msg,
-              type: 'success'
-            })
-            this.getData()
-            break;
-        
-          default:
-            break;
-        }
-      }).catch(err => {
-        console.log(err)
-        if (err.response.status === 403) {
-          this.$router.push({path: '/login'})
-        }
+        this.dialogVisible = false
+        this.$message({
+          message: res.msg,
+          type: 'success'
+        })
+        this.getData()
       })
     },
     // 弹框关闭时的回调函数
@@ -208,52 +196,24 @@ export default {
         size: _this.pageSize
       }
       // 添加查询字段
-
+      config = $.extend(config, this.searchFormData)
       // 接口调用
       API.getCarmakeList(config).then(res => {
-        switch (res.code) {
-          case 0:
-            this.$message({
-              message: res.msg,
-              type: 'error'
-            })
-            break;
-          case 1:
-            this.data = res.data.list
-            this.total = res.data.total
-            break;
-        
-          default:
-            break;
-        }
-      }).catch(err => {
-        console.log(err)
+        this.data = res.data.list
+        this.total = res.data.total
       })
     },
     // 删除
     delete () {
       var _this = this
       API.deleteCarmakeById({ids: _this.ids}).then(res => {
-        _this.ids = null
-        switch (res.code) {
-          case 0:
-            this.$message({
-              message: res.msg,
-              type: 'error'
-            })
-            break;
-          case 1:
-            this.$message({
-              message: res.msg,
-              type: 'success'
-            })
-            this.getData()
-            break;
-        
-          default:
-            break;
-        }
-      })
+        this.ids = null
+        this.$message({
+          message: res.msg,
+          type: 'success'
+        })
+        this.getData()
+      }).catch(err => {})
     },
     // 批量删除
     deleteBatch () {
@@ -299,6 +259,10 @@ export default {
     // 分页切换
     handleCurrentChange (index) {
       this.currentPage = index
+      this.getData()
+    },
+    // 搜索
+    searchSubmit () {
       this.getData()
     }
   }

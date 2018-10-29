@@ -182,6 +182,52 @@
       "aclIds": []
     }
   },
+  "rights": {
+    "item": [
+      {
+        "type": "text",
+        "name": "name",
+        "placeholder": "请输入权限名",
+        "value": "",
+        "width": "80",
+        "label": "权限名:",
+        "show": true,
+        "rules": [
+          { "required": true, "message": "请输入权限名", "trigger": "blur" }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "keyword",
+        "placeholder": "请输入关键字",
+        "value": "",
+        "width": "80",
+        "label": "关键字:",
+        "show": true,
+        "rules": [
+          { "required": true, "message": "请输入关键字", "trigger": "blur" }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "remark",
+        "placeholder": "请输入备注",
+        "value": "",
+        "width": "80",
+        "label": "备注:",
+        "show": true,
+        "rules": [
+          { "required": false, "message": "请输入备注", "trigger": "blur" }
+        ]
+      }
+    ],
+    "data": {
+      "id": "",
+      "name": "",
+      "keyword": "",
+      "remark": ""
+    }
+  },
   "task": {
     "item": [
       {

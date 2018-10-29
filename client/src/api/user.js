@@ -15,11 +15,11 @@ export default {
   },
   // 修改用户信息
   updateUser: params => {
-    return API.GET('/sysuser/upadte', params)
+    return API.POST('/sysuser/update', params)
   },
   // 删除用户信息
   deleteUser: params => {
-    return API.GET('/sysuser/delete', params)
+    return API.POST('/sysuser/delete', params)
   },
   // 添加用户信息
   saveUser: params => {
@@ -60,6 +60,14 @@ export default {
   // 获取权限列表
   getRights: params => {
     return API.GET('/sysacl/pageQuery', params)
+  },
+  // 添加权限
+  saveRights: params => {
+    return API.POST('/sysacl/save', params)
+  },
+  // 删除权限
+  deleteRights: params => {
+    return API.POST('/sysacl/delete', params)
   },
   // 获取权限菜单，权限按钮
   getMenuTree: params => {

@@ -6,9 +6,14 @@
     </el-row>
     <!-- 按钮 -->
     <el-row class="btn-group">
-      <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">新增角色</el-button>
-      <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除角色</el-button>
-      <el-button type="primary" size="mini" icon="el-icon-edit-outline" @click="rolesBindRights">权限关联</el-button>
+      <el-col :span="12">
+        <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">新增角色</el-button>
+        <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除角色</el-button>
+        <el-button type="primary" size="mini" icon="el-icon-edit-outline" @click="rolesBindRights">权限关联</el-button>
+      </el-col>
+      <el-col :span="12">
+        <MySearch class="search" :formData="searchFormData" :formItem="searchFormItem" @submit="searchSubmit"></MySearch>
+      </el-col>
     </el-row>
     <MyTable
       :column="column"
@@ -41,7 +46,7 @@
 
 <script>
 import API from '@/api/user.js'
-import { getField, getFormField } from '@/assets/json/index.js'
+import { getField, getFormField, getSearchField } from '@/assets/json/index.js'
 import { dateFtt, px2rem, bubbleSortById } from '@/plugins/util.js'
 export default {
   name: 'RolesList',
@@ -111,11 +116,19 @@ export default {
       currentPage: 1,
       total: 0,
       type: 'saveRoles',
+      searchFormData: [],
+      searchFormItem: {}
     }
   },
   created () {
     this.init()
     this.rolesFormInit()
+    this.searchFormInit()
+  },
+  mounted () {
+    this.resetForm()
+  },
+  activated () {
     this.getData()
   },
   methods: {
@@ -135,6 +148,10 @@ export default {
       this.dialogTitle = '权限绑定'
       this.formItem = getFormField('rolesBindRights', 'item')
       this.formData = getFormField('rolesBindRights', 'data')
+    },
+    searchFormInit () {
+      this.searchFormItem = getSearchField('role', 'item')
+      this.searchFormData = getSearchField('role', 'data')
     },
     // 添加数据
     showDialog () {
@@ -157,26 +174,13 @@ export default {
         this.formData.aclIds = this.formData.aclIds.join(',')
       }
       API[this.type](this.formData).then(res => {
-        switch (res.code) {
-          case 0:
-            this.$message({
-              message: res.msg,
-              type: 'error'
-            })
-            break;
-          case 1:
-            this.dialogVisible = false
-            this.$message({
-              message: res.msg,
-              type: 'success'
-            })
-            this.getData()
-            break;
-        
-          default:
-            break;
-        }
-      })
+        this.dialogVisible = false
+        this.$message({
+          message: res.msg,
+          type: 'success'
+        })
+        this.getData()
+      }).catch(err => {})
     },
     // 弹框关闭时的回调函数
     handleClose (done) {
@@ -196,6 +200,7 @@ export default {
         pageNo: _this.currentPage,
         size: _this.pageSize
       }
+      config = $.extend(config, this.searchFormData)
       API.getRoles(config).then(res => {
         switch (res.code) {
           case 0:
@@ -218,26 +223,13 @@ export default {
     delete () {
       var _this = this
       API.deleteRoles({ids: _this.ids}).then(res => {
-        _this.ids = null
-        switch (res.code) {
-          case 0:
-            this.$message({
-              message: res.msg,
-              type: 'error'
-            })
-            break;
-          case 1:
-            this.$message({
-              message: res.msg,
-              type: 'success'
-            })
-            this.getData()
-            break;
-        
-          default:
-            break;
-        }
-      })
+        this.ids = null
+        this.$message({
+          message: res.msg,
+          type: 'success'
+        })
+        this.getData()
+      }).catch(err => {})
     },
     // 批量删除
     deleteBatch () {
@@ -321,6 +313,10 @@ export default {
     // 分页
     handleCurrentChange (index) {
       this.currentPage = index
+      this.getData()
+    },
+    // 搜索
+    searchSubmit () {
       this.getData()
     }
   }

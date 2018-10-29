@@ -6,9 +6,8 @@
     </el-row>
     <!-- 按钮 -->
     <el-row class="btn-group">
-      <a :href="downLoadUrl">
-        <el-button type="primary" size="mini" icon="el-icon-download">导出日志</el-button>
-      </a>
+      <el-button type="primary" size="mini" icon="el-icon-download" @click="downLoad">导出日志</el-button>
+      <a :href="downLoadUrl">下载</a>
       <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除日志</el-button>
     </el-row>
     <MyTable
@@ -66,7 +65,7 @@ export default {
     }
     return {
       confirm: confirm,
-      downLoadUrl:  apiConfig.baseURl + '/operationlog/getExcel',
+      downLoadUrl: '#',
       multipleSelection: [],
       operation: operation,
       column: [],
@@ -80,6 +79,8 @@ export default {
   created () {
     // 获取字段
     this.init()
+  },
+  activated () {
     this.getData()
   },
   methods: {
@@ -94,21 +95,8 @@ export default {
         size: _this.pageSize
       }
       API.getOperationLog(config).then(res => {
-        switch (res.code) {
-          case 0:
-            this.$message({
-              message: res.msg,
-              type: 'error'
-            })
-            break;
-          case 1:
-            this.data = res.data.list
-            this.total = res.data.total
-            break;
-        
-          default:
-            break;
-        }
+        this.data = res.data.list
+        this.total = res.data.total
       }).catch(err => {})
       
     },
@@ -116,24 +104,11 @@ export default {
     delete (ro) {
       var _this = this
       API.deleteOperationLog({ids: _this.ids}).then(res => {
-        switch (res.code) {
-          case 0:
-            this.$message({
-              message: res.msg,
-              type: 'error'
-            })
-            break;
-          case 1:
-            this.$message({
-              message: res.msg,
-              type: 'success'
-            })
-            this.getData()
-            break;
-        
-          default:
-            break;
-        }
+        this.$message({
+          message: res.msg,
+          type: 'success'
+        })
+        this.getData()
       })
     },
     // 批量删除
@@ -166,6 +141,21 @@ export default {
     // 取消删除
     cancle () {
       this.ids = null
+    },
+    downLoad () {
+      API.downloadOperationLog().then(res => {
+        // console.log(encodeURIComponent(res))
+        // this.uri = 'data:text/vnd.ms-excel;charset=utf-8,\ufeff' + encodeURIComponent(res)
+        
+        // var link = document.createElement("a");
+        // link.href = uri;
+        // //对下载的文件命名
+        // link.download =  "json数据表.xl"
+        // // link.style.display = 'none'
+        // document.body.appendChild(link);
+        // link.click();
+        // document.body.removeChild(link)
+      }).catch(err => {})
     },
     // 获取选中行
     handleSelectionChange (val) {

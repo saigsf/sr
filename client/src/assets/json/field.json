@@ -328,7 +328,7 @@
     {
       "prop": "batchNo",
       "label": "批次",
-      "width": "60px",
+      "width": "auto",
       "fixed": false,
       "sortable": false,
       "show": true
@@ -336,7 +336,7 @@
     {
       "prop": "batchNumber",
       "label": "批次数量",
-      "width": "80px",
+      "width": "auto",
       "fixed": false,
       "sortable": false,
       "show": true
@@ -361,7 +361,7 @@
     {
       "prop": "finishNumber",
       "label": "完成数量",
-      "width": "80px",
+      "width": "auto",
       "fixed": false,
       "sortable": false,
       "show": true
@@ -375,7 +375,7 @@
       },
       "prop": "status",
       "label": "任务状态",
-      "width": "80px",
+      "width": "auto",
       "fixed": false,
       "sortable": false,
       "show": true

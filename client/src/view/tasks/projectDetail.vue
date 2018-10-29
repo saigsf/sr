@@ -10,11 +10,7 @@
         <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">添加标定文件</el-button>
         <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除标定文件</el-button>
       </el-col>
-      <el-col :span="4" :offset="6">
-        <el-input placeholder="请输入内容" v-model="search" class="input-with-select">
-          <el-button slot="append" class="el-icon-search"></el-button>
-        </el-input>
-      </el-col>
+      <el-col :span="12"></el-col>
     </el-row>
     <!-- 表格数据 -->
     <MyTable
@@ -137,7 +133,7 @@ export default {
             item.options = res.data
           }
         })
-      }).catch(err => {})
+      })
     },
     getFile () {
       API.getFillAll().then(res => {
@@ -146,7 +142,7 @@ export default {
             item.options = res.data
           }
         })
-      }).catch(err => {})
+      })
     },
     // 添加数据
     showDialog () {
@@ -199,47 +195,19 @@ export default {
 
       // 接口调用
       API.getProjectDetailById(config).then(res => {
-        switch (res.code) {
-          case 0:
-            this.$message({
-              message: res.msg,
-              type: 'error'
-            })
-            break;
-          case 1:
-            this.data = res.data
-            this.total = 0
-            break;
-        
-          default:
-            break;
-        }
-      }).catch(err => {
-        console.log(err)
+        this.data = res.data
+        this.total = res.data.length
       })
     },
     // 删除
     delete () {
       var _this = this
       API.deleteAssociate({ids: _this.ids}).then(res => {
-        switch (res.code) {
-          case 0:
-            this.$message({
-              message: res.msg,
-              type: 'error'
-            })
-            break;
-          case 1:
-            this.$message({
-              message: '删除成功',
-              type: 'success'
-            })
-            this.getData()
-            break;
-        
-          default:
-            break;
-        }
+        this.$message({
+          message: '删除成功',
+          type: 'success'
+        })
+        this.getData()
       })
     },
     // 批量删除

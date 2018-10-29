@@ -38,12 +38,12 @@ export default {
       username: '系统管理员'
     }
   },
-  created () {
+  activated () {
     this.getUserName()
   },
   methods: {
     getUserName () {
-      this.username = getCookie('username')
+      this.username = unescape(getCookie('username')) 
     },
     logout () {
       var _this = this
@@ -58,7 +58,12 @@ export default {
           case 1:
             delCookie('username')
             delCookie('token')
-            _this.$router.push({path: '/login'})
+            _this.$router.push({
+              path: '/login',
+              query: {
+                redirect: _this.$route.fullPath
+              }
+            })
             break;
         
           default:

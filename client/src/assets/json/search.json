@@ -1,0 +1,140 @@
+{
+  "user": {
+    "item": [
+      {
+        "type": "text",
+        "name": "username",
+        "value": "",
+        "placeholder": "请输入用户名",
+        "width": "100%",
+        "show": true
+      }
+    ],
+    "data": {
+      "username": ""
+    }
+  },
+  "role": {
+    "item": [
+      {
+        "type": "text",
+        "name": "name",
+        "value": "",
+        "placeholder": "请输入角色名称",
+        "width": "100%",
+        "show": true
+      }
+    ],
+    "data": {
+      "name": ""
+    }
+  },
+  "rights": {
+    "item": [
+      {
+        "type": "text",
+        "name": "name",
+        "value": "",
+        "placeholder": "请输入权限名称",
+        "width": "100%",
+        "show": true
+      }
+    ],
+    "data": {
+      "name": ""
+    }
+  },
+  "carmake": {
+    "item": [
+      {
+        "type": "text",
+        "name": "name",
+        "value": "",
+        "placeholder": "请输入车企名称",
+        "width": "100%",
+        "show": true
+      }
+    ],
+    "data": {
+      "name": ""
+    }
+  },
+  "tcu": {
+    "item": [
+      {
+        "type": "text",
+        "name": "tcuCode",
+        "value": "",
+        "placeholder": "请输入TCU代码",
+        "width": "100%",
+        "show": true
+      },
+      {
+        "type": "text",
+        "name": "tcuType",
+        "value": "",
+        "placeholder": "请输入TCU型号",
+        "width": "100%",
+        "show": true
+      }
+    ],
+    "data": {
+      "tcuCode": "",
+      "tcuType": ""
+    }
+  },
+  "file": {
+    "item": [
+      {
+        "type": "text",
+        "name": "fname",
+        "value": "",
+        "placeholder": "请输入文件名称",
+        "width": "100%",
+        "show": true
+      }
+    ],
+    "data": {
+      "fname": ""
+    }
+  },
+  "project": {
+    "item": [
+      {
+        "type": "text",
+        "name": "name",
+        "value": "",
+        "placeholder": "请输入项目名称",
+        "width": "100%",
+        "show": true
+      }
+    ],
+    "data": {
+      "name": ""
+    }
+  },
+  "task": {
+    "item": [
+      {
+        "type": "text",
+        "name": "pName",
+        "value": "",
+        "placeholder": "请输入项目名称",
+        "width": "100%",
+        "show": true
+      },
+      {
+        "type": "text",
+        "name": "tcuCode",
+        "value": "",
+        "placeholder": "请输入TCU代码",
+        "width": "100%",
+        "show": true
+      }
+    ],
+    "data": {
+      "pName": "",
+      "tcuCode": ""
+    }
+  }
+}

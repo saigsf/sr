@@ -6,9 +6,14 @@
     </el-row>
     <!-- 按钮 -->
     <el-row class="btn-group">
-      <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">新增用户</el-button>
-      <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除用户</el-button>
-      <el-button type="primary" size="mini" icon="el-icon-edit-outline" @click="userBindRoles">角色关联</el-button>
+      <el-col :span="12">
+        <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">新增用户</el-button>
+        <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除用户</el-button>
+        <el-button type="primary" size="mini" icon="el-icon-edit-outline" @click="userBindRoles">角色关联</el-button>
+      </el-col>
+      <el-col :span="12">
+        <MySearch class="search" :formData="searchFormData" :formItem="searchFormItem" @submit="searchSubmit"></MySearch>
+      </el-col>
     </el-row>
     <MyTable
       size="mini"
@@ -27,9 +32,9 @@
       @select="handleSelectionChange">
     </MyTable>
     <el-dialog
+      width="30%"
       :title="dialogTitle"
       :visible.sync="dialogVisible"
-      width="30%"
       :before-close="handleClose">
       <MyForm :form="form" ref="form" :formData="formData" :formItem="formItem" @submit="submit"></MyForm>
     </el-dialog>
@@ -45,7 +50,7 @@
 
 <script>
 import API from '@/api/user.js'
-import {getField, getFormField} from '@/assets/json/index.js'
+import {getField, getFormField, getSearchField} from '@/assets/json/index.js'
 import { dateFtt, px2rem, bubbleSortById } from '@/plugins/util.js'
 export default {
   name: 'UsersList',
@@ -69,6 +74,7 @@ export default {
       submitText: '提交',
       cancleText: '取消'
     }
+    
     var operation = {
       show: true,
       fixed: 'right',
@@ -116,11 +122,19 @@ export default {
       currentPage: 1,
       total: 0,
       type: 'saveUser',
+      searchFormData: [],
+      searchFormItem: {}
     }
   },
   created () {
     this.init()
     this.userFormInit()
+    this.searchFormInit()
+  },
+  mounted () {
+    this.resetForm()
+  },
+  activated () {
     this.getData()
   },
   methods: {
@@ -140,6 +154,10 @@ export default {
       this.dialogTitle = '角色关联'
       this.formItem = getFormField('userAndRoles', 'item')
       this.formData = getFormField('userAndRoles', 'data')
+    },
+    searchFormInit () {
+      this.searchFormItem = getSearchField('user', 'item')
+      this.searchFormData = getSearchField('user', 'data')
     },
     // 显示弹框
     showDialog () {
@@ -162,26 +180,13 @@ export default {
         this.formData.roleIds = this.formData.roleIds.join(',')
       }
       API[this.type](this.formData).then(res => {
-        switch (res.code) {
-          case 0:
-            this.$message({
-              message: res.msg,
-              type: 'error'
-            })
-            break;
-          case 1:
-            this.dialogVisible = false
-            this.$message({
-              message: res.msg,
-              type: 'success'
-            })
-            this.getData()
-            break;
-        
-          default:
-            break;
-        }
-      })
+        this.dialogVisible = false
+        this.$message({
+          message: res.msg,
+          type: 'success'
+        })
+        this.getData()
+      }).catch(err => {})
     },
     // 弹框关闭时的回调函数
     handleClose (done) {
@@ -203,48 +208,23 @@ export default {
         pageNo: _this.currentPage,
         size: _this.pageSize
       }
+      config = $.extend(config, this.searchFormData)
       API.getUser(config).then(res => {
-        switch (res.code) {
-          case 0:
-            this.$message({
-              message: res.msg,
-              type: 'error'
-            })
-            break;
-          case 1:
-            this.data = res.data.list
-            this.total = res.data.total
-            break;
-        
-          default:
-            break;
-        }
+        this.data = res.data.list
+        this.total = res.data.total
       }).catch(err => {})
     },
     // 删除用户
     delete () {
       var _this = this
       API.deleteUser({ids: _this.ids}).then(res => {
-        _this.ids = null
-        switch (res.code) {
-          case 0:
-            this.$message({
-              message: res.msg,
-              type: 'error'
-            })
-            break;
-          case 1:
-            this.$message({
-              message: res.msg,
-              type: 'success'
-            })
-            this.getData()
-            break;
-        
-          default:
-            break;
-        }
-      })
+        this.ids = null
+        this.$message({
+          message: res.msg,
+          type: 'success'
+        })
+        this.getData()
+      }).catch(err => {})
     },
     // 批量删除
     deleteBatch () {
@@ -326,6 +306,10 @@ export default {
     handleCurrentChange (index) {
       this.currentPage = index
       this.getData()
+    },
+    // 搜索
+    searchSubmit () {
+      this.getData()
     }
   }
 }
@@ -334,4 +318,5 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/base/variables.scss';
 @import '@/assets/base/mixins.scss';
+
 </style>

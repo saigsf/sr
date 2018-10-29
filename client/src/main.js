@@ -13,6 +13,8 @@ import 'iview/dist/styles/iview.css'
 
 import '@/components/_globals.js'
 
+import { getCookie } from '@/plugins/util'
+
 Vue.use(ElementUI, { size: 'mini' })
 Vue.use(iView)
 
@@ -32,13 +34,29 @@ router.beforeEach((to, from, next) => {
   }
   /* 路由发生变化修改页面title */
   if (to.meta.title) {
-    var str = ''
-    var len = to.matched.length
-    str = to.matched[0].meta.title + '-' + to.matched[len - 1].meta.title
+    let str = ''
+    let len = to.matched.length
+    if (len > 1) {
+      str = to.matched[0].meta.title + '-' + to.matched[1].meta.title
+    } else {
+      str = to.matched[0].meta.title
+    }
     document.title = str
   }
-  next()
+  if (to.meta.requireAuth) {
+    if (getCookie('token')) {
+      next()
+    } else {
+      next({
+        path: '/login',
+        query: {redirect: to.fullPath}
+      })
+    }
+  } else {
+    next()
+  }
 })
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

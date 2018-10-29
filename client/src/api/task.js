@@ -132,5 +132,9 @@ export default {
   // 删除操作日志
   deleteOperationLog: params => {
     return API.POST('/operationlog/delete', params)
+  },
+  // 删除操作日志
+  downloadOperationLog: params => {
+    return API.GET('/operationlog/getExcel', params)
   }
 }
