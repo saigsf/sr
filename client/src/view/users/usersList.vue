@@ -51,7 +51,7 @@
 <script>
 import API from '@/api/user.js'
 import {getField, getFormField, getSearchField} from '@/assets/json/index.js'
-import { dateFtt, px2rem, bubbleSortById } from '@/plugins/util.js'
+import { getPageSize, px2rem, bubbleSortById } from '@/plugins/util.js'
 export default {
   name: 'UsersList',
   data () {
@@ -118,7 +118,7 @@ export default {
       operation: operation, // table操作按钮
       column: [], // table字段
       data: [],
-      pageSize: 9,
+      pageSize: getPageSize(),
       currentPage: 1,
       total: 0,
       type: 'saveUser',

@@ -54,7 +54,7 @@
 <script>
 import API from '@/api/task.js'
 import {getField, getFormField, getSearchField} from '@/assets/json/index.js'
-import { dateFtt, px2rem } from '@/plugins/util.js'
+import { getPageSize, px2rem } from '@/plugins/util.js'
 export default {
   name: 'TaskList',
   data () {
@@ -63,7 +63,7 @@ export default {
       title: '',
       ref: 'form1',
       showTitle: false,
-      labelWidth: '90px',
+      labelWidth: px2rem(120),
       labelPositon: 'right',
       width: '80%',
       column: 1,
@@ -114,7 +114,7 @@ export default {
       data: [],
       formItem: [],
       formData: {},
-      pageSize: 9,
+      pageSize: getPageSize(),
       currentPage: 1,
       total: 0,
       type: 'saveTask',

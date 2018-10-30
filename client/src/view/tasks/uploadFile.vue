@@ -48,7 +48,7 @@
 <script>
 import API from '@/api/task.js'
 import {getField, getFormField, getSearchField} from '@/assets/json/index.js'
-import { dateFtt, px2rem, getCookie } from '@/plugins/util.js'
+import { getPageSize, px2rem, getCookie } from '@/plugins/util.js'
 import apiConfig from '../../../config/api.config'
 export default {
   name: 'ProjectList',
@@ -91,7 +91,7 @@ export default {
       operation: operation,
       column: [],
       data: [],
-      pageSize: 9,
+      pageSize: getPageSize,
       currentPage: 1,
       total: 0,
       type: 'saveProject',

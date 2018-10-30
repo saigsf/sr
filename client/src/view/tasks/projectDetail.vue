@@ -46,6 +46,7 @@
 <script>
 import API from '@/api/task.js'
 import {getField, getFormField} from '@/assets/json/index.js'
+import { getPageSize, px2rem } from '@/plugins/util.js'
 export default {
   name: 'ProjectDetail',
   data () {
@@ -54,7 +55,7 @@ export default {
       title: '',
       ref: 'project',
       showTitle: false,
-      labelWidth: '100px',
+      labelWidth: px2rem(100),
       labelPositon: 'right',
       width: '90%',
       column: 1,
@@ -99,7 +100,7 @@ export default {
       operation: operation,
       column: [],
       data: [],
-      pageSize: 9,
+      pageSize: getPageSize(),
       currentPage: 1,
       total: 0,
       search: '',

@@ -185,3 +185,12 @@ export function bubbleSortById (arr) {
   }
   return arr
 }
+/**
+ * 动态获取请求条数
+ *
+ * @export
+ * @returns
+ */
+export function getPageSize () {
+  return 10
+}

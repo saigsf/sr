@@ -3,7 +3,7 @@
     <div class="header-logo">
       <h1>盛瑞后台管理系统</h1>
     </div>
-    <div class="header-content">
+    <div class="header-content" v-if="false">
       <el-input placeholder="请输入公司员工" v-model="search" size="mini" class="input-with-select">
         <!-- <el-select v-model="select" slot="prepend" placeholder="请选择">
           <el-option label="餐厅名" value="1"></el-option>

@@ -6,8 +6,9 @@
     </el-row>
     <!-- 按钮 -->
     <el-row class="btn-group">
-      <el-button type="primary" size="mini" icon="el-icon-download" @click="downLoad">导出日志</el-button>
-      <a :href="downLoadUrl">下载</a>
+      <a :href="downLoadUrl">
+        <el-button type="primary" size="mini" icon="el-icon-download">导出日志</el-button>
+      </a>
       <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除日志</el-button>
     </el-row>
     <MyTable
@@ -34,7 +35,7 @@
 <script>
 import API from '@/api/task.js'
 import {getField} from '@/assets/json/index.js'
-import { dateFtt, px2rem } from '@/plugins/util.js'
+import { getPageSize, px2rem, getCookie } from '@/plugins/util.js'
 import apiConfig from '../../../config/api.config'
 export default {
   name: 'OperationLog',
@@ -65,12 +66,12 @@ export default {
     }
     return {
       confirm: confirm,
-      downLoadUrl: '#',
+      downLoadUrl: apiConfig.baseURl + '/operationlog/getExcel',
       multipleSelection: [],
       operation: operation,
       column: [],
       data: [],
-      pageSize: 9,
+      pageSize: getPageSize(),
       currentPage: 1,
       total: 0,
       ids: ''
@@ -81,6 +82,7 @@ export default {
     this.init()
   },
   activated () {
+    this.downLoadUrl = this.downLoadUrl
     this.getData()
   },
   methods: {
@@ -141,21 +143,6 @@ export default {
     // 取消删除
     cancle () {
       this.ids = null
-    },
-    downLoad () {
-      API.downloadOperationLog().then(res => {
-        // console.log(encodeURIComponent(res))
-        // this.uri = 'data:text/vnd.ms-excel;charset=utf-8,\ufeff' + encodeURIComponent(res)
-        
-        // var link = document.createElement("a");
-        // link.href = uri;
-        // //对下载的文件命名
-        // link.download =  "json数据表.xl"
-        // // link.style.display = 'none'
-        // document.body.appendChild(link);
-        // link.click();
-        // document.body.removeChild(link)
-      }).catch(err => {})
     },
     // 获取选中行
     handleSelectionChange (val) {

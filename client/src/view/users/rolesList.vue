@@ -29,6 +29,7 @@
     </MyTable>
     <el-dialog
       width="30%"
+      top="1vh"
       :title="dialogTitle"
       :visible.sync="dialogVisible"
       :before-close="handleClose">
@@ -47,7 +48,7 @@
 <script>
 import API from '@/api/user.js'
 import { getField, getFormField, getSearchField } from '@/assets/json/index.js'
-import { dateFtt, px2rem, bubbleSortById } from '@/plugins/util.js'
+import { getPageSize, px2rem, bubbleSortById } from '@/plugins/util.js'
 export default {
   name: 'RolesList',
   data () {
@@ -112,7 +113,7 @@ export default {
       operation: operation,
       column: [],
       data: [],
-      pageSize: 9,
+      pageSize: getPageSize(),
       currentPage: 1,
       total: 0,
       type: 'saveRoles',

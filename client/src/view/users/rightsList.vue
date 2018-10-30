@@ -20,7 +20,8 @@
       :currentPage="currentPage"
       :pageSize="pageSize"
       :total="total"
-      @handleCurrentChange="handleCurrentChange">
+      @handleCurrentChange="handleCurrentChange"
+      @select="handleSelectionChange">
     </MyTable>
     <el-dialog
       width="30%"
@@ -42,7 +43,7 @@
 <script>
 import API from '@/api/user.js'
 import { getField, getFormField, getSearchField } from '@/assets/json/index.js'
-import { dateFtt, px2rem, bubbleSortById } from '@/plugins/util.js'
+import { getPageSize, px2rem, bubbleSortById } from '@/plugins/util.js'
 export default {
   name: 'RightsList',
   data () {
@@ -73,7 +74,7 @@ export default {
       formData: {},
       column: [],
       data: [],
-      pageSize: 9,
+      pageSize: getPageSize(),
       currentPage: 1,
       total: 0,
       type: 'saveRights',
@@ -185,6 +186,7 @@ export default {
     deleteBatch () {
       var id = []
       this.multipleSelection.forEach(item => {
+        console.log(item)
         id.push(item.id)
       })
       if (id.length > 0) {

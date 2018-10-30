@@ -28,7 +28,7 @@ export default {
         title: '',
         ref: 'login',
         showTitle: false,
-        labelWidth: px2rem(80),
+        labelWidth: px2rem(60),
         labelPositon: 'right',
         submitText: '登录',
         hasSubmit: true,

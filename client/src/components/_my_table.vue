@@ -16,9 +16,10 @@
       :data="data"
       :stripe="stripe"
       :border="border"
+      :height="height"
       :max-height="maxHeight"
       :style="styles"
-      tooltip-effect="dark"
+      :tooltip-effect="'dark'"
       :row-class-name="tableRowClassName"
       @row-click="rowClick"
       @selection-change="handleSelectionChange">
@@ -27,7 +28,8 @@
         type="selection"
         v-if="multiple"
         :align="'center'"
-        :fixed="false">
+        :fixed="false"
+        :selectable='checkboxInit'>
       </el-table-column>
       <!-- 序号 -->
       <el-table-column
@@ -103,6 +105,7 @@
             type="text"
             @click="handle(citem.handle, scope.row)"
             :icon="citem.icon"
+            :disabled="scope.row.telephone === 'admin'"
             :size="citem.size">{{citem.content}}
           </el-button>
         </template>
@@ -123,6 +126,7 @@
 
 <script>
 /* eslint-disable */
+import { px2rem } from '@/plugins/util.js'
 export default {
   name: "MyTable",
   props: {
@@ -168,7 +172,7 @@ export default {
     }, // 复选框
     height: {
       type: String,
-      default: 'auto'
+      default: px2rem(506)
     },
     maxHeight: {
       type: String,
@@ -227,8 +231,9 @@ export default {
       this.$emit('select', val)
     },
     rowClick(row) {
-      // console.log(this.$refs)
-      this.$refs.multipleTable.toggleRowSelection(row);
+      if(row.telephone != 'admin') {
+        this.$refs.multipleTable.toggleRowSelection(row)
+      }
     },
     indexMethod(index) {
       return index +1;
@@ -236,7 +241,13 @@ export default {
     handleSizeChange() {},
     handleCurrentChange(index) {
       this.$emit('handleCurrentChange', index)
-    }
+    },
+    checkboxInit(row, index){
+      if (row.telephone === 'admin') 
+        return 0;//不可勾选
+      else
+        return 1;//可勾选
+    },
   }
 };
 </script>

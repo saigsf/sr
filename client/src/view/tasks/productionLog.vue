@@ -33,7 +33,7 @@
 <script>
 // import API from '@/api/user.js'
 import {getField, getFormField} from '@/assets/json/index.js'
-import { dateFtt, px2rem } from '@/plugins/util.js'
+import { getPageSize, px2rem } from '@/plugins/util.js'
 export default {
   name: 'ProductionLog',
   data () {
@@ -59,7 +59,7 @@ export default {
       },
       column: [],
       data: [],
-      pageSize: 10,
+      pageSize: getPageSize(),
       currentPage: 1,
       total: 0
     }

@@ -400,13 +400,13 @@
         "name": "tId",
         "cname": "tcuCode",
         "filterable": true,
-        "placeholder": "请选择TCU型号",
+        "placeholder": "请选择TCU代码",
         "width": "100%",
-        "label": "TCU型号:",
+        "label": "TCU代码:",
         "show": true,
         "options": [],
         "rules": [
-          { "required": true, "message": "请选择TCU型号", "trigger": "blur" }
+          { "required": true, "message": "请选择TCU代码", "trigger": "blur" }
         ]
       },
       {
@@ -610,12 +610,12 @@
       {
         "type": "text",
         "name": "username",
-        "placeholder": "请输入用户名",
+        "placeholder": "请使用手机号",
         "value": "",
-        "label": "用户名",
+        "label": "账号",
         "show": true,
         "rules": [
-          { "required": true, "message": "用户名不能为空", "trigger": "blur" }
+          { "required": true, "message": "账号不能为空", "trigger": "blur" }
         ]
       },
       {

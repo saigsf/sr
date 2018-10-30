@@ -5,6 +5,8 @@ import apiConfig from '../../config/api.config'
 import { getCookie } from '@/plugins/util'
 import router from '@/router/index'
 import { Message } from 'element-ui'
+import promise from 'es6-promise'
+promise.polyfill()
 
 Axios.defaults.withCredentials = false
 // Axios.defaults.headers.common['Authorization'] = getCookie('token')

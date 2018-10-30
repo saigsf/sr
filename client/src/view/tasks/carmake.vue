@@ -48,7 +48,7 @@
 <script>
 import API from '@/api/task.js'
 import { getField, getFormField, getSearchField } from '@/assets/json/index.js'
-import { dateFtt, px2rem } from '@/plugins/util.js'
+import { getPageSize, px2rem } from '@/plugins/util.js'
 import bus from '@/components/bus.js'
 export default {
   name: 'TcuList',
@@ -119,7 +119,7 @@ export default {
       operation: operation, // 操作按钮
       column: [],
       data: [],
-      pageSize: 9,
+      pageSize: getPageSize(),
       currentPage: 1,
       total: 0,
       type: 'saveCarmake', // 请求方式

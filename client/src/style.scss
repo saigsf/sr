@@ -54,6 +54,7 @@ body {
 .el-main {
   position: relative;
   overflow-x: hidden;
+  @include px2rem(padding, 20);
 }
 
 /* =============== 页面布局end ================= */
@@ -233,6 +234,7 @@ body {
 
 .el-form-item__label {
   @include px2rem(font-size, 16);
+  @include px2rem(padding-right, 10);
   color: #333 // font-weight: bold
 }
 
@@ -358,6 +360,9 @@ body {
       border-color: $tbca;
       color: #fff;
     }
+    &.is-disabled {
+      color: #c0c4cc
+    }
   }
 
   .cell {
@@ -400,6 +405,9 @@ body {
       border-left: 1px solid #fff;
       border-right: 1px solid #C5CAED;
     }
+  }
+  .el-table__empty-text {
+    @include px2rem(font-size, 16)
   }
 }
 
@@ -465,6 +473,9 @@ tr.even-row {
     transform: translateY(-50%);
   }
 }
+.el-dialog {
+  margin-bottom: 0
+}
 
 /* 通用样式 */
 .list {
@@ -477,7 +488,7 @@ tr.even-row {
   -ms-border-radius: 36px;
   -o-border-radius: 36px;
   box-shadow: 1px 4px 21px 0px rgba(137, 137, 137, 0.39);
-  @include padding(20, 40);
+  @include padding(15, 40);
 }
 
 .header {
@@ -557,6 +568,9 @@ tr.even-row {
       @include px2rem(margin-right, 5);
     }
   }
+  a {
+    @include px2rem(margin-right, 13)
+  }
 }
 
 /* 分页器样式 */
@@ -621,7 +635,7 @@ tr.even-row {
 
   .el-input {
     border-color: #CBFDE7;
-    background-color: #fff;
+    // background-color: #fff;
   }
 
   .el-form-item__label {
