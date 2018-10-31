@@ -126,7 +126,7 @@
 
 <script>
 /* eslint-disable */
-import { px2rem } from '@/plugins/util.js'
+import { px2rem, getTableHeight } from '@/plugins/util.js'
 export default {
   name: "MyTable",
   props: {
@@ -172,7 +172,7 @@ export default {
     }, // 复选框
     height: {
       type: String,
-      default: px2rem(506)
+      default: px2rem(getTableHeight())
     },
     maxHeight: {
       type: String,

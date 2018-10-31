@@ -145,7 +145,7 @@ export default new Router({
                 require(['@/view/tasks/uploadFile'], resolve)
               },
               meta: {
-                title: '文件管理',
+                title: '标定文件',
                 show: true,
                 icon: 'icon icon-dot',
                 leaf: true,

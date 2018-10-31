@@ -91,7 +91,7 @@ export default {
       operation: operation,
       column: [],
       data: [],
-      pageSize: getPageSize,
+      pageSize: getPageSize(),
       currentPage: 1,
       total: 0,
       type: 'saveProject',

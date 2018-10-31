@@ -187,6 +187,7 @@
   ],
   "file": [
     {
+      "type": "tooltip",
       "prop": "name",
       "label": "文件名称",
       "width": "auto",

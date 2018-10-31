@@ -192,5 +192,28 @@ export function bubbleSortById (arr) {
  * @returns
  */
 export function getPageSize () {
-  return 10
+  var w = document.documentElement.clientWidth
+  var s = 10
+  if (w <= 1366) {
+    s = 9
+  } else if (w > 1536) {
+    s = 10
+  }
+  return s
+}
+/**
+ * 获取table高度
+ *
+ * @export
+ * @returns
+ */
+export function getTableHeight () {
+  var w = document.documentElement.clientWidth
+  var h = 520
+  if (w <= 1366) {
+    h = 500
+  } else if (w > 1536) {
+    h = 520
+  }
+  return h
 }
