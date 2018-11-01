@@ -12,8 +12,8 @@
       :inline="false"
       size="mini"
       :model="formData"
-      :label-width="form.labelWidth"
-      @submit.native.prevent>
+      :label-width="form.labelWidth">
+      <!-- @submit.native.prevent -->
       <el-row>
         <template v-for="(item, index) in formItem">
           <el-col :span="24/form.column" :key="index" v-if="item.show">

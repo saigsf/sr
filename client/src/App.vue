@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <transition name="slide-left" mode="out-in">
+    <!-- <transition name="slide-left" mode="out-in"> -->
       <keep-alive>
-        <router-view class="child-view"></router-view>
+        <router-view></router-view>
       </keep-alive>
-    </transition>
+    <!-- </transition> -->
   </div>
 </template>
 

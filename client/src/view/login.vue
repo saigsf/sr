@@ -45,7 +45,6 @@ export default {
   },
   activated () {
     this.path =  this.$route.query.redirect ? this.$route.query.redirect : '/home'
-    console.log(this.$route.query)
   },
   methods: {
     init () {
@@ -55,6 +54,7 @@ export default {
     // 提交数据
     submit () {
       var _this = this
+      console.log(this.formData)
       API.login(this.formData).then(res => {
         switch (res.code) {
           case 0:

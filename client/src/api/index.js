@@ -5,8 +5,8 @@ import apiConfig from '../../config/api.config'
 import { getCookie } from '@/plugins/util'
 import router from '@/router/index'
 import { Message } from 'element-ui'
-import promise from 'es6-promise'
-promise.polyfill()
+// import promise from 'es6-promise'
+// promise.polyfill()
 
 Axios.defaults.withCredentials = false
 // Axios.defaults.headers.common['Authorization'] = getCookie('token')
@@ -52,7 +52,7 @@ Axios.interceptors.response.use(function (response) {
     }
   }
 }, function (err) {
-  console.log(router)
+  console.dir(err)
   // 对返回的错误进行一些处理
   iView.LoadingBar.error()
   if (err && err.response) {

@@ -295,14 +295,9 @@ export default {
         }).catch(err => {})
         console.log(this.formItem)
         this.dialogVisible = true
-      } else if (len >= 1) {
+      } else if (len > 1 || len < 1) {
         this.$message({
-          message: '请只选择一个用户',
-          type: 'warning'
-        })
-      } else {
-        this.$message({
-          message: '请选择一个用户',
+          message: '请只选择一个角色',
           type: 'warning'
         })
       }

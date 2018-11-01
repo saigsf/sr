@@ -16,24 +16,31 @@ $width: 1920;
     $rem-values: ();
     @each $value in $px-values {
       // If the value is zero or not a number, return it 
-      @if $value==0 or type-of($value) !="number" {
+      @if type-of($value) == "number" {
         $rem-values: append($rem-values, $value / $baseline-rem);
+      } @else {
+        $rem-values: append($rem-values, $value);
       }
     } // Return the property and its list of converted values 
     #{$property}: $rem-values;
   }
 }
-@mixin px2remx($prop, $value, $important:false) {
-  @if $important {
-    #{$prop}: px2rem($value) !important;
+
+@function px2rem($px-values) {
+  $base-px: 100;
+  @if type-of($px-values) == "number" {
+    @return #{$px-values / $base-px}rem;
+  } @else {
+    $rem-values: ();
+    @each $value in $px-values {
+      @if type-of($value) == "number" {
+        $rem-values: append($rem-values,  #{$value / $base-px}rem);
+      } @else {
+        $rem-values: append($rem-values, $value);
+      }
+    }
+    @return $rem-values;
   }
-  @else {
-    // #{$prop}: $value / $rem;
-    #{$prop}: px2rem($value);
-  }
-}
-@function px2rem($px) {
-  @return #{$px / 100}rem;
 }
 
 @mixin padding($top, $right: $top, $bottom: $top, $left: $right) {

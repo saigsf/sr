@@ -193,6 +193,7 @@ export function bubbleSortById (arr) {
  */
 export function getPageSize () {
   var w = document.documentElement.clientWidth
+  // var h = document.documentElement.clientHeight
   var s = 10
   if (w <= 1366) {
     s = 9
@@ -209,11 +210,12 @@ export function getPageSize () {
  */
 export function getTableHeight () {
   var w = document.documentElement.clientWidth
-  var h = 520
+  // var h = document.documentElement.clientHeight
+  var s = 520
   if (w <= 1366) {
-    h = 500
+    s = 500
   } else if (w > 1536) {
-    h = 520
+    s = 520
   }
-  return h
+  return s
 }
