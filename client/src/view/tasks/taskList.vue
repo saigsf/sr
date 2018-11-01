@@ -153,7 +153,6 @@ export default {
     // 获取项目列表
     getProject () {
       API.getProjectAll().then(res => {
-        console.log(res)
         this.formItem.forEach(item => {
           if (item.name === 'projectId') {
             item.options = res.data
@@ -170,6 +169,8 @@ export default {
     update (row) {
       this.type = 'updateTaskById'
       this.dialogVisible = true
+      console.log(row)
+      console.log(this.formData)
       for (const key in this.formData) {
         if (this.formData.hasOwnProperty(key)) {
           this.formData[key] = row[key]
