@@ -271,6 +271,14 @@
   ],
   "projectDetail": [
     {
+      "prop": "tcuType",
+      "label": "TCU型号",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
       "prop": "tcuCode",
       "label": "TCU代码",
       "width": "auto",
