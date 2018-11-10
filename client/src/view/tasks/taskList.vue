@@ -10,6 +10,7 @@
         <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">添加任务</el-button>
         <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除任务</el-button>
         <el-button type="primary" size="mini" icon="el-icon-edit-outline" @click="hangUpBatch">任务挂起</el-button>
+        <el-button type="primary" size="mini" icon="el-icon-edit-outline" @click="cancleHangUpBatch">取消挂起</el-button>
       </el-col>
       <el-col :span="12">
         <MySearch class="search" :formData="searchFormData" :formItem="searchFormItem" @submit="searchSubmit"></MySearch>
@@ -44,9 +45,9 @@
     <!-- myconfirm -->
     <MyConfirm
       ref="myconfirm"
-      :type="confirm.type"
-      :title="confirm.title"
-      :content="confirm.content">
+      :type="confirmType"
+      :title="confirmTitle"
+      :content="confirmContent">
     </MyConfirm>
   </div>
 </template>
@@ -55,6 +56,7 @@
 import API from '@/api/task.js'
 import {getField, getFormField, getSearchField} from '@/assets/json/index.js'
 import { getPageSize, px2rem } from '@/plugins/util.js'
+import { setTimeout } from 'timers';
 export default {
   name: 'TaskList',
   data () {
@@ -96,14 +98,10 @@ export default {
         }
       ]
     }
-    // 确认信息配置
-    var confirm = {
-      type: 'warning',
-      title: '提示信息',
-      content: '此操作将永久删除该文件, 是否继续?'
-    }
     return {
-      confirm: confirm,
+      confirmType: 'warning',
+      confirmTitle: '提示信息',
+      confirmContent: '此操作将永久删除该文件, 是否继续?',
       dialogTitle: '添加生产任务',
       dialogVisible: false,
       multipleSelection: [],
@@ -251,7 +249,11 @@ export default {
         ids = row.taskId
       }
       this.ids = ids.join()
-      this.$refs.myconfirm.confirm(_this.delete, _this.cancle)
+      this.confirmContent = '此操作将永久删除该文件, 是否继续?'
+      setTimeout(() => {
+        this.$refs.myconfirm.confirm(_this.delete, _this.cancle)
+      }, 100)
+      
     },
     // 取消删除
     cancle () {
@@ -271,7 +273,7 @@ export default {
             break;
           case 1:
             this.$message({
-              message: '挂起成功',
+              message: res.msg,
               type: 'success'
             })
             this.getData()
@@ -292,12 +294,11 @@ export default {
         ids = row.taskId
       }
       this.ids = ids.join()
-      this.confirm = {
-        type: 'warning',
-        title: '提示信息',
-        content: '是否执行挂起操作, 是否继续?'
-      }
-      this.$refs.myconfirm.confirm(_this.hangUp, _this.cancle)
+      this.confirmContent = '是否执行挂起操作, 是否继续?'
+      setTimeout(() => {
+        this.$refs.myconfirm.confirm(_this.hangUp, _this.cancle)
+      }, 100)
+      
     },
     // 批量挂起
     hangUpBatch () {
@@ -314,6 +315,63 @@ export default {
         })
       }
     },
+    // 挂起任务
+    cancleHangUp () {
+      var _this = this
+      API.resetTaskById({ids: _this.ids}).then(res => {
+        _this.ids = null
+        switch (res.code) {
+          case 0:
+            this.$message({
+              message: res.msg,
+              type: 'error'
+            })
+            break;
+          case 1:
+            this.$message({
+              message: res.msg,
+              type: 'success'
+            })
+            this.getData()
+            break;
+        
+          default:
+            break;
+        }
+      }).catch(err => {})
+    },
+    // 挂起控制
+    cancleHangUpConfirm (row) {
+      var _this = this
+      var ids = []
+      if (typeof row.taskId === 'number') {
+        ids.push(row.taskId)
+      } else {
+        ids = row.taskId
+      }
+      this.ids = ids.join()
+      this.confirmContent = '是否执行取消挂起操作, 是否继续?'
+      setTimeout(() => {
+        this.$refs.myconfirm.confirm(_this.cancleHangUp, _this.cancle)
+      }, 100)
+      
+    },
+    // 批量挂起
+    cancleHangUpBatch () {
+      var id = []
+      this.multipleSelection.forEach(item => {
+        id.push(item.taskId)
+      })
+      if (id.length > 0) {
+        this.cancleHangUpConfirm({taskId: id})
+      } else {
+        this.$message({
+          message: '请至少选择一个选项',
+          type: 'warning'
+        })
+      }
+    },
+    
     // 表单重置
     resetForm () {
       if(this.$refs['myform'] != undefined) {

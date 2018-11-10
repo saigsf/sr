@@ -111,12 +111,11 @@ export default {
   },
   created () {
     this.init()
-    this.getTCU()
-    this.getFile()
-    // this.getData()
   },
   activated() {
     this.projectName = this.$route.query.projectName
+    this.getTCU()
+    this.getFile()
     this.getData()
   },
   methods: {

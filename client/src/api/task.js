@@ -101,6 +101,10 @@ export default {
   hangUpTaskById: params => {
     return API.POST('/task/cancleTask', params)
   },
+  // 取消挂起Task
+  resetTaskById: params => {
+    return API.POST('/task/restTask', params)
+  },
   // 文件上传
   uploadFile: params => {
     return API.POST('/tcufile/upload', params)
@@ -119,7 +123,7 @@ export default {
   },
   // 获取生产日志
   getProductionLog: params => {
-    return API.GET('/tcufile/pageQuery', params)
+    return API.GET('/tasklog/pageQuery', params)
   },
   // 删除生产日志
   deleteProductionLog: params => {

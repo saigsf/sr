@@ -6,8 +6,11 @@
     </el-row>
     <!-- 按钮 -->
     <el-row class="btn-group">
+      <a :href="downLoadUrl">
+        <el-button type="primary" size="mini" icon="el-icon-download">导出日志</el-button>
+      </a>
       <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="showDialog">字段筛选</el-button>
-      <el-button type="primary" size="mini" icon="el-icon-download">导出日志</el-button>
+      <!-- <el-button type="primary" size="mini" icon="el-icon-download">导出日志</el-button> -->
     </el-row>
     <MyTable
       :multiple="false"
@@ -31,9 +34,10 @@
 </template>
 
 <script>
-// import API from '@/api/user.js'
+import API from '@/api/task.js'
 import {getField, getFormField} from '@/assets/json/index.js'
 import { getPageSize, px2rem } from '@/plugins/util.js'
+import apiConfig from '../../../config/api.config'
 export default {
   name: 'ProductionLog',
   data () {
@@ -50,6 +54,7 @@ export default {
     return {
       dialogTitle: '字段筛选',
       dialogVisible: false,
+      downLoadUrl: apiConfig.baseURl + '/tasklog/getExcel',
       multipleSelection: [],
       form: form,
       formItem: [],
@@ -74,9 +79,10 @@ export default {
     init () {
       // 获取table字段
       this.column = getField('productionLog')
-      // // 获取form字段
+      // // 获取form字段, "supCode", "tagNumber", "tagLsNo", "wtLsNo"
       this.formItem = getFormField('productionLog', 'item')
       this.formData = getFormField('productionLog', 'data')
+      this.submit()
     },
     // 添加数据
     showDialog () {
@@ -102,20 +108,16 @@ export default {
     },
     // 获取数据
     getData () {
-      this.data = []
-      for (let i = 0; i < this.pageSize; i++) {
-        this.data.push({
-          uid: i + 1,
-          operationTime: '2018-01-01',
-          operator: 'sdfas',
-          projectName: 'sdfas',
-          tcuCode: 'wereq',
-          productiveTask: 'wereq',
-          flashResults: 'wereq',
-          serialNumber: 'wereq',
-          batchNumber: '01'
-        })
+      var _this = this
+      var config = {
+        pageNo: _this.currentPage,
+        size: _this.pageSize
       }
+      API.getProductionLog(config).then(res => {
+        console.log(res)
+        this.data = res.data.list
+        this.total = res.data.total
+      })
     },
     // 获取选中行
     handleSelectionChange (val) {

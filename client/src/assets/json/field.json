@@ -287,6 +287,7 @@
       "show": true
     },
     {
+      "type": "tooltip",
       "prop": "fileName",
       "label": "标定文件",
       "width": "auto",
@@ -379,8 +380,9 @@
       "type": "needChange",
       "change": {
         "0": "已删除",
-        "1": "正常",
-        "2": "挂起"
+        "1": "进行中",
+        "2": "挂起",
+        "3": "完成"
       },
       "prop": "status",
       "label": "任务状态",
@@ -398,10 +400,19 @@
       "show": true
     }
   ],
-  "productionLog": [
+  "productionLog": [    
     {
-      "prop": "operationTime",
-      "label": "操作时间",
+      "prop": "projectName",
+      "label": "项目名称",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    
+    {
+      "prop": "taskName",
+      "label": "任务名称",
       "width": "auto",
       "fixed": false,
       "sortable": false,
@@ -415,32 +426,22 @@
       "sortable": false,
       "show": true
     },
-    {
-      "prop": "projectName",
-      "label": "项目名称",
+    { 
+      "type": "tooltip",
+      "prop": "operateTime",
+      "label": "操作时间",
       "width": "auto",
       "fixed": false,
       "sortable": false,
       "show": true
     },
     {
-      "prop": "tcuCode",
-      "label": "TCU型号",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    },
-    {
-      "prop": "productiveTask",
-      "label": "生产任务",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    },
-    {
-      "prop": "flashResults",
+      "type": "needChange",
+      "change": {
+        "0": "失败",
+        "1": "成功"
+      },
+      "prop": "result",
       "label": "刷写结果",
       "width": "auto",
       "fixed": false,
@@ -456,8 +457,64 @@
       "show": true
     },
     {
-      "prop": "batchNumber",
+      "prop": "batchNo",
       "label": "批次号",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "batchNumber",
+      "label": "批次数量",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "tcuType",
+      "label": "TCU类型",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "tcuCode",
+      "label": "TCU代码",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "supCode",
+      "label": "供应商代码",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "tagNumber",
+      "label": "标签数量",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "tagLsNo",
+      "label": "标签物流号",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "wtLsNo",
+      "label": "写入物流号",
       "width": "auto",
       "fixed": false,
       "sortable": false,
