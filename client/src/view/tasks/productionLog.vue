@@ -9,8 +9,7 @@
       <a :href="downLoadUrl">
         <el-button type="primary" size="mini" icon="el-icon-download">导出日志</el-button>
       </a>
-      <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="showDialog">字段筛选</el-button>
-      <!-- <el-button type="primary" size="mini" icon="el-icon-download">导出日志</el-button> -->
+      <el-button type="primary" size="mini" icon="el-icon-edit-outline" @click="showDialog">字段筛选</el-button>
     </el-row>
     <MyTable
       :multiple="false"

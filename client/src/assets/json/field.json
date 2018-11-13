@@ -1,6 +1,5 @@
 {
-  "user": [
-    {
+  "user": [{
       "prop": "username",
       "label": "用户名",
       "width": "auto",
@@ -49,8 +48,7 @@
       "show": true
     }
   ],
-  "roles": [
-    {
+  "roles": [{
       "prop": "name",
       "label": "角色名",
       "width": "auto",
@@ -91,8 +89,7 @@
       "show": true
     }
   ],
-  "rights": [
-    {
+  "rights": [{
       "prop": "name",
       "label": "权限名称",
       "width": "auto",
@@ -125,8 +122,7 @@
       "show": true
     }
   ],
-  "carmake": [
-    {
+  "carmake": [{
       "prop": "name",
       "label": "车企名称",
       "width": "auto",
@@ -143,8 +139,7 @@
       "show": true
     }
   ],
-  "tcu": [
-    {
+  "tcu": [{
       "prop": "type",
       "label": "TCU型号",
       "width": "auto",
@@ -185,9 +180,8 @@
       "show": true
     }
   ],
-  "file": [
-    {
-      "type": "tooltip",
+  "file": [{
+
       "prop": "name",
       "label": "文件名称",
       "width": "auto",
@@ -235,8 +229,7 @@
       "show": true
     }
   ],
-  "project": [
-    {
+  "project": [{
       "prop": "name",
       "label": "项目名称",
       "width": "auto",
@@ -283,8 +276,7 @@
       "show": true
     }
   ],
-  "projectDetail": [
-    {
+  "projectDetail": [{
       "prop": "tcuType",
       "label": "TCU型号",
       "width": "auto",
@@ -301,7 +293,7 @@
       "show": true
     },
     {
-      "type": "tooltip",
+
       "prop": "fileName",
       "label": "标定文件",
       "width": "auto",
@@ -323,8 +315,7 @@
       "show": true
     }
   ],
-  "task": [
-    {
+  "task": [{
       "prop": "projectName",
       "label": "项目名称",
       "width": "auto",
@@ -333,9 +324,17 @@
       "show": true
     },
     {
-      "type": "tooltip",
+
       "prop": "producedTime",
       "label": "生产日期",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "tcuType",
+      "label": "TCU型号",
       "width": "auto",
       "fixed": false,
       "sortable": false,
@@ -374,7 +373,7 @@
       "show": true
     },
     {
-      "type": "tooltip",
+
       "prop": "createTime",
       "label": "创建日期",
       "width": "auto",
@@ -412,10 +411,49 @@
       "fixed": false,
       "sortable": false,
       "show": true
+    },
+    {
+      "prop": "providerScriptUrl",
+      "label": "客户脚本",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "shengruiScriptUrl",
+      "label": "盛瑞脚本",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "labelCount",
+      "label": "标签数量",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "writeLogisticsNo",
+      "label": "写入物流号",
+      "width": "100",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "labelLogisticsNo",
+      "label": "标签物流号",
+      "width": "100",
+      "fixed": false,
+      "sortable": false,
+      "show": true
     }
   ],
-  "productionLog": [    
-    {
+  "productionLog": [{
       "prop": "projectName",
       "label": "项目名称",
       "width": "auto",
@@ -423,7 +461,7 @@
       "sortable": false,
       "show": true
     },
-    
+
     {
       "prop": "taskName",
       "label": "任务名称",
@@ -440,11 +478,11 @@
       "sortable": false,
       "show": true
     },
-    { 
-      "type": "tooltip",
+    {
+
       "prop": "operateTime",
       "label": "操作时间",
-      "width": "auto",
+      "width": "180",
       "fixed": false,
       "sortable": false,
       "show": true
@@ -488,7 +526,7 @@
     },
     {
       "prop": "tcuType",
-      "label": "TCU类型",
+      "label": "TCU型号",
       "width": "auto",
       "fixed": false,
       "sortable": false,
@@ -535,8 +573,7 @@
       "show": true
     }
   ],
-  "operationLog": [
-    {
+  "operationLog": [{
       "prop": "operator",
       "label": "操作人",
       "width": "auto",

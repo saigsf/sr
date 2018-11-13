@@ -50,6 +50,7 @@
           :sortable="item.sortable"
           :prop="item.prop"
           :label="item.label"
+          :show-overflow-tooltip="true"
           :width="item.width">
           <template slot-scope="scope">
             <!-- 下拉列表显示 -->

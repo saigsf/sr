@@ -11,6 +11,7 @@
         <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除任务</el-button>
         <el-button type="primary" size="mini" icon="el-icon-edit-outline" @click="hangUpBatch">任务挂起</el-button>
         <el-button type="primary" size="mini" icon="el-icon-edit-outline" @click="cancleHangUpBatch">取消挂起</el-button>
+        <el-button type="primary" size="mini" icon="el-icon-edit-outline" @click="beforeFilter">字段筛选</el-button>
       </el-col>
       <el-col :span="12">
         <MySearch class="search" :formData="searchFormData" :formItem="searchFormItem" @submit="searchSubmit"></MySearch>
@@ -78,7 +79,7 @@ export default {
       show: true,
       fixed: false,
       size: 'mini',
-      width: 'auto',
+      width: '150',
       minWidth: 100,
       label: '操作',
       btns: [
@@ -112,15 +113,19 @@ export default {
       data: [],
       formItem: [],
       formData: {},
+      filterFormItem: [],
+      filterFormData: {},
+      isFilter: false,
       pageSize: getPageSize(),
       currentPage: 1,
       total: 0,
       type: 'saveTask',
-      searchFormData: [],
-      searchFormItem: {}
+      searchFormData: {},
+      searchFormItem: []
     }
   },
   created () {
+    this.filterFormInit()
     this.fieldInit()
     this.formInit()
     this.searchFormInit()
@@ -139,6 +144,7 @@ export default {
     fieldInit () {
       // 获取字段
       this.column = getField('task')
+      this.toFilter()
     },
     // 表单数据初始化
     formInit () {
@@ -146,9 +152,14 @@ export default {
       this.formItem = getFormField('task', 'item')
       this.formData = getFormField('task', 'data')
     },
+    filterFormInit () {
+      this.filterFormItem = getFormField('taskFilter', 'item')
+      this.filterFormData = getFormField('taskFilter', 'data')
+    },
     searchFormInit () {
       this.searchFormItem = getSearchField('task', 'item')
       this.searchFormData = getSearchField('task', 'data')
+      console.log(this.searchFormInit)
     },
     // 获取盛瑞脚本
     getShengruiScript() {
@@ -182,15 +193,19 @@ export default {
     },
     // 添加数据
     showDialog () {
+      this.isFilter = false
+      this.formInit()
+      this.dialogTitle = '添加生产任务'
       this.type = 'saveTask'
       this.dialogVisible = true
     },
     // 更新数据
     update (row) {
+      this.isFilter = false
+      this.formInit()
+      this.dialogTitle = '添加生产任务'
       this.type = 'updateTaskById'
       this.dialogVisible = true
-      console.log(row)
-      console.log(this.formData)
       for (const key in this.formData) {
         if (this.formData.hasOwnProperty(key)) {
           this.formData[key] = row[key]
@@ -199,22 +214,27 @@ export default {
     },
     // 提交数据
     submit () {
-      API[this.type](this.formData).then(res => {
-        this.dialogVisible = false
-        this.$message({
-          message: res.msg,
-          type: 'success'
+      if(this.isFilter) {
+        this.toFilter()
+      } else {
+        API[this.type](this.formData).then(res => {
+          this.dialogVisible = false
+          this.$message({
+            message: res.msg,
+            type: 'success'
+          })
+          this.getData()
         })
-        this.getData()
-      })
+      }
+      
     },
     // 弹框关闭时的回调函数
     handleClose (done) {
-      for (const key in this.formData) {
-        if (this.formData.hasOwnProperty(key)) {
-          this.formData[key] = ''
-        }
-      }
+      // for (const key in this.formData) {
+      //   if (this.formData.hasOwnProperty(key)) {
+      //     this.formData[key] = ''
+      //   }
+      // }
       // this.formInit()
       this.resetForm()
       done()
@@ -413,6 +433,27 @@ export default {
     // 搜索
     searchSubmit () {
       this.getData()
+    },
+    beforeFilter() {
+      this.isFilter = true
+      this.formItem = this.filterFormItem
+      this.formData = this.filterFormData
+      this.dialogTitle = '字段筛选'
+      this.dialogVisible = true
+    },
+    toFilter () {
+      console.log(this.filterFormData)
+      this.column.forEach(item => {
+        var show = false
+        for (let i = 0; i < this.filterFormData.fieldFilter.length; i++) {
+          const citem = this.filterFormData.fieldFilter[i];
+          if(item.prop == citem) {
+            show = true
+          }
+        }
+        item.show = show
+      });
+      this.dialogVisible = false
     }
   }
 }

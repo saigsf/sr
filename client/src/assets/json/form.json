@@ -408,6 +408,48 @@
           "message": "请选择盛瑞脚本",
           "trigger": "blur"
         }]
+      },
+      {
+        "type": "text",
+        "name": "labelCount",
+        "value": "",
+        "placeholder": "请输入标签数量",
+        "width": "100%",
+        "label": "标签数量:",
+        "show": true,
+        "rules": [{
+          "required": true,
+          "message": "请输入标签数量",
+          "trigger": "blur"
+        }]
+      },
+      {
+        "type": "text",
+        "name": "writeLogisticsNo",
+        "value": "",
+        "placeholder": "请输入写入物流号",
+        "width": "100%",
+        "label": "写入物流号:",
+        "show": true,
+        "rules": [{
+          "required": true,
+          "message": "请输入写入物流号",
+          "trigger": "blur"
+        }]
+      },
+      {
+        "type": "text",
+        "name": "labelLogisticsNo",
+        "value": "",
+        "placeholder": "请输入标签物流号",
+        "width": "100%",
+        "label": "标签物流号:",
+        "show": true,
+        "rules": [{
+          "required": true,
+          "message": "请输入标签物流号",
+          "trigger": "blur"
+        }]
       }
     ],
     "data": {
@@ -421,8 +463,92 @@
       "createTime": "",
       "finishNumber": "",
       "serialNumber": "",
+      "shengruiScriptId": "",
       "providerScriptId": "",
-      "shengruiScriptId": ""
+      "labelCount": "",
+      "writeLogisticsNo": "",
+      "labelLogisticsNo": ""
+    }
+  },
+  "taskFilter": {
+    "item": [
+      {
+        "type": "checkbox",
+        "name": "fieldFilter",
+        "label": "字段筛选:",
+        "show": true,
+        "value": [],
+        "options": [
+          {
+            "id": "projectName",
+            "name": "项目名称"
+          },
+          {
+            "id": "producedTime",
+            "name": "生产日期"
+          },
+          {
+            "id": "tcuType",
+            "name": "TCU型号"
+          },
+          {
+            "id": "tcuCode",
+            "name": "TCU代码"
+          },
+          {
+            "id": "batchNo",
+            "name": "批次号"
+          },
+          {
+            "id": "batchNumber",
+            "name": "批次数量"
+          },
+          {
+            "id": "operator",
+            "name": "创建人"
+          },
+          {
+            "id": "createTime",
+            "name": "创建日期"
+          },
+          {
+            "id": "completeNumber",
+            "name": "完成数量"
+          },
+          {
+            "id": "status",
+            "name": "任务状态"
+          },
+          {
+            "id": "serialNumber",
+            "name": "流水号"
+          },
+          {
+            "id": "providerScriptUrl",
+            "name": "客户脚本"
+          },
+          {
+            "id": "shengruiScriptUrl",
+            "name": "盛瑞脚本"
+          },
+          {
+            "id": "labelCount",
+            "name": "标签数量"
+          },
+          {
+            "id": "labelLogisticsNo",
+            "name": "标签物流号"
+          },
+          {
+            "id": "writeLogisticsNo",
+            "name": "写入物流号"
+          }
+        ]
+      }
+    ],
+    "data": {
+      "fieldFilter": [ "projectName", "producedTime", "tcuType", "tcuCode", "batchNo", "batchNumber", 
+        "createTime", "operator", "completeNumber", "status", "serialNumber"]
     }
   },
   "project": {
