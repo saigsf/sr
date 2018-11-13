@@ -196,6 +196,20 @@
       "show": true
     },
     {
+      "type": "needChange",
+      "change": {
+        "1": "TCU文件",
+        "2": "盛瑞脚本文件",
+        "3": "客户脚本文件"
+      },
+      "prop": "type",
+      "label": "文件类型",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
       "prop": "uploadtime",
       "label": "上传时间",
       "width": "auto",
@@ -369,7 +383,7 @@
       "show": true
     },
     {
-      "prop": "finishNumber",
+      "prop": "completeNumber",
       "label": "完成数量",
       "width": "auto",
       "fixed": false,

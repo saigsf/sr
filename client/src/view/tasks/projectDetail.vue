@@ -136,7 +136,7 @@ export default {
       })
     },
     getFile () {
-      API.getFillAll().then(res => {
+      API.getFillAll({type: 1}).then(res => {
         this.formItem.forEach(item => {
           if (item.name === 'fId') {
             item.options = res.data

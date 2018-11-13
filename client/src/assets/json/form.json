@@ -374,6 +374,40 @@
           "message": "请输入初始流水号",
           "trigger": "blur"
         }]
+      },
+      {
+        "type": "select",
+        "name": "providerScriptId",
+        "cname": "name",
+        "value": "",
+        "placeholder": "请选择客户脚本",
+        "filterable": true,
+        "width": "100%",
+        "label": "客户脚本:",
+        "show": true,
+        "options": [],
+        "rules": [{
+          "required": true,
+          "message": "请选客户脚本",
+          "trigger": "blur"
+        }]
+      },
+      {
+        "type": "select",
+        "name": "shengruiScriptId",
+        "cname": "name",
+        "value": "",
+        "placeholder": "请选择盛瑞脚本",
+        "filterable": true,
+        "width": "100%",
+        "label": "盛瑞脚本:",
+        "show": true,
+        "options": [],
+        "rules": [{
+          "required": true,
+          "message": "请选择盛瑞脚本",
+          "trigger": "blur"
+        }]
       }
     ],
     "data": {
@@ -386,7 +420,9 @@
       "operator": "",
       "createTime": "",
       "finishNumber": "",
-      "serialNumber": ""
+      "serialNumber": "",
+      "providerScriptId": "",
+      "shengruiScriptId": ""
     }
   },
   "project": {
@@ -712,6 +748,58 @@
     "data": {
       "username": "",
       "password": ""
+    }
+  },
+  "file": {
+    "item": [
+      {
+        "type": "select",
+        "name": "type",
+        "cname": "name",
+        "value": "",
+        "placeholder": "请选择文件类型",
+        "filterable": true,
+        "width": "100%",
+        "label": "文件类型:",
+        "show": true,
+        "options": [
+          {
+            "id": 1,
+            "name": "TCU文件"
+          },
+          {
+            "id": 2,
+            "name": "盛瑞脚本文件"
+          },
+          {
+            "id": 3,
+            "name": "客户脚本文件"
+          }
+        ],
+        "rules": [{
+          "required": true,
+          "message": "请选择文件类型",
+          "trigger": "blur"
+        }]
+      },
+      {
+        "type": "file",
+        "name": "file",
+        "value": "",
+        "placeholder": "请选择文件",
+        "filterable": true,
+        "width": "100%",
+        "label": "选择文件:",
+        "show": true,
+        "rules": [{
+          "required": false,
+          "message": "请选择文件",
+          "trigger": "blur"
+        }]
+      }
+    ],
+    "data": {
+      "type": ""
     }
   }
 }

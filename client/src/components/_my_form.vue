@@ -12,6 +12,7 @@
       :inline="false"
       size="mini"
       :model="formData"
+      enctype="multipart/form-data"
       :label-width="form.labelWidth">
       <!-- @submit.native.prevent -->
       <el-row>

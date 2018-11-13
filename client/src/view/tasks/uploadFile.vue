@@ -7,7 +7,7 @@
     <!-- 按钮 -->
     <el-row class="btn-group">
       <el-col :span="12">
-        <el-upload
+        <!-- <el-upload
           class="upload"
           :headers="headers"
           :action="upLoadUrl"
@@ -16,8 +16,8 @@
           :on-error="handleError"
           :show-file-list="false">
           <el-button type="primary" size="mini" icon="el-icon-circle-plus">添加文件</el-button>
-        </el-upload>
-        <!-- <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">添加文件</el-button> -->
+        </el-upload> -->
+        <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">添加文件</el-button>
         <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除文件</el-button>
       </el-col>
       <el-col :span="12">
@@ -36,6 +36,43 @@
       @delete="deleteConfirm"
       @select="handleSelectionChange">
     </MyTable>
+    <!-- 表单提交 -->
+    <el-dialog
+      :title="dialogTitle"
+      :visible.sync="dialogVisible"
+      width="30%"
+      :before-close="handleClose">
+      <!-- <MyForm ref="myform" :form="form" :formData="formData" :formItem="formItem" @submit="submit"></MyForm> -->
+      <el-form
+        :model="formData"
+        :label-width="form.labelWidth"
+        :label-positon="form.labelPositon"
+        >
+        <el-form-item label="文件类型：">
+          <el-select v-model="formData.type" placeholder="文件类型" style="width:85%">
+            <el-option v-for="option in formItem[0].options" :key="option.id" :label="option.name" :value="option.id"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="选择文件：">
+          <el-upload
+            ref="upload"
+            class="upload"
+            :headers="headers"
+            :action="upLoadUrl"
+            :data="formData"
+            :auto-upload="false"
+            :file-list="fileList"
+            style="width:85%"
+            :show-file-list="true"
+            :on-success="handleSuccess">
+            <el-button type="primary" size="mini">选择文件</el-button>
+          </el-upload>
+        </el-form-item>
+      </el-form>
+      <el-row class="upload-btn" style="width:85%">
+        <el-button type="primary" size="mini" @click="submit">上传</el-button>
+      </el-row>
+    </el-dialog>
     <MyConfirm
       ref="myconfirm"
       :type="confirm.type"
@@ -53,6 +90,20 @@ import apiConfig from '../../../config/api.config'
 export default {
   name: 'ProjectList',
   data () {
+    // 表单配置
+    var form = {
+      title: '',
+      ref: 'tuc',
+      showTitle: false,
+      labelWidth: px2rem(140),
+      labelPositon: 'right',
+      width: '90%',
+      column: 1,
+      hasSubmit: true,
+      submitText: '提交',
+      cancleText: '取消',
+      fileUpload: true
+    }
     // 表格数据操作
     var operation = {
       show: true,
@@ -83,6 +134,13 @@ export default {
     }
 
     return {
+      dialogTitle: '文件上传',
+      dialogVisible: false,
+      form: form,
+      formItem: [],
+      formData: {},
+      fileNmae: '',
+      fileList: [],
       headers: headers,
       confirm: confirm,
       upLoadUrl: apiConfig.baseURl + '/tcufile/upload',
@@ -94,7 +152,7 @@ export default {
       pageSize: getPageSize(),
       currentPage: 1,
       total: 0,
-      type: 'saveProject',
+      type: 'uploadFile',
       loading: '',
       searchFormData: [],
       searchFormItem: {}
@@ -112,6 +170,9 @@ export default {
     init () {
       // 获取字段
       this.column = getField('file')
+      // 获取form字段
+      this.formItem = getFormField('file', 'item')
+      this.formData = getFormField('file', 'data')
     },
     searchFormInit () {
       this.searchFormItem = getSearchField('file', 'item')
@@ -196,19 +257,10 @@ export default {
       this.getData()
     },
     // 上传文件之前
-    handleBefore (res) {
-      console.log(res)
-      this.loading = this.$loading({
-        lock: true,
-        text: '文件正在上传···',
-        spinner: 'el-icon-loading',
-        background: 'rgba(0, 0, 0, 0.7)'
-      })
-    },
+    handleBefore (res) {},
     // 上传文件成功
     handleSuccess (res) {
       console.log(res)
-      this.loading.close()
       switch (res.code) {
         case 0:
           this.$message({
@@ -217,6 +269,7 @@ export default {
           })
           break;
         case 1:
+          this.dialogVisible = false
           this.$message({
             message: res.msg,
             type: 'success'
@@ -230,8 +283,7 @@ export default {
     },
     // 上传文件失败
     handleError (err) {
-      console.log(err)
-      this.loading.close()
+      // this.dialogVisible = true
       this.$message({
         message: '文件上传失败',
         type: 'error'
@@ -240,7 +292,19 @@ export default {
     // 搜索
     searchSubmit () {
       this.getData()
-    }
+    },
+    // 添加数据
+    showDialog () {
+      this.dialogVisible = true
+    },
+    // 提交数据
+    submit () {
+      this.$refs.upload.submit()
+    },
+    // 弹框关闭时的回调函数
+    handleClose (done) {
+      done()
+    },
   }
 }
 </script>
@@ -250,6 +314,14 @@ export default {
 @import '@/assets/base/mixins.scss';
 .upload {
   float: left;
-  @include px2rem(margin-right, 20)
+  @include px2rem(margin-right, 20);
+  
 }
+.upload-btn {
+    margin: auto;
+    text-align: right;
+    .el-button {
+      margin-right: 5%
+    }
+  }
 </style>

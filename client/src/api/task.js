@@ -107,7 +107,7 @@ export default {
   },
   // 文件上传
   uploadFile: params => {
-    return API.POST('/tcufile/upload', params)
+    return API.FILEUPLOAD('/tcufile/upload', params)
   },
   // 获取所有文件
   getFillAll: params => {

@@ -124,12 +124,14 @@ export default {
     this.fieldInit()
     this.formInit()
     this.searchFormInit()
-    this.getProject()
   },
   mounted () {
     this.resetForm()
   },
   activated () {
+    this.getProject()
+    this.getShengruiScript()
+    this.getProviderScript()
     this.getData()
   },
   methods: {
@@ -147,6 +149,26 @@ export default {
     searchFormInit () {
       this.searchFormItem = getSearchField('task', 'item')
       this.searchFormData = getSearchField('task', 'data')
+    },
+    // 获取盛瑞脚本
+    getShengruiScript() {
+      API.getFillAll({type: 2}).then((res) => {
+        this.formItem.forEach(item => {
+          if(item.name == 'shengruiScriptId') {
+            item.options = res.data
+          }
+        })
+      })
+    },
+    // 获取客户脚本
+    getProviderScript() {
+      API.getFillAll({type: 3}).then((res) => {
+        this.formItem.forEach(item => {
+          if(item.name == 'providerScriptId') {
+            item.options = res.data
+          }
+        })
+      })
     },
     // 获取项目列表
     getProject () {
@@ -193,7 +215,7 @@ export default {
           this.formData[key] = ''
         }
       }
-      this.formInit()
+      // this.formInit()
       this.resetForm()
       done()
     },
@@ -208,6 +230,7 @@ export default {
       config = $.extend(config, this.searchFormData)
       // 接口调用
       API.getTaskList(config).then(res => {
+        console.log(res)
         this.data = res.data.list
         this.total = res.data.total
       }).catch(err => {})

@@ -16,7 +16,7 @@ Axios.defaults.timeout = 10000
 
 // 添加一个请求拦截器
 Axios.interceptors.request.use(function (config) {
-  console.dir(config)
+  // console.dir(config)
   // 顶部加载进度条启动
   iView.LoadingBar.start()
   // 消息头重写
@@ -31,7 +31,7 @@ Axios.interceptors.request.use(function (config) {
 // 添加一个返回拦截器
 Axios.interceptors.response.use(function (response) {
   // 对返回的数据进行一些处理，比如说把loading动画关掉
-  console.dir(response)
+  // console.dir(response)
   // 顶部进度条结束
   iView.LoadingBar.finish()
   if (response && response.data) {
@@ -134,4 +134,7 @@ export const DELETE = (url, params) => {
 
 export const PATCH = (url, params) => {
   return Axios.patch(`${base}${url}`, params).then(res => res.data)
+}
+export const FILEUPLOAD = (url, params) => {
+  return Axios.post(`${base}${url}`, params).then(res => res.data)
 }
