@@ -181,7 +181,6 @@
     }
   ],
   "file": [{
-
       "prop": "name",
       "label": "文件名称",
       "width": "auto",
@@ -191,11 +190,21 @@
     },
     {
       "type": "needChange",
-      "change": {
-        "1": "TCU文件",
-        "2": "盛瑞脚本文件",
-        "3": "客户脚本文件"
-      },
+      "change": [
+        {},
+        {
+        "name": "TCU标定文件",
+        "color": ""
+        },
+        {
+          "name": "盛瑞脚本文件",
+          "color": ""
+        },
+        {
+          "name": "客户脚本文件",
+          "color": ""
+        }
+      ],
       "prop": "type",
       "label": "文件类型",
       "width": "auto",
@@ -303,10 +312,16 @@
     },
     {
       "type": "needChange",
-      "change": {
-        "0": "已禁用",
-        "1": "使用中"
-      },
+      "change": [
+        {
+          "name": "已禁用",
+          "color": ""
+        },
+        {
+        "name": "使用中",
+        "color": ""
+        }
+      ],
       "prop": "status",
       "label": "使用状态",
       "width": "auto",
@@ -391,12 +406,25 @@
     },
     {
       "type": "needChange",
-      "change": {
-        "0": "已删除",
-        "1": "进行中",
-        "2": "挂起",
-        "3": "完成"
-      },
+      "change": [
+        {},
+        {
+          "name": "进行中",
+          "color": ""
+        },
+        {
+          "name": "挂起",
+          "color": ""
+        },
+        {
+          "name": "完成",
+          "color": ""
+        },
+        {
+          "name": "等待中",
+          "color": ""
+        }
+      ],
       "prop": "status",
       "label": "任务状态",
       "width": "auto",
@@ -406,7 +434,7 @@
     },
     {
       "prop": "serialNumber",
-      "label": "初始流水号",
+      "label": "流水号",
       "width": "auto",
       "fixed": false,
       "sortable": false,
@@ -489,10 +517,16 @@
     },
     {
       "type": "needChange",
-      "change": {
-        "0": "失败",
-        "1": "成功"
-      },
+      "change": [
+        {
+        "name": "失败",
+        "color": ""
+        },
+        {
+          "name": "成功",
+          "color": ""
+        }
+      ],
       "prop": "result",
       "label": "刷写结果",
       "width": "auto",

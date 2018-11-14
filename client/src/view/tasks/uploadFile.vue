@@ -66,6 +66,7 @@
             :show-file-list="true"
             :on-success="handleSuccess">
             <el-button type="primary" size="mini">选择文件</el-button>
+            <div slot="tip" class="el-upload__tip">文件名称不能有中文和空格！！</div>
           </el-upload>
         </el-form-item>
       </el-form>
@@ -257,7 +258,9 @@ export default {
       this.getData()
     },
     // 上传文件之前
-    handleBefore (res) {},
+    handleBefore (res) {
+      console.log(res)
+    },
     // 上传文件成功
     handleSuccess (res) {
       console.log(res)

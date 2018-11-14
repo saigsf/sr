@@ -76,6 +76,7 @@ export default {
     }
     
     var operation = {
+      nowPage: 'usersList',
       show: true,
       fixed: 'right',
       size: 'mini',

@@ -8,9 +8,9 @@
     <el-row class="btn-group">
       <el-col :span="12">
         <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">添加任务</el-button>
-        <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除任务</el-button>
-        <el-button type="primary" size="mini" icon="el-icon-edit-outline" @click="hangUpBatch">任务挂起</el-button>
-        <el-button type="primary" size="mini" icon="el-icon-edit-outline" @click="cancleHangUpBatch">取消挂起</el-button>
+        <!-- <el-button type="primary" size="mini" icon="el-icon-circle-close" @click="deleteBatch">删除任务</el-button> -->
+        <!-- <el-button type="primary" size="mini" icon="el-icon-edit-outline" @click="hangUpBatch">任务挂起</el-button> -->
+        <!-- <el-button type="primary" size="mini" icon="el-icon-edit-outline" @click="cancleHangUpBatch">取消挂起</el-button> -->
         <el-button type="primary" size="mini" icon="el-icon-edit-outline" @click="beforeFilter">字段筛选</el-button>
       </el-col>
       <el-col :span="12">
@@ -31,6 +31,8 @@
       :total="total"
       @handleCurrentChange="handleCurrentChange"
       @delete="deleteConfirm"
+      @hangUp="hangUpConfirm"
+      @cancleHangUp="cancleHangUpConfirm"
       @update="update"
       @select="handleSelectionChange">
     </MyTable>
@@ -76,13 +78,28 @@ export default {
     }
     // 表格操作配置
     var operation = {
+      nowPage: 'taskList',
       show: true,
       fixed: false,
       size: 'mini',
-      width: '150',
+      width: '250',
       minWidth: 100,
       label: '操作',
       btns: [
+        {
+          type: 'text',
+          size: 'mini',
+          content: '挂起',
+          icon: 'el-icon-edit-outline',
+          handle: 'hangUp'
+        },
+        {
+          type: 'text',
+          size: 'mini',
+          content: '取消',
+          icon: 'el-icon-edit-outline',
+          handle: 'cancleHangUp'
+        },
         {
           type: 'text',
           size: 'mini',

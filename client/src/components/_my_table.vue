@@ -76,7 +76,7 @@
             <!-- 链接 -->
             <a v-else-if="item.type == 'link'" :href="scope.row[item.prop]"  :download="scope.row.name"> <i class="el-icon-download"></i> 下载</a>
             <!-- 内容需要转换 -->
-            <span v-else-if="item.type == 'needChange'">{{ item.change[scope.row[item.prop]] }}</span>
+            <span v-else-if="item.type == 'needChange'"  :style="'color:'+ item.change[scope.row[item.prop]].name">{{ item.change[scope.row[item.prop]].name }}</span>
             <!-- 正常显示 -->
             <span v-else>{{ (scope.row[item.prop] != '' || scope.row[item.prop] == 0) ? scope.row[item.prop] : '-' }}</span>
           </template>
@@ -106,7 +106,7 @@
             type="text"
             @click="handle(citem.handle, scope.row)"
             :icon="citem.icon"
-            :disabled="scope.row.telephone === 'admin'"
+            :disabled="setDisabled(scope.row, citem)"
             :size="citem.size">{{citem.content}}
           </el-button>
         </template>
@@ -249,6 +249,42 @@ export default {
       else
         return 1;//可勾选
     },
+    setDisabled(row, btn) {
+      var flag = false
+      switch (this.operation.nowPage) {
+        case 'usersList':
+          flag = row.telephone === 'admin'
+          break;
+        case 'taskList':
+          if (row.status === 1) {
+            if(btn.content === '挂起') {
+              flag = false
+            } else {
+              flag = true
+            }
+            
+          } else if (row.status === 2) {
+            if(btn.content === '取消') {
+              flag = false
+            } else {
+              flag = true
+            }
+          } else if (row.status === 3) {
+            flag = true
+          } else {
+            if(btn.content === '取消') {
+              flag = true
+            } else {
+              flag = false
+            }
+          }
+          break;
+      
+        default:
+          break;
+      }
+      return flag
+    }
   }
 };
 </script>

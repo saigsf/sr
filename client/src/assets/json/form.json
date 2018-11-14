@@ -548,7 +548,7 @@
     ],
     "data": {
       "fieldFilter": [ "projectName", "producedTime", "tcuType", "tcuCode", "batchNo", "batchNumber", 
-        "createTime", "operator", "completeNumber", "status", "serialNumber"]
+        "createTime", "completeNumber", "status", "serialNumber"]
     }
   },
   "project": {
@@ -891,7 +891,7 @@
         "options": [
           {
             "id": 1,
-            "name": "TCU文件"
+            "name": "TCU标定文件"
           },
           {
             "id": 2,

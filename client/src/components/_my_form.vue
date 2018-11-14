@@ -61,7 +61,7 @@
                 :placeholder="item.placeholder"
                 :default-time="item.defaultTime"
                 :align="item.align"
-                :picker-options="item.pickerOptions"
+                :picker-options="pickerOptions"
                 :disabled="item.disabled"
                 :value-format="(item.format ? item.format : 'yyyy-MM-dd hh:mm:ss')"
                 :format="(item.format ? item.format : 'yyyy-MM-dd hh:mm:ss')"
@@ -195,7 +195,11 @@ export default {
   },
   data() {
     return {
-      // formData: {}
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() < Date.now();
+        }
+      }
     }
   },
   created () {},

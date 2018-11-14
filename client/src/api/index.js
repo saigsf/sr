@@ -31,7 +31,7 @@ Axios.interceptors.request.use(function (config) {
 // 添加一个返回拦截器
 Axios.interceptors.response.use(function (response) {
   // 对返回的数据进行一些处理，比如说把loading动画关掉
-  // console.dir(response)
+  console.dir(response)
   // 顶部进度条结束
   iView.LoadingBar.finish()
   if (response && response.data) {
@@ -43,6 +43,11 @@ Axios.interceptors.response.use(function (response) {
         type: 'error'
       })
     } else if (response.data.code === 301) {
+      Message({
+        message: response.data.msg,
+        type: 'error'
+      })
+    } else if (response.data.code === 500) {
       Message({
         message: response.data.msg,
         type: 'error'
