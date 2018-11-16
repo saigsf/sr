@@ -376,6 +376,8 @@
         }]
       },
       {
+        "needChange": true,
+        "nName": "url",
         "type": "select",
         "name": "providerScriptId",
         "cname": "name",
@@ -393,6 +395,8 @@
         }]
       },
       {
+        "needChange": true,
+        "nName": "url",
         "type": "select",
         "name": "shengruiScriptId",
         "cname": "name",
@@ -453,7 +457,7 @@
       }
     ],
     "data": {
-      "taskId": "",
+      "id": "",
       "projectId": "",
       "producedTime": "",
       "tcuCode": "",
@@ -497,7 +501,7 @@
           },
           {
             "id": "batchNo",
-            "name": "批次号"
+            "name": "批次"
           },
           {
             "id": "batchNumber",
@@ -521,7 +525,7 @@
           },
           {
             "id": "serialNumber",
-            "name": "流水号"
+            "name": "初始流水号"
           },
           {
             "id": "providerScriptUrl",
@@ -548,7 +552,7 @@
     ],
     "data": {
       "fieldFilter": [ "projectName", "producedTime", "tcuType", "tcuCode", "batchNo", "batchNumber", 
-        "createTime", "completeNumber", "status", "serialNumber"]
+        "operator", "createTime", "completeNumber", "status", "serialNumber"]
     }
   },
   "project": {

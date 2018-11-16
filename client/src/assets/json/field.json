@@ -131,8 +131,24 @@
       "show": true
     },
     {
+      "prop": "remark",
+      "label": "备注",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
       "prop": "createTime",
       "label": "创建时间",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "operator",
+      "label": "创建人",
       "width": "auto",
       "fixed": false,
       "sortable": false,

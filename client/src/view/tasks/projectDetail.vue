@@ -47,6 +47,7 @@
 import API from '@/api/task.js'
 import {getField, getFormField} from '@/assets/json/index.js'
 import { getPageSize, px2rem } from '@/plugins/util.js'
+import { setTimeout } from 'timers';
 export default {
   name: 'ProjectDetail',
   data () {
@@ -65,6 +66,7 @@ export default {
     }
     // 表格数据操作
     var operation = {
+      nowPage: 'projectDetail',
       show: true,
       fixed: 'right',
       size: 'mini',
@@ -228,6 +230,11 @@ export default {
     // 删除确认
     deleteConfirm (row) {
       var _this = this
+      _this.confirm = {
+        type: 'warning',
+        title: '提示信息',
+        content: '此操作将永久删除该文件, 是否继续?'
+      }
       var ids = []
       if (typeof row.ptfId === 'number') {
         ids.push(row.ptfId)
@@ -235,7 +242,10 @@ export default {
         ids = row.ptfId
       }
       this.ids = ids.join()
-      this.$refs.myconfirm.confirm(_this.delete, _this.cancle)
+      setTimeout(() => {
+        this.$refs.myconfirm.confirm(_this.delete, _this.cancle)
+      }, 100)
+      
     },
     // 取消
     cancle () {
@@ -277,7 +287,10 @@ export default {
         title: '提示信息',
         content: '启用这条数据, 是否继续?'
       }
-      this.$refs.myconfirm.confirm(_this.enable, _this.cancle)
+      setTimeout(() => {
+        this.$refs.myconfirm.confirm(_this.enable, _this.cancle)
+      }, 100)
+      
     },
     // 禁用
     disable () {

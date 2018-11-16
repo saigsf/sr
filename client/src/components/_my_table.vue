@@ -78,7 +78,7 @@
             <!-- 内容需要转换 -->
             <span v-else-if="item.type == 'needChange'"  :style="'color:'+ item.change[scope.row[item.prop]].name">{{ item.change[scope.row[item.prop]].name }}</span>
             <!-- 正常显示 -->
-            <span v-else>{{ (scope.row[item.prop] != '' || scope.row[item.prop] == 0) ? scope.row[item.prop] : '-' }}</span>
+            <span v-else>{{ (scope.row[item.prop] != null && (scope.row[item.prop] + '')) ? scope.row[item.prop] : '-' }}</span>
           </template>
           <template v-if="item.column">
             <el-table-column v-for="(item, idx) in item.column" :key="idx"
@@ -101,7 +101,9 @@
         :width="operation.width"
         :minWidth="operation.minWidth">
         <template slot-scope="scope">
-          <el-button v-for="(citem, index) in operation.btns"
+          <template v-for="(citem, index) in operation.btns"> 
+          <el-button
+            v-if="setShow(scope.row, citem)"
             :key="index"
             type="text"
             @click="handle(citem.handle, scope.row)"
@@ -109,6 +111,7 @@
             :disabled="setDisabled(scope.row, citem)"
             :size="citem.size">{{citem.content}}
           </el-button>
+          </template>
         </template>
       </el-table-column>
     </el-table>
@@ -257,27 +260,41 @@ export default {
           break;
         case 'taskList':
           if (row.status === 1) {
-            if(btn.content === '挂起') {
-              flag = false
-            } else {
-              flag = true
-            }
-            
+            flag = btn.content != '挂起'
           } else if (row.status === 2) {
-            if(btn.content === '取消') {
-              flag = false
-            } else {
-              flag = true
-            }
+            flag = btn.content != '取消'
           } else if (row.status === 3) {
             flag = true
-          } else {
-            if(btn.content === '取消') {
-              flag = true
-            } else {
-              flag = false
-            }
+          } else if (row.status === 4) {
+            flag = false
           }
+          break;
+        case 'projectDetail':
+          if (row.status === 1) {
+            flag = true
+          } else {
+            flag = false
+          }
+          break;
+      
+        default:
+          break;
+      }
+      return flag
+    },
+    setShow(row, btn) {
+      var flag = true
+      switch (this.operation.nowPage) {
+        case 'usersList':
+          break;
+        case 'taskList':
+          if (row.status === 1 || row.status === 2) {
+            flag = btn.content === '挂起' || btn.content === '取消'
+          } else if (row.status === 3 || row.status === 4) {
+            flag = btn.content === '编辑' || btn.content === '删除'
+          } 
+          break;
+        case 'projectDetail':
           break;
       
         default:

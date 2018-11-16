@@ -6,34 +6,34 @@ var response = require('../util/response')
 
 /* GET carmaker listing. */
 router.get('/pageQuery', function (req, res, next) {
-  console.log(req.headers.host)
-  var page = req.query.page ? req.query.page : 1
-  var size = req.query.size ? req.query.size : 10
-  var order = req.query.order ? req.query.order : 'id'
-  var sort = req.query.sort ? req.query.sort : 'ASC'
-  var name = req.query.name ? req.query.name : ''
+  var ip = req.header('x-forwarded-for') || req.connection.remoteAddress
+  console.log(ip)
+  // 获取请求参数
+  var params = req.query
+
+  // 定义查询字段
   const fields = ['id', 'name', 'remark', 'operator', 'operatorIp', 'createTime', 'updateTime']
+  // 定义查询语句
   const where = ["status LIKE '%" + 1 + "%'"]
-
-
-  var SELECT_BASE = "select " + fields.join(',') + " from carmaker "
-  var ORDER_BASE = "order by " + order + " " + sort + " " // 排序
-  var LIMIT_BASE = "limit " + (page - 1) * size + "," + size + " " // 分页
-  var WHERE_BASE = "WHERE " + where.join(' and ') + " "
-  var sql = SELECT_BASE + WHERE_BASE + ORDER_BASE + LIMIT_BASE
+  var table = 'carmaker'
 
   var total = 0
 
-  mysql.count('carmaker', (err, vals, fields) => {
-    total = vals
+  mysql.count(table, (err, vals, fields) => {
+    total = vals[0].total
   })
-  mysql.query(sql, (err, vals, fields) => {
+  mysql.pageQuery(params, table, fields, where, (err, vals, fields) => {
     //do something  
-    var data = {
-      list: vals,
-      total: total
+    
+    if (vals) {
+      var data = {
+        list: vals,
+        total: total
+      }
+      response.success(res, '数据获取成功', data)
+    } else if (err) {
+      response.error(res, '数据获取失败', null)
     }
-    response.success(res, '数据获取成功', data)
   });
 });
 

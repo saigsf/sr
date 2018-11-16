@@ -40,21 +40,44 @@ var update = function () {
  */
 var count = function (table, callback) {
   var sql = "select count(id) as total from " + table
-  pool.getConnection(function (err, conn) {
-    if (err) {
-      callback(err, null, null);
-    } else {
-      conn.query(sql, function (qerr, vals, fields) {
-        //释放连接
-        conn.release();
-        //事件驱动回调
-        callback(qerr, vals[0].total, fields);
-      });
+  query(sql, callback)
+}
+/**
+ * 数据查询
+ *
+ * @param {Object} params 查询参数
+ * @param {String} table 要查询的表
+ * @param {Array} fields 查询字段
+ * @param {Array} where 查询条件
+ */
+var pageQuery = function (params, table, fields, where, callback) {
+  // 默认查询参数
+  var def = {
+    page: 1,
+    size: 10,
+    order: 'id',
+    sort: 'ASC'
+  }
+  // 添加查询条件
+  for (const key in params) {
+    if (params.hasOwnProperty(key)) {
+      const value = params[key];
+      def[key] = value;
     }
-  });
+  }
+  // 确定查询语句
+  var select_base = "select " + fields.join(',') + " from " + table + " "
+  var order_base = "order by " + def.order + " " + def.sort + " " // 排序
+  var limit_base = "limit " + (def.page - 1) * def.size + "," + def.size + " " // 分页
+  var where_base = "WHERE " + where.join(' and ') + " "
+  var sql = select_base + where_base + order_base + limit_base
+
+  query(sql, callback)
+
 }
 
 module.exports = {
   query,
-  count
+  count,
+  pageQuery
 };

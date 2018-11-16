@@ -79,7 +79,7 @@
                 :filterable="item.filterable"
                 :allow-create="item.allowCreate"
                 :style="'width: ' + (item.width ? item.width : '100%')">
-                <el-option v-for="option in item.options" :key="option.id" :label="option[item.cname]" :value="option.id"></el-option>
+                <el-option v-for="option in item.options" :key="option.id" :label="option[item.cname]" :value="(item.needChange ? option[item.nName] : option.id)"></el-option>
               </el-select>
               <!-- 复选框 -->
               <el-checkbox-group
@@ -261,6 +261,7 @@ export default {
 }
 .el-checkbox {
   margin-left: 0;
+  width: px2rem(90);
   &:not(:last-of-type) {
     @include px2rem(margin-right, 30)
   }

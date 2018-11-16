@@ -82,7 +82,7 @@ export default {
       show: true,
       fixed: false,
       size: 'mini',
-      width: '250',
+      width: '150',
       minWidth: 100,
       label: '操作',
       btns: [
@@ -138,7 +138,9 @@ export default {
       total: 0,
       type: 'saveTask',
       searchFormData: {},
-      searchFormItem: []
+      searchFormItem: [],
+      shengruiScript: [],
+      providerScript: []
     }
   },
   created () {
@@ -181,6 +183,7 @@ export default {
     // 获取盛瑞脚本
     getShengruiScript() {
       API.getFillAll({type: 2}).then((res) => {
+        this.shengruiScript = res.data
         this.formItem.forEach(item => {
           if(item.name == 'shengruiScriptId') {
             item.options = res.data
@@ -191,6 +194,7 @@ export default {
     // 获取客户脚本
     getProviderScript() {
       API.getFillAll({type: 3}).then((res) => {
+        this.providerScript = res.data
         this.formItem.forEach(item => {
           if(item.name == 'providerScriptId') {
             item.options = res.data
@@ -225,7 +229,15 @@ export default {
       this.dialogVisible = true
       for (const key in this.formData) {
         if (this.formData.hasOwnProperty(key)) {
-          this.formData[key] = row[key]
+          if(key === 'id') {
+            this.formData[key] = row.taskId
+          } else if (key === 'shengruiScriptId') {
+            this.formData[key] = row.shengruiScriptUrl
+          } else if (key === 'providerScriptId') {
+            this.formData[key] = row.providerScriptUrl
+          } else {
+            this.formData[key] = row[key]
+          }
         }
       }
     },
@@ -234,6 +246,18 @@ export default {
       if(this.isFilter) {
         this.toFilter()
       } else {
+        this.shengruiScript.forEach(item => {
+          if (this.formData.shengruiScriptId == item.url) {
+            this.formData.shengruiScriptId = item.id
+          }
+        })
+        
+        this.providerScript.forEach(item => {
+          if (this.formData.providerScriptId == item.url) {
+            this.formData.providerScriptId = item.id
+          }
+        })
+
         API[this.type](this.formData).then(res => {
           this.dialogVisible = false
           this.$message({
