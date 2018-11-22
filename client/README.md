@@ -115,3 +115,7 @@
 ### 角色绑定权限[`roleBindAcl`]
 
 ### 获取权限列表[`getRights`]
+
+## 注意
+
+>更改接口地址：config/api.config.js

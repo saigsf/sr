@@ -185,7 +185,7 @@ export default {
       API.getFillAll({type: 2}).then((res) => {
         this.shengruiScript = res.data
         this.formItem.forEach(item => {
-          if(item.name == 'shengruiScriptId') {
+          if(item.name == 'shengruiScriptUrl') {
             item.options = res.data
           }
         })
@@ -196,7 +196,7 @@ export default {
       API.getFillAll({type: 3}).then((res) => {
         this.providerScript = res.data
         this.formItem.forEach(item => {
-          if(item.name == 'providerScriptId') {
+          if(item.name == 'providerScriptUrl') {
             item.options = res.data
           }
         })
@@ -246,37 +246,48 @@ export default {
       if(this.isFilter) {
         this.toFilter()
       } else {
+        console.log(this.formData)
+        // return
+        this.formData.shengruiScriptId = ''
+        this.formData.providerScriptId = ''
         this.shengruiScript.forEach(item => {
-          if (this.formData.shengruiScriptId == item.url) {
+          
+          if (this.formData.shengruiScriptUrl == item.name) {
+            console.log(item.name, item.id)
             this.formData.shengruiScriptId = item.id
           }
         })
         
         this.providerScript.forEach(item => {
-          if (this.formData.providerScriptId == item.url) {
+          
+          if (this.formData.providerScriptUrl == item.name) {
+            console.log(item.name, item.id)
             this.formData.providerScriptId = item.id
           }
         })
-
-        API[this.type](this.formData).then(res => {
-          this.dialogVisible = false
-          this.$message({
-            message: res.msg,
-            type: 'success'
+        setTimeout(() => {
+          API[this.type](this.formData).then(res => {
+            this.dialogVisible = false
+            this.$message({
+              message: res.msg,
+              type: 'success'
+            })
+            this.getData()
+            this.getShengruiScript()
+            this.getProviderScript()
           })
-          this.getData()
-        })
+        }, 50);
+        
       }
       
     },
     // 弹框关闭时的回调函数
     handleClose (done) {
-      // for (const key in this.formData) {
-      //   if (this.formData.hasOwnProperty(key)) {
-      //     this.formData[key] = ''
-      //   }
-      // }
-      // this.formInit()
+      for (const key in this.formData) {
+        if (this.formData.hasOwnProperty(key)) {
+          this.formData[key] = ''
+        }
+      }
       this.resetForm()
       done()
     },
