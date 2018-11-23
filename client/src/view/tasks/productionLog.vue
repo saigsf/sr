@@ -10,6 +10,7 @@
         <el-button type="primary" size="mini" icon="el-icon-download">导出日志</el-button>
       </a>
       <el-button type="primary" size="mini" icon="el-icon-edit-outline" @click="showDialog">字段筛选</el-button>
+      <el-button type="primary" size="mini" icon="el-icon-edit-outline" @click="statisticsPie">刷写统计</el-button>
     </el-row>
     <MyTable
       :multiple="false"
@@ -29,6 +30,13 @@
       :before-close="handleClose">
       <MyForm :form="form" :formData="formData" :formItem="formItem" @submit="submit"></MyForm>
     </el-dialog>
+    <el-dialog
+      width="40%"
+      title="刷写统计"
+      :visible.sync="dialogVisible2">
+      <StatisticsPie></StatisticsPie>
+    </el-dialog>
+    
   </div>
 </template>
 
@@ -37,8 +45,13 @@ import API from '@/api/task.js'
 import {getField, getFormField} from '@/assets/json/index.js'
 import { getPageSize, px2rem } from '@/plugins/util.js'
 import apiConfig from '../../../config/api.config'
+import StatisticsPie from "@/components/statistics_pie";
+
 export default {
   name: 'ProductionLog',
+  components: {
+    StatisticsPie
+  },
   data () {
     var form = {
       ref: 'productionLog',
@@ -53,6 +66,7 @@ export default {
     return {
       dialogTitle: '字段筛选',
       dialogVisible: false,
+      dialogVisible2: false,
       downLoadUrl: apiConfig.baseURl + '/tasklog/getExcel',
       multipleSelection: [],
       form: form,
@@ -128,6 +142,10 @@ export default {
     handleCurrentChange (index) {
       this.currentPage = index
       this.getData()
+    },
+    // 刷写统计
+    statisticsPie() {
+      this.dialogVisible2 = true
     }
   }
 }

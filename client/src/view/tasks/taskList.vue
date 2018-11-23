@@ -68,7 +68,7 @@ export default {
       title: '',
       ref: 'form1',
       showTitle: false,
-      labelWidth: px2rem(120),
+      labelWidth: px2rem(140),
       labelPositon: 'right',
       width: '80%',
       column: 1,

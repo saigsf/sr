@@ -140,5 +140,9 @@ export default {
   // 下载操作日志
   downloadOperationLog: params => {
     return API.GET('/operationlog/getExcel', params)
+  },
+  // 获取刷写统计数据
+  getEchatInfo: params => {
+    return API.GET('/tasklog/getEchatInfo', params)
   }
 }

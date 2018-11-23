@@ -886,3 +886,8 @@ tr.even-row {
   @include px2rem(font-size, 14);
 }
 /* ========================= 确认框样式修正end ================ */
+
+/* ================================ */
+.el-select-dropdown__item {
+  font-size: px2rem(14)
+}

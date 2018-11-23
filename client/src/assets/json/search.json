@@ -136,5 +136,23 @@
       "pName": "",
       "tcuCode": ""
     }
+  },
+  "statistics": {
+    "item": [
+      {
+        "type": "datetimerange",
+        "name": "dateRange",
+        "value": "",
+        "rangeSeparator": "至",
+        "startPlaceholder": "请选择起始时间",
+        "endPlaceholder": "请选择终止时间",
+        "width": "100%",
+        "format": "yyyy-MM-dd hh:mm:ss",
+        "show": true
+      }
+    ],
+    "data": {
+      "dateRange": []
+    }
   }
 }

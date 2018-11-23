@@ -293,6 +293,50 @@
       "show": true
     },
     {
+      "type": "needChange",
+      "change": [
+        {},
+        {
+        "name": "条形码",
+        "color": ""
+        },
+        {
+          "name": "二维码",
+          "color": ""
+        }
+      ],
+      "prop": "customerBarcodeType",
+      "label": "客户条码类型",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "customerBarcodeCount",
+      "label": "客户条形码数",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "customerScriptName",
+      "label": "客户脚本",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "shengruiScriptName",
+      "label": "盛瑞脚本",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
       "type": "Object",
       "prop": "type",
       "fprop": "tcu",

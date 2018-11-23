@@ -248,6 +248,10 @@ export default {
       config = $.extend(config, this.searchFormData)
       // 接口调用
       API.getProjectList(config).then(res => {
+        res.data.list.forEach(item => {
+          item.customerScriptName = item.customerScript
+          item.shengruiScriptName = item.shengruiScript
+        });
         this.data = res.data.list
         this.total = res.data.total
       })
