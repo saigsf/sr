@@ -6,7 +6,7 @@
 
 线下：http://192.168.0.101:8080/shengruiweb
 
-线上：
+线上：http://222.91.98.78:9998/shengruiweb
 
 ### 获取所有车企数据[`getCarmakeAll`]
 
@@ -119,3 +119,14 @@
 ## 注意
 
 >更改接口地址：config/api.config.js
+
+## 项目运行，打包
+
+```shell
+# 加载依赖包
+npm i
+# 启动项目
+npm run dev
+# 项目打包
+npm run build
+```

@@ -114,7 +114,8 @@ export default {
       total: 0,
       type: 'saveTCU',
       searchFormData: [],
-      searchFormItem: {}
+      searchFormItem: {},
+      fileArr: []
     }
   },
   created () {
@@ -125,6 +126,7 @@ export default {
     this.resetForm()
   },
   activated () {
+    this.getFile()
     this.getData()
   },
   methods: {
@@ -138,6 +140,17 @@ export default {
     searchFormInit () {
       this.searchFormItem = getSearchField('tcu', 'item')
       this.searchFormData = getSearchField('tcu', 'data')
+    },
+    // 获取tcu配置文件
+    getFile () {
+      API.getFillAll({type: 4}).then((res) => {
+        this.fileArr = res.data
+        this.formItem.forEach(item => {
+          if(item.name == 'fileId') {
+            item.options = res.data
+          }
+        })
+      })
     },
     // 添加数据
     showDialog () {

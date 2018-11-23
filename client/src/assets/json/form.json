@@ -333,45 +333,16 @@
         }]
       },
       {
-        "type": "datetime",
-        "name": "createTime",
-        "value": "",
-        "placeholder": "请选择创建时间",
-        "width": "100%",
-        "defaultTime": "2018/01/01",
-        "label": "创建日期:",
-        "show": false,
-        "rules": [{
-          "required": true,
-          "message": "请输入创建日期",
-          "trigger": "blur"
-        }]
-      },
-      {
         "type": "text",
-        "name": "finishNumber",
+        "name": "tcuSoftwareNo",
         "value": "",
-        "placeholder": "请输入完成数量",
+        "placeholder": "请输入TCU软件编号",
         "width": "100%",
-        "label": "完成数量:",
-        "show": false,
-        "rules": [{
-          "required": true,
-          "message": "请输入完成数量",
-          "trigger": "blur"
-        }]
-      },
-      {
-        "type": "text",
-        "name": "serialNumber",
-        "value": "",
-        "placeholder": "请输入初始流水号",
-        "width": "100%",
-        "label": "初始流水号:",
+        "label": "TCU软件编号:",
         "show": true,
         "rules": [{
           "required": true,
-          "message": "请输入初始流水号",
+          "message": "请输入TCU软件编号",
           "trigger": "blur"
         }]
       },
@@ -387,7 +358,7 @@
         "width": "100%",
         "label": "客户脚本:",
         "allowCreate": true,
-        "show": true,
+        "show": false,
         "options": [],
         "rules": [{
           "required": true,
@@ -407,11 +378,25 @@
         "width": "100%",
         "label": "盛瑞脚本:",
         "allowCreate": true,
-        "show": true,
+        "show": false,
         "options": [],
         "rules": [{
           "required": true,
           "message": "请选择盛瑞脚本",
+          "trigger": "blur"
+        }]
+      },
+      {
+        "type": "text",
+        "name": "serialNumber",
+        "value": "",
+        "placeholder": "请输入初始流水号",
+        "width": "100%",
+        "label": "初始流水号:",
+        "show": true,
+        "rules": [{
+          "required": true,
+          "message": "请输入初始流水号",
           "trigger": "blur"
         }]
       },
@@ -422,7 +407,7 @@
         "placeholder": "请输入标签数量",
         "width": "100%",
         "label": "标签数量:",
-        "show": true,
+        "show": false,
         "rules": [{
           "required": true,
           "message": "请输入标签数量",
@@ -431,29 +416,29 @@
       },
       {
         "type": "text",
-        "name": "writeLogisticsNo",
+        "name": "writePartsNo",
         "value": "",
-        "placeholder": "请输入写入物流号",
+        "placeholder": "请输入写入零部件号",
         "width": "100%",
-        "label": "写入物流号:",
-        "show": true,
+        "label": "写入零部件号:",
+        "show": false,
         "rules": [{
           "required": true,
-          "message": "请输入写入物流号",
+          "message": "请输入写入零部件号",
           "trigger": "blur"
         }]
       },
       {
         "type": "text",
-        "name": "labelLogisticsNo",
+        "name": "labelPartsNo",
         "value": "",
-        "placeholder": "请输入标签物流号",
+        "placeholder": "请输入标签零部件号",
         "width": "100%",
-        "label": "标签物流号:",
-        "show": true,
+        "label": "标签零部件号:",
+        "show": false,
         "rules": [{
           "required": true,
-          "message": "请输入标签物流号",
+          "message": "请输入标签零部件号",
           "trigger": "blur"
         }]
       }
@@ -474,8 +459,8 @@
       "shengruiScriptUrl": "",
       "providerScriptUrl": "",
       "labelCount": "",
-      "writeLogisticsNo": "",
-      "labelLogisticsNo": ""
+      "writePartsNo": "",
+      "labelPartsNo": ""
     }
   },
   "taskFilter": {
@@ -540,16 +525,20 @@
             "name": "盛瑞脚本"
           },
           {
-            "id": "labelCount",
-            "name": "标签数量"
+            "id": "customerBarcodeCount",
+            "name": "客户条形码数量"
           },
           {
-            "id": "labelLogisticsNo",
-            "name": "标签物流号"
+            "id": "labelPartsNo",
+            "name": "标签零部件号"
           },
           {
-            "id": "writeLogisticsNo",
-            "name": "写入物流号"
+            "id": "writePartsNo",
+            "name": "写入零部件号"
+          },
+          {
+            "id": "tcuSoftwareNo",
+            "name": "tcu软件编号"
           }
         ]
       }
@@ -589,12 +578,127 @@
           "message": "请输入车企名称",
           "trigger": "blur"
         }]
+      },
+      {
+        "type": "select",
+        "name": "customerBarcodeType",
+        "cname": "name",
+        "filterable": true,
+        "placeholder": "请选择客户条码类型",
+        "width": "100%",
+        "label": "客户条码类型:",
+        "show": true,
+        "options": [
+          {
+            "id": 1,
+            "name": "条形码"
+          },
+          {
+            "id": 2,
+            "name": "二维码"
+          }
+        ],
+        "rules": [{
+          "required": true,
+          "message": "请输入客户条码类型",
+          "trigger": "blur"
+        }]
+      },
+      {
+        "type": "text",
+        "name": "customerBarcodeCount",
+        "value": "",
+        "placeholder": "请输入客户条形码数量",
+        "width": "100%",
+        "label": "客户条形码数量:",
+        "show": true,
+        "rules": [{
+          "required": true,
+          "message": "请输入客户条形码数量",
+          "trigger": "blur"
+        }]
+      },
+      {
+        "needChange": true,
+        "nName": "name",
+        "type": "select",
+        "name": "customerScriptName",
+        "cname": "name",
+        "value": "",
+        "placeholder": "请选择客户脚本",
+        "filterable": true,
+        "width": "100%",
+        "label": "客户脚本:",
+        "allowCreate": true,
+        "show": true,
+        "options": [],
+        "rules": [{
+          "required": true,
+          "message": "请选客户脚本",
+          "trigger": "blur"
+        }]
+      },
+      {
+        "needChange": true,
+        "nName": "name",
+        "type": "select",
+        "name": "shengruiScriptName",
+        "cname": "name",
+        "value": "",
+        "placeholder": "请选择盛瑞脚本",
+        "filterable": true,
+        "width": "100%",
+        "label": "盛瑞脚本:",
+        "allowCreate": true,
+        "show": true,
+        "options": [],
+        "rules": [{
+          "required": true,
+          "message": "请选择盛瑞脚本",
+          "trigger": "blur"
+        }]
+      },
+      {
+        "type": "text",
+        "name": "writePartsNo",
+        "value": "",
+        "placeholder": "请输入写入零部件号",
+        "width": "100%",
+        "label": "写入零部件号:",
+        "show": true,
+        "rules": [{
+          "required": true,
+          "message": "请输入写入零部件号",
+          "trigger": "blur"
+        }]
+      },
+      {
+        "type": "text",
+        "name": "labelPartsNo",
+        "value": "",
+        "placeholder": "请输入标签零部件号",
+        "width": "100%",
+        "label": "标签零部件号:",
+        "show": true,
+        "rules": [{
+          "required": true,
+          "message": "请输入标签零部件号",
+          "trigger": "blur"
+        }]
       }
     ],
     "data": {
       "id": "",
       "name": "",
-      "company_id": ""
+      "company_id": "",
+      "shengruiScriptId": "",
+      "customerScriptId": "",
+      "shengruiScriptName": "",
+      "customerScriptName": "",
+      "writePartsNo": "",
+      "labelPartsNo": "",
+      "customerBarcodeType": "",
+      "customerBarcodeCount": ""
     }
   },
   "projectDetail": {
@@ -676,6 +780,20 @@
       },
       {
         "type": "text",
+        "name": "companyCode",
+        "value": "",
+        "placeholder": "请输入车企代码",
+        "width": "100%",
+        "label": "车企代码:",
+        "show": true,
+        "rules": [{
+          "required": true,
+          "message": "请输入车企代码",
+          "trigger": "blur"
+        }]
+      },
+      {
+        "type": "text",
         "name": "remark",
         "value": "",
         "placeholder": "请添加备注",
@@ -692,13 +810,14 @@
     "data": {
       "id": "",
       "name": "",
+      "companyCode": "",
       "remark": ""
     }
   },
   "tcu": {
     "item": [{
         "type": "text",
-        "name": "type",
+        "name": "tcuType",
         "value": "",
         "placeholder": "请输入TCU型号",
         "width": "100%",
@@ -765,15 +884,33 @@
           "message": "请输入boot版本号",
           "trigger": "blur"
         }]
+      },
+      {
+        "type": "select",
+        "name": "fileId",
+        "cname": "name",
+        "value": "",
+        "placeholder": "请选择TCU配置文件",
+        "width": "100%",
+        "label": "TCU配置文件:",
+        "allowCreate": true,
+        "show": true,
+        "options": [],
+        "rules": [{
+          "required": true,
+          "message": "请选择TCU配置文件",
+          "trigger": "blur"
+        }]
       }
     ],
     "data": {
       "id": "",
-      "type": "",
+      "tcuType": "",
       "tcuCode": "",
       "supplier": "",
       "supCode": "",
-      "bootVersion": ""
+      "bootVersion": "",
+      "fileId": ""
     }
   },
   "productionLog": {
@@ -822,6 +959,10 @@
           "name": "TCU类型"
         },
         {
+          "id": "tcuNo",
+          "name": "TCU编码"
+        },
+        {
           "id": "tcuCode",
           "name": "TCU代码"
         },
@@ -830,22 +971,30 @@
           "name": "供应商代码"
         },
         {
-          "id": "tagNumber",
-          "name": "标签数量"
+          "id": "customerBarcodeCount",
+          "name": "客户条形码数"
         },
         {
           "id": "tagLsNo",
-          "name": "标签物流号"
+          "name": "标签零部件号"
         },
         {
           "id": "wtLsNo",
-          "name": "写入物流号"
+          "name": "写入零部件号"
+        },
+        {
+          "id": "automakerPrintScript",
+          "name": "客户打印脚本"
+        },
+        {
+          "id": "calibrationFileName",
+          "name": "标定文件名称"
         }
       ]
     }],
     "data": {
       "fieldFilter": ["operateTime", "operator",
-        "projectName", "tcuType", "tcuCode",
+        "projectName", "tcuType", "tcuNo",
         "taskName", "result", "serialNumber", "batchNo",
         "batchNumber"
       ]
@@ -902,12 +1051,8 @@
             "name": "TCU标定文件"
           },
           {
-            "id": 2,
-            "name": "盛瑞脚本文件"
-          },
-          {
-            "id": 3,
-            "name": "客户脚本文件"
+            "id": 4,
+            "name": "TCU配置文件"
           }
         ],
         "rules": [{

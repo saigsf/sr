@@ -131,6 +131,14 @@
       "show": true
     },
     {
+      "prop": "companyCode",
+      "label": "车企代码",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
       "prop": "remark",
       "label": "备注",
       "width": "auto",
@@ -156,7 +164,7 @@
     }
   ],
   "tcu": [{
-      "prop": "type",
+      "prop": "tcuType",
       "label": "TCU型号",
       "width": "auto",
       "fixed": false,
@@ -194,6 +202,14 @@
       "fixed": false,
       "sortable": false,
       "show": true
+    },
+    {
+      "prop": "bfcFileName",
+      "label": "TCU配置文件",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
     }
   ],
   "file": [{
@@ -218,6 +234,10 @@
         },
         {
           "name": "客户脚本文件",
+          "color": ""
+        },
+        {
+          "name": "TCU配置文件",
           "color": ""
         }
       ],
@@ -481,16 +501,24 @@
       "show": true
     },
     {
-      "prop": "writeLogisticsNo",
-      "label": "写入物流号",
+      "prop": "writePartsNo",
+      "label": "写入零部件号",
       "width": "100",
       "fixed": false,
       "sortable": false,
       "show": true
     },
     {
-      "prop": "labelLogisticsNo",
-      "label": "标签物流号",
+      "prop": "labelPartsNo",
+      "label": "标签零部件号",
+      "width": "100",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "tcuSoftwareNo",
+      "label": "tcu软件编号",
       "width": "100",
       "fixed": false,
       "sortable": false,
@@ -591,6 +619,14 @@
       "show": true
     },
     {
+      "prop": "tcuNo",
+      "label": "TCU编码",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
       "prop": "supCode",
       "label": "供应商代码",
       "width": "auto",
@@ -599,8 +635,8 @@
       "show": true
     },
     {
-      "prop": "tagNumber",
-      "label": "标签数量",
+      "prop": "customerBarcodeCount",
+      "label": "客户条码数",
       "width": "auto",
       "fixed": false,
       "sortable": false,
@@ -608,7 +644,7 @@
     },
     {
       "prop": "tagLsNo",
-      "label": "标签物流号",
+      "label": "标签零部件号",
       "width": "auto",
       "fixed": false,
       "sortable": false,
@@ -616,7 +652,23 @@
     },
     {
       "prop": "wtLsNo",
-      "label": "写入物流号",
+      "label": "写入零部件号",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "calibrationFileName",
+      "label": "标定文件",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "automakerPrintScript",
+      "label": "客户打印脚本",
       "width": "auto",
       "fixed": false,
       "sortable": false,

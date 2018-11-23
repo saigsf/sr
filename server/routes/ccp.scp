@@ -1,0 +1,70 @@
+{
+    "CCP": {
+        "DAQ_ODT": [
+            {
+                "ODT": [
+                    {
+                        "VARIABLE": [
+                            {
+                                "COEFFS": {
+                                    "C1": 0,
+                                    "C2": 1,
+                                    "C3": 0,
+                                    "C4": 0,
+                                    "C5": 0,
+                                    "C6": 0.00048828125
+                                },
+                                "VarAddrExt": "0x0",
+                                "VarAddress": "0xD0000630",
+                                "VarChineseName": "",
+                                "VarMax": 31.999511999999999,
+                                "VarMin": 0,
+                                "VarName": "VBATVOLT",
+                                "VarSize": 16,
+                                "VarStart": 8,
+                                "VarUnit": "Volts"
+                            }
+                        ],
+                        "daqNo": 3,
+                        "odtNo": 0
+                    }
+                ]
+            }
+        ],
+        "DAQs": {
+            "DAQ": [
+                {
+                    "CANID": "0x7D8",
+                    "DAQNo": 3,
+                    "EventChanNo": 25,
+                    "FirstPID": "0x3C",
+                    "ODTNum": 1
+                }
+            ]
+        },
+        "ECU": {
+            "BAUDRATE": 500000,
+            "BYTEORDER": 1,
+            "CCPVER": "0x201",
+            "CRO_ID": "0x7D0",
+            "DAQBYTEONLY": 1,
+            "DTO_ID": "0x7D4",
+            "OPTCMD_STALL": 1,
+            "STATIONADDR": "0x0",
+            "VBYTEORDER": 0
+        },
+        "Events": {
+            "EVENT": [
+                {
+                    "EventChanNo": 25,
+                    "daqs": [
+                        {
+                            "daqNo": 3
+                        }
+                    ],
+                    "name": "125"
+                }
+            ]
+        }
+    }
+}

@@ -62,11 +62,12 @@
             :data="formData"
             :auto-upload="false"
             :file-list="fileList"
+            accept="file/.hex,file/.bfc"
             style="width:85%"
             :show-file-list="true"
             :on-success="handleSuccess">
             <el-button type="primary" size="mini">选择文件</el-button>
-            <div slot="tip" class="el-upload__tip">文件名称不能有中文和空格！！</div>
+            <div slot="tip" class="el-upload__tip">只能上传.hex/.bfc文件，并且文件名称不能有中文和空格！！</div>
           </el-upload>
         </el-form-item>
       </el-form>

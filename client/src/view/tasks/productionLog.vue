@@ -114,6 +114,9 @@ export default {
       }
       API.getProductionLog(config).then(res => {
         console.log(res)
+        if(!res) {
+          return
+        }
         this.data = res.data.list
         this.total = res.data.total
       })

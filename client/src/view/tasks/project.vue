@@ -57,7 +57,7 @@ export default {
       title: '',
       ref: 'project',
       showTitle: false,
-      labelWidth: px2rem(120),
+      labelWidth: px2rem(140),
       labelPositon: 'right',
       width: '90%',
       column: 1,
@@ -114,7 +114,9 @@ export default {
       total: 0,
       type: 'saveProject',
       searchFormData: [],
-      searchFormItem: {}
+      searchFormItem: {},
+      shengruiScript: [],
+      providerScript: []
     }
   },
   created () {
@@ -126,6 +128,8 @@ export default {
     this.resetForm()
   },
   activated () {
+    this.getShengruiScript()
+    this.getProviderScript()
     this.getData()
   },
   methods: {
@@ -150,6 +154,28 @@ export default {
         })
       })
     },
+    // 获取盛瑞脚本
+    getShengruiScript() {
+      API.getFillAll({type: 2}).then((res) => {
+        this.shengruiScript = res.data
+        this.formItem.forEach(item => {
+          if(item.name == 'shengruiScriptName') {
+            item.options = res.data
+          }
+        })
+      })
+    },
+    // 获取客户脚本
+    getProviderScript() {
+      API.getFillAll({type: 3}).then((res) => {
+        this.providerScript = res.data
+        this.formItem.forEach(item => {
+          if(item.name == 'customerScriptName') {
+            item.options = res.data
+          }
+        })
+      })
+    },
     // 添加数据
     showDialog () {
       this.type = 'saveProject'
@@ -167,15 +193,38 @@ export default {
     },
     // 提交数据
     submit () {
-      console.log(this.formData)
-      API[this.type](this.formData).then(res => {
-        this.dialogVisible = false
-        this.$message({
-          message: res.msg,
-          type: 'success'
-        })
-        this.getData()
+      
+      // return
+      this.formData.shengruiScriptId = ''
+      this.formData.customerScriptId = ''
+      // 获取盛瑞脚本id
+      this.shengruiScript.forEach(item => {
+        if (this.formData.shengruiScriptName == item.name) {
+          console.log(item.name, item.id)
+          this.formData.shengruiScriptId = item.id
+        }
       })
+      
+      // 获取客户脚本id
+      this.providerScript.forEach(item => {
+        if (this.formData.customerScriptName == item.name) {
+          console.log(item.name, item.id)
+          this.formData.customerScriptId = item.id
+        }
+      })
+      setTimeout(() => {
+        console.log(this.formData)
+        API[this.type](this.formData).then(res => {
+          this.dialogVisible = false
+          this.$message({
+            message: res.msg,
+            type: 'success'
+          })
+          this.getData()
+          this.getShengruiScript()
+          this.getProviderScript()
+        })
+      }, 50);
     },
     // 弹框关闭时的回调函数
     handleClose (done) {
