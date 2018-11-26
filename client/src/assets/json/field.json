@@ -354,11 +354,27 @@
       "width": "auto",
       "fixed": false,
       "sortable": false,
-      "show": true
+      "show": false
     },
     {
       "prop": "createTime",
       "label": "创建时间",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": false
+    },
+    {
+      "prop": "writePartsNo",
+      "label": "写入零部件号",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
+      "prop": "labelPartsNo",
+      "label": "标签零部件号",
       "width": "auto",
       "fixed": false,
       "sortable": false,
@@ -444,9 +460,29 @@
       "show": true
     },
     {
+      "type": "needChange",
+      "change": [
+        {},
+        {
+        "name": "条形码",
+        "color": ""
+        },
+        {
+          "name": "二维码",
+          "color": ""
+        }
+      ],
+      "prop": "customerBarcodeType",
+      "label": "客户条码类型",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
       "prop": "batchNo",
       "label": "批次",
-      "width": "auto",
+      "width": "60",
       "fixed": false,
       "sortable": false,
       "show": true
@@ -454,7 +490,7 @@
     {
       "prop": "batchNumber",
       "label": "批次数量",
-      "width": "auto",
+      "width": "100",
       "fixed": false,
       "sortable": false,
       "show": true
@@ -479,7 +515,7 @@
     {
       "prop": "completeNumber",
       "label": "完成数量",
-      "width": "auto",
+      "width": "100",
       "fixed": false,
       "sortable": false,
       "show": true
@@ -514,7 +550,7 @@
     },
     {
       "prop": "serialNumber",
-      "label": "流水号",
+      "label": "初始流水号",
       "width": "auto",
       "fixed": false,
       "sortable": false,
@@ -547,7 +583,7 @@
     {
       "prop": "writePartsNo",
       "label": "写入零部件号",
-      "width": "100",
+      "width": "auto",
       "fixed": false,
       "sortable": false,
       "show": true
@@ -555,7 +591,7 @@
     {
       "prop": "labelPartsNo",
       "label": "标签零部件号",
-      "width": "100",
+      "width": "auto",
       "fixed": false,
       "sortable": false,
       "show": true
@@ -563,7 +599,7 @@
     {
       "prop": "tcuSoftwareNo",
       "label": "tcu软件编号",
-      "width": "100",
+      "width": "auto",
       "fixed": false,
       "sortable": false,
       "show": true
@@ -664,7 +700,7 @@
     },
     {
       "prop": "tcuNo",
-      "label": "TCU编码",
+      "label": "TCU编号",
       "width": "auto",
       "fixed": false,
       "sortable": false,

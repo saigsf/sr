@@ -526,7 +526,7 @@
           },
           {
             "id": "customerBarcodeCount",
-            "name": "客户条形码数量"
+            "name": "客户标签数量"
           },
           {
             "id": "labelPartsNo",
@@ -539,13 +539,17 @@
           {
             "id": "tcuSoftwareNo",
             "name": "tcu软件编号"
+          },
+          {
+            "id": "customerBarcodeType",
+            "name": "客户条码类型"
           }
         ]
       }
     ],
     "data": {
-      "fieldFilter": [ "projectName", "producedTime", "tcuType", "tcuCode", "batchNo", "batchNumber", 
-        "operator", "createTime", "completeNumber", "status", "serialNumber"]
+      "fieldFilter": [ "projectName", "producedTime", "tcuType", "customerBarcodeType", "batchNo", "batchNumber", 
+        "writePartsNo", "writePartsNo", "completeNumber", "status", "serialNumber"]
     }
   },
   "project": {
@@ -608,13 +612,13 @@
         "type": "text",
         "name": "customerBarcodeCount",
         "value": "",
-        "placeholder": "请输入客户条形码数量",
+        "placeholder": "请输入客户标签数量",
         "width": "100%",
-        "label": "客户条形码数量:",
+        "label": "客户标签数量:",
         "show": true,
         "rules": [{
           "required": true,
-          "message": "请输入客户条形码数量",
+          "message": "请输入客户标签数量",
           "trigger": "blur"
         }]
       },
