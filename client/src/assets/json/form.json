@@ -549,7 +549,7 @@
     ],
     "data": {
       "fieldFilter": [ "projectName", "producedTime", "tcuType", "customerBarcodeType", "batchNo", "batchNumber", 
-        "writePartsNo", "writePartsNo", "completeNumber", "status", "serialNumber"]
+        "writePartsNo", "labelPartsNo", "completeNumber", "status", "serialNumber"]
     }
   },
   "project": {

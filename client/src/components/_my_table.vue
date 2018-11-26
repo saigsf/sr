@@ -27,6 +27,7 @@
       <el-table-column
         type="selection"
         v-if="multiple"
+        width="30"
         :align="'center'"
         :fixed="false"
         :selectable='checkboxInit'>

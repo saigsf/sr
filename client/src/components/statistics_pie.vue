@@ -92,6 +92,13 @@ export default {
         }
       }
       API.getEchatInfo(config).then(res => {
+        if(res == null || res != null && res.data == null) {
+          this.$message({
+            message: res.msg,
+            type: 'error'
+          })
+          return;
+        }
         this.drawPie(res.data)
       })
     },

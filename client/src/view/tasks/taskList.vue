@@ -82,7 +82,7 @@ export default {
       show: true,
       fixed: false,
       size: 'mini',
-      width: '150',
+      width: '120',
       minWidth: 100,
       label: '操作',
       btns: [

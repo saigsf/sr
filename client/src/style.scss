@@ -494,7 +494,7 @@ body {
 }
 
 .el-table th>.cell {
-  @include px2rem(font-size, 18)
+  @include px2rem(font-size, 18);
 }
 
 tr.header-row,
@@ -631,7 +631,7 @@ tr.even-row {
   -ms-border-radius: px2rem(36);
   -o-border-radius: px2rem(36);
   box-shadow: px2rem(1 4 21 0) rgba(137, 137, 137, 0.39);
-  @include px2rem(padding, 15 40);
+  @include px2rem(padding, 15 30);
   overflow: hidden;
 }
 // 头部
