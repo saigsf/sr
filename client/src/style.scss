@@ -635,30 +635,30 @@ tr.even-row {
   overflow: hidden;
 }
 // 头部
-.header {
-  .el-input--mini .el-input__inner {
-    @include px2rem(height, 40);
-    @include px2rem(line-height, 40);
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-  }
+// .header {
+//   .el-input--mini .el-input__inner {
+//     @include px2rem(height, 40);
+//     @include px2rem(line-height, 40);
+//     border-top-left-radius: 20px;
+//     border-bottom-left-radius: 20px;
+//   }
 
-  .el-button--mini,
-  .el-button--mini.is-round {
-    width: 100%;
-    padding: 0;
-    @include px2rem(font-size, 24);
-    @include px2rem(line-height, 40);
-    display: block;
-    margin: -10px 0
-  }
+//   .el-button--mini,
+//   .el-button--mini.is-round {
+//     width: 100%;
+//     padding: 0;
+//     @include px2rem(font-size, 24);
+//     @include px2rem(line-height, 40);
+//     display: block;
+//     margin: -10px 0
+//   }
 
-  .el-input-group__append,
-  .el-input-group__prepend {
-    @include px2rem(line-height, 36);
-    @include px2rem(height, 38);
-  }
-}
+//   .el-input-group__append,
+//   .el-input-group__prepend {
+//     @include px2rem(line-height, 36);
+//     @include px2rem(height, 38);
+//   }
+// }
 // 内容标题
 .title {
   @include padding(10, 10, 20, 10);

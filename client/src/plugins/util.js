@@ -6,7 +6,7 @@
  * @param {Function} f
  * @return {*}
  */
-export function find (list, f) {
+export function find(list, f) {
   return list.filter(f)[0]
 }
 
@@ -19,7 +19,7 @@ export function find (list, f) {
  * @param {Array<Object>} cache
  * @return {*}
  */
-export function deepCopy (obj, cache = []) {
+export function deepCopy(obj, cache = []) {
   // just return if obj is immutable value
   if (obj === null || typeof obj !== 'object') {
     return obj
@@ -49,19 +49,19 @@ export function deepCopy (obj, cache = []) {
 /**
  * forEach for object
  */
-export function forEachValue (obj, fn) {
+export function forEachValue(obj, fn) {
   Object.keys(obj).forEach(key => fn(obj[key], key))
 }
 
-export function isObject (obj) {
+export function isObject(obj) {
   return obj !== null && typeof obj === 'object'
 }
 
-export function isPromise (val) {
+export function isPromise(val) {
   return val && typeof val.then === 'function'
 }
 
-export function assert (condition, msg) {
+export function assert(condition, msg) {
   if (!condition) throw new Error(`[vuex] ${msg}`)
 }
 
@@ -72,7 +72,7 @@ export function assert (condition, msg) {
  * @param {*} name
  * @returns
  */
-export function getCookie (name) {
+export function getCookie(name) {
   var arr
   var reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)')
   arr = document.cookie.match(reg)
@@ -91,7 +91,7 @@ export function getCookie (name) {
  * @param {*} value
  * @param {*} expiredays
  */
-export function setCookie (cname, value, expiredays) {
+export function setCookie(cname, value, expiredays) {
   var exdate = new Date()
   exdate.setDate(exdate.getDate() + expiredays)
   document.cookie = cname + '=' + escape(value) + ((expiredays == null) ? '' : ';expires=' + exdate.toGMTString())
@@ -103,7 +103,7 @@ export function setCookie (cname, value, expiredays) {
  * @export
  * @param {*} name
  */
-export function delCookie (name) {
+export function delCookie(name) {
   var exp = new Date()
   exp.setTime(exp.getTime() - 1)
   var cval = getCookie(name)
@@ -117,7 +117,7 @@ export function delCookie (name) {
  * @param {*} date
  * @returns
  */
-export function dateFtt (fmt, date) {
+export function dateFtt(fmt, date) {
   var o = {
     'M+': date.getMonth() + 1,
     'd+': date.getDate(),
@@ -143,8 +143,21 @@ export function dateFtt (fmt, date) {
  * @param {*} px
  * @returns
  */
-export function px2rem (px) {
+export function px2rem(px) {
   return px / 100 + 'rem'
+}
+/**
+ *rem转px
+ * @export 
+ * @param {*} rem
+ * @returns
+ */
+export function rem2px(rem) {
+  var w = document.documentElement.clientWidth
+  var b = 1920
+  var f = 100
+  rem = parseFloat(rem)
+  return rem * w / b * f
 }
 
 /**
@@ -155,7 +168,7 @@ export function px2rem (px) {
  * @param {*} max
  * @returns
  */
-export function random (min, max) {
+export function random(min, max) {
   if (!max) {
     min = 0
     max = min
@@ -169,7 +182,7 @@ export function random (min, max) {
  * @param {*} arr
  * @returns
  */
-export function bubbleSortById (arr) {
+export function bubbleSortById(arr) {
   var i = arr.length
   var j
   var temp
@@ -191,7 +204,7 @@ export function bubbleSortById (arr) {
  * @export
  * @returns
  */
-export function getPageSize () {
+export function getPageSize() {
   var w = document.documentElement.clientWidth
   // var h = document.documentElement.clientHeight
   var s = 10
@@ -208,7 +221,7 @@ export function getPageSize () {
  * @export
  * @returns
  */
-export function getTableHeight () {
+export function getTableHeight() {
   var w = document.documentElement.clientWidth
   // var h = document.documentElement.clientHeight
   var s = 520

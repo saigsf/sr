@@ -27,7 +27,7 @@
       <el-table-column
         type="selection"
         v-if="multiple"
-        width="30"
+        :width="width"
         :align="'center'"
         :fixed="false"
         :selectable='checkboxInit'>
@@ -216,6 +216,7 @@ export default {
   },
   data() {
     return {
+      width: rem2px(px2rem(50)),
       multipleSelection: []
     };
   },
@@ -236,7 +237,7 @@ export default {
       this.$emit('select', val)
     },
     rowClick(row) {
-      if(row.telephone != 'admin') {
+      if(row.username != 'admin') {
         this.$refs.multipleTable.toggleRowSelection(row)
       }
     },
@@ -248,7 +249,7 @@ export default {
       this.$emit('handleCurrentChange', index)
     },
     checkboxInit(row, index){
-      if (row.telephone === 'admin') 
+      if (row.username === 'admin') 
         return 0;//不可勾选
       else
         return 1;//可勾选
@@ -257,7 +258,7 @@ export default {
       var flag = false
       switch (this.operation.nowPage) {
         case 'usersList':
-          flag = row.telephone === 'admin'
+          flag = row.username === 'admin'
           break;
         case 'taskList':
           if (row.status === 1) {

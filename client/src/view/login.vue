@@ -65,6 +65,7 @@ export default {
             break;
           case 1: 
             setCookie('username', res.data.username, 7)
+            setCookie('nickname', res.data.nickname, 7)
             setCookie('token', res.data.token, 7)
             _this.$router.push({path: _this.path})
             break;

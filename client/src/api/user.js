@@ -9,6 +9,11 @@ export default {
   logout: params => {
     return API.POST('/user/logout', params)
   },
+  // 更改密码
+  changePsd:  params => {
+    return API.POST('/sysuser/updatePassword', params)
+  },
+  
   // 获取用户列表
   getUser: params => {
     return API.GET('/sysuser/pageQuery', params)

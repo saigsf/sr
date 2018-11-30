@@ -58,7 +58,7 @@
 <script>
 import API from '@/api/task.js'
 import {getField, getFormField, getSearchField} from '@/assets/json/index.js'
-import { getPageSize, px2rem } from '@/plugins/util.js'
+import { getPageSize, px2rem, rem2px } from '@/plugins/util.js'
 import { setTimeout } from 'timers';
 export default {
   name: 'TaskList',
@@ -82,7 +82,7 @@ export default {
       show: true,
       fixed: false,
       size: 'mini',
-      width: '120',
+      width: rem2px(px2rem(140)),
       minWidth: 100,
       label: '操作',
       btns: [
@@ -162,7 +162,13 @@ export default {
     // table字段初始化
     fieldInit () {
       // 获取字段
-      this.column = getField('task')
+      var column = getField('task')
+      column.forEach(item => {
+        if(item.width != 'auto') {
+          item.width = rem2px(px2rem(item.width))
+        }
+      });
+      this.column = column
       this.toFilter()
     },
     // 表单数据初始化

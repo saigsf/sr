@@ -21,10 +21,24 @@
         "placeholder": "请输入电话",
         "width": "100%",
         "label": "电话:",
-        "show": true,
+        "show": false,
         "rules": [{
           "required": true,
           "message": "请输入电话",
+          "trigger": "blur"
+        }]
+      },
+      {
+        "type": "text",
+        "name": "nickname",
+        "value": "",
+        "placeholder": "请输入姓名",
+        "width": "100%",
+        "label": "姓名:",
+        "show": true,
+        "rules": [{
+          "required": true,
+          "message": "请输入姓名",
           "trigger": "blur"
         }]
       },
@@ -1008,7 +1022,7 @@
     "item": [{
         "type": "text",
         "name": "username",
-        "placeholder": "请使用手机号",
+        "placeholder": "请使用账号",
         "value": "",
         "label": "账号",
         "show": true,
@@ -1023,7 +1037,7 @@
         "name": "password",
         "value": "",
         "label": "密码",
-        "placeholder": "请输入用户名",
+        "placeholder": "请输入密码",
         "show": true,
         "rules": [{
           "required": true,
@@ -1083,6 +1097,68 @@
     ],
     "data": {
       "type": ""
+    }
+  },
+  "changePassword": {
+    "item": [{
+        "type": "text",
+        "name": "username",
+        "placeholder": "请使用账号",
+        "value": "",
+        "label": "账号",
+        "disabled": true,
+        "show": true,
+        "rules": [{
+          "required": true,
+          "message": "账号不能为空",
+          "trigger": "blur"
+        }]
+      },
+      {
+        "type": "password",
+        "name": "srcpasswd",
+        "value": "",
+        "label": "原密码",
+        "placeholder": "请输入原密码",
+        "show": true,
+        "rules": [{
+          "required": true,
+          "message": "原密码不能为空",
+          "trigger": "blur"
+        }]
+      },
+      {
+        "type": "password",
+        "name": "targetpasswd",
+        "value": "",
+        "label": "新密码",
+        "placeholder": "请输入新密码",
+        "show": true,
+        "rules": [{
+          "required": true,
+          "message": "新密码不能为空",
+          "trigger": "blur"
+        }]
+      },
+      {
+        "type": "password",
+        "name": "confirmpass",
+        "value": "",
+        "label": "确认密码",
+        "placeholder": "请输入确认密码",
+        "show": true,
+        "rules": [{
+          "required": true,
+          "message": "确认密码不能为空",
+          "trigger": "blur"
+        }]
+      }
+    ],
+    "data": {
+      "username": "",
+      "srcpasswd": "",
+      "targetpasswd": "",
+      "confirmpass": ""
     }
   }
 }

@@ -8,12 +8,20 @@
       "show": true
     },
     {
+      "prop": "nickname",
+      "label": "姓名",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
       "prop": "telephone",
       "label": "电话",
       "width": "auto",
       "fixed": false,
       "sortable": false,
-      "show": true
+      "show": false
     },
     {
       "prop": "mail",
@@ -474,7 +482,7 @@
       ],
       "prop": "customerBarcodeType",
       "label": "客户条码类型",
-      "width": "100",
+      "width": "130",
       "fixed": false,
       "sortable": false,
       "show": true
@@ -482,7 +490,7 @@
     {
       "prop": "batchNo",
       "label": "批次",
-      "width": "60",
+      "width": "80",
       "fixed": false,
       "sortable": false,
       "show": true
@@ -490,7 +498,7 @@
     {
       "prop": "batchNumber",
       "label": "批次数量",
-      "width": "80",
+      "width": "100",
       "fixed": false,
       "sortable": false,
       "show": true
@@ -515,7 +523,7 @@
     {
       "prop": "completeNumber",
       "label": "完成数量",
-      "width": "80",
+      "width": "100",
       "fixed": false,
       "sortable": false,
       "show": true
@@ -575,7 +583,7 @@
     {
       "prop": "labelCount",
       "label": "客户标签数量",
-      "width": "100",
+      "width": 130,
       "fixed": false,
       "sortable": false,
       "show": true
@@ -583,7 +591,7 @@
     {
       "prop": "writePartsNo",
       "label": "写入零部件号",
-      "width": "100",
+      "width": 130,
       "fixed": false,
       "sortable": false,
       "show": true
@@ -591,7 +599,7 @@
     {
       "prop": "labelPartsNo",
       "label": "标签零部件号",
-      "width": "100",
+      "width": 130,
       "fixed": false,
       "sortable": false,
       "show": true
@@ -599,7 +607,7 @@
     {
       "prop": "tcuSoftwareNo",
       "label": "tcu软件编号",
-      "width": "100",
+      "width": 130,
       "fixed": false,
       "sortable": false,
       "show": true

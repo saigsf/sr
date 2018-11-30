@@ -24,7 +24,8 @@
       :total="total"
       @handleCurrentChange="handleCurrentChange"
       @delete="deleteConfirm"
-      @update="detail"
+      @detail="detail"
+      @update="update"
       @select="handleSelectionChange">
     </MyTable>
     <!-- 对话框 -->
@@ -48,7 +49,7 @@
 <script>
 import API from '@/api/task.js'
 import {getField, getFormField, getSearchField} from '@/assets/json/index.js'
-import { getPageSize, px2rem } from '@/plugins/util.js'
+import { getPageSize, px2rem, rem2px } from '@/plugins/util.js'
 export default {
   name: 'ProjectList',
   data () {
@@ -71,13 +72,20 @@ export default {
       fixed: 'right',
       size: 'mini',
       width: 'auto',
-      minWidth: 100,
+      minWidth: rem2px(px2rem(150)),
       label: '操作',
       btns: [
         {
           type: 'text',
           size: 'mini',
           content: '查看',
+          icon: 'el-icon-edit-outline',
+          handle: 'detail'
+        },
+        {
+          type: 'text',
+          size: 'mini',
+          content: '修改',
           icon: 'el-icon-edit-outline',
           handle: 'update'
         },
@@ -188,6 +196,9 @@ export default {
       for (const key in this.formData) {
         if (this.formData.hasOwnProperty(key)) {
           this.formData[key] = row[key]
+          if(key == 'company_id') {
+            this.formData[key] = row.companyId
+          }
         }
       }
     },
