@@ -598,6 +598,24 @@
         }]
       },
       {
+        "type": "radio",
+        "name": "hasCustomerBarCode",
+        "value": "",
+        "width": "100%",
+        "label": "打印客户条码:",
+        "show": true,
+        "options": [
+          {
+            "value": 1,
+            "label": "是"
+          },
+          {
+            "value": 0,
+            "label": "否"
+          }
+        ]
+      },
+      {
         "type": "select",
         "name": "customerBarcodeType",
         "cname": "name",
@@ -617,7 +635,7 @@
           }
         ],
         "rules": [{
-          "required": true,
+          "required": false,
           "message": "请输入客户条码类型",
           "trigger": "blur"
         }]
@@ -631,7 +649,7 @@
         "label": "客户标签数量:",
         "show": true,
         "rules": [{
-          "required": true,
+          "required": false,
           "message": "请输入客户标签数量",
           "trigger": "blur"
         }]
@@ -651,10 +669,28 @@
         "show": true,
         "options": [],
         "rules": [{
-          "required": true,
+          "required": false,
           "message": "请选客户脚本",
           "trigger": "blur"
         }]
+      },
+      {
+        "type": "radio",
+        "name": "hasShengruiScript",
+        "value": "",
+        "width": "100%",
+        "label": "打印盛瑞铭牌脚本:",
+        "show": true,
+        "options": [
+          {
+            "value": 1,
+            "label": "是"
+          },
+          {
+            "value": 0,
+            "label": "否"
+          }
+        ]
       },
       {
         "needChange": true,
@@ -663,16 +699,16 @@
         "name": "shengruiScriptName",
         "cname": "name",
         "value": "",
-        "placeholder": "请选择盛瑞脚本",
+        "placeholder": "请选择盛瑞铭牌脚本",
         "filterable": true,
         "width": "100%",
-        "label": "盛瑞脚本:",
+        "label": "盛瑞铭牌脚本:",
         "allowCreate": true,
         "show": true,
         "options": [],
         "rules": [{
-          "required": true,
-          "message": "请选择盛瑞脚本",
+          "required": false,
+          "message": "请选择盛瑞铭牌脚本",
           "trigger": "blur"
         }]
       },
@@ -715,8 +751,10 @@
       "customerScriptName": "",
       "writePartsNo": "",
       "labelPartsNo": "",
-      "customerBarcodeType": "",
-      "customerBarcodeCount": ""
+      "customerBarcodeType": 0,
+      "customerBarcodeCount": "",
+      "hasCustomerBarCode": 1,
+      "hasShengruiScript": 1
     }
   },
   "projectDetail": {
@@ -1080,6 +1118,20 @@
         }]
       },
       {
+        "type": "text",
+        "name": "remark",
+        "placeholder": "请輸入文件说明",
+        "value": "",
+        "label": "文件说明",
+        "disabled": true,
+        "show": true,
+        "rules": [{
+          "required": false,
+          "message": "文件说明不能为空",
+          "trigger": "blur"
+        }]
+      },
+      {
         "type": "file",
         "name": "file",
         "value": "",
@@ -1096,7 +1148,8 @@
       }
     ],
     "data": {
-      "type": ""
+      "type": "",
+      "remark": ""
     }
   },
   "changePassword": {

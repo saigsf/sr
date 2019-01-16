@@ -53,6 +53,13 @@
             <el-option v-for="option in formItem[0].options" :key="option.id" :label="option.name" :value="option.id"></el-option>
           </el-select>
         </el-form-item>
+        <el-form-item label="文件说明：">
+          <el-input
+            v-model="formData.remark"
+            type="text"
+            :style="'width:85%'">
+          </el-input>
+        </el-form-item>
         <el-form-item label="选择文件：">
           <el-upload
             ref="upload"

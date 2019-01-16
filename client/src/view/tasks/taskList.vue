@@ -82,7 +82,7 @@ export default {
       show: true,
       fixed: false,
       size: 'mini',
-      width: rem2px(px2rem(140)),
+      width: rem2px(px2rem(160)),
       minWidth: 100,
       label: '操作',
       btns: [
@@ -184,7 +184,6 @@ export default {
     searchFormInit () {
       this.searchFormItem = getSearchField('task', 'item')
       this.searchFormData = getSearchField('task', 'data')
-      console.log(this.searchFormInit)
     },
     // 获取盛瑞脚本
     getShengruiScript() {

@@ -32,6 +32,7 @@
     <el-dialog
       :title="dialogTitle"
       :visible.sync="dialogVisible"
+      top="5vh"
       width="30%"
       :before-close="handleClose">
       <MyForm ref="myform" :form="form" :formData="formData" :formItem="formItem" @submit="submit"></MyForm>
@@ -58,7 +59,7 @@ export default {
       title: '',
       ref: 'project',
       showTitle: false,
-      labelWidth: px2rem(140),
+      labelWidth: px2rem(160),
       labelPositon: 'right',
       width: '90%',
       column: 1,
@@ -72,7 +73,7 @@ export default {
       fixed: 'right',
       size: 'mini',
       width: 'auto',
-      minWidth: rem2px(px2rem(150)),
+      minWidth: rem2px(px2rem(220)),
       label: '操作',
       btns: [
         {
@@ -85,7 +86,7 @@ export default {
         {
           type: 'text',
           size: 'mini',
-          content: '修改',
+          content: '编辑',
           icon: 'el-icon-edit-outline',
           handle: 'update'
         },
@@ -195,9 +196,15 @@ export default {
       this.dialogVisible = true
       for (const key in this.formData) {
         if (this.formData.hasOwnProperty(key)) {
-          this.formData[key] = row[key]
+
           if(key == 'company_id') {
             this.formData[key] = row.companyId
+          } else if(key == 'hasCustomerBarCode') {
+            this.formData[key] = row.customerScriptName ? 1 : 0
+          } else if(key == 'hasShengruiScript') {
+            this.formData[key] = row.shengruiScriptName ? 1 : 0
+          } else {
+            this.formData[key] = row[key]
           }
         }
       }
@@ -223,8 +230,9 @@ export default {
           this.formData.customerScriptId = item.id
         }
       })
+      console.log(this.formData)
+      // return
       setTimeout(() => {
-        console.log(this.formData)
         API[this.type](this.formData).then(res => {
           this.dialogVisible = false
           this.$message({
@@ -241,7 +249,12 @@ export default {
     handleClose (done) {
       for (const key in this.formData) {
         if (this.formData.hasOwnProperty(key)) {
-          this.formData[key] = ''
+          
+          if(key == 'hasCustomerBarCode' || key == 'hasShengruiScript') {
+            this.formData[key] = 1
+          } else {
+            this.formData[key] = ''
+          }
         }
       }
       this.init()
@@ -262,6 +275,7 @@ export default {
         res.data.list.forEach(item => {
           item.customerScriptName = item.customerScript
           item.shengruiScriptName = item.shengruiScript
+          item.customerBarcodeType = item.customerBarcodeType ? item.customerBarcodeType : 0
         });
         this.data = res.data.list
         this.total = res.data.total
@@ -336,6 +350,41 @@ export default {
     // 搜索
     searchSubmit () {
       this.getData()
+    }
+  },
+  watch: {
+    formData: {
+      handler(n, o) {
+        // console.log(n.hasCustomerBarCode)
+        if(!n.hasCustomerBarCode) {
+          this.formItem.forEach(item => {
+            if(item.name == 'customerBarcodeType' || item.name == 'customerBarcodeCount' || item.name == 'customerScriptName') {
+              item.show = false
+            }
+          })
+        } else {
+          this.formItem.forEach(item => {
+            if(item.name == 'customerBarcodeType' || item.name == 'customerBarcodeCount' || item.name == 'customerScriptName') {
+              item.show = true
+            }
+          })
+        }
+
+        if(!n.hasShengruiScript) {
+          this.formItem.forEach(item => {
+            if(item.name == 'shengruiScriptName') {
+              item.show = false
+            }
+          })
+        } else {
+          this.formItem.forEach(item => {
+            if(item.name == 'shengruiScriptName') {
+              item.show = true
+            }
+          })
+        }
+      },
+      deep: true
     }
   }
 }

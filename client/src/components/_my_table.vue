@@ -77,7 +77,7 @@
             <!-- 链接 -->
             <a v-else-if="item.type == 'link'" :href="scope.row[item.prop]"  :download="scope.row.name"> <i class="el-icon-download"></i> 下载</a>
             <!-- 内容需要转换 -->
-            <span v-else-if="item.type == 'needChange'"  :style="'color:'+ item.change[scope.row[item.prop]].name">{{ item.change[scope.row[item.prop]].name }}</span>
+            <span v-else-if="item.type == 'needChange'"  :style="'color:'+ item.change[scope.row[item.prop]].color">{{ item.change[scope.row[item.prop]].name }}</span>
             <!-- 正常显示 -->
             <span v-else>{{ (scope.row[item.prop] != null && (scope.row[item.prop] + '')) ? scope.row[item.prop] : '-' }}</span>
           </template>
@@ -131,7 +131,7 @@
 
 <script>
 /* eslint-disable */
-import { px2rem, getTableHeight } from '@/plugins/util.js'
+import { px2rem, getTableHeight, rem2px } from '@/plugins/util.js'
 export default {
   name: "MyTable",
   props: {

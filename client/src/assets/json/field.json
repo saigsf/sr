@@ -273,6 +273,14 @@
       "show": true
     },
     {
+      "prop": "remark",
+      "label": "文件说明",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },
+    {
       "type": "link",
       "prop": "url",
       "label": "下载",
@@ -303,10 +311,13 @@
     {
       "type": "needChange",
       "change": [
-        {},
         {
-        "name": "条形码",
-        "color": ""
+          "name": "-",
+          "color": ""
+        },
+        {
+          "name": "条形码",
+          "color": ""
         },
         {
           "name": "二维码",
@@ -315,7 +326,7 @@
       ],
       "prop": "customerBarcodeType",
       "label": "客户条码类型",
-      "width": "auto",
+      "width": 130,
       "fixed": false,
       "sortable": false,
       "show": true
@@ -323,7 +334,7 @@
     {
       "prop": "customerBarcodeCount",
       "label": "客户条形码数",
-      "width": "auto",
+      "width": 130,
       "fixed": false,
       "sortable": false,
       "show": true
@@ -338,8 +349,8 @@
     },
     {
       "prop": "shengruiScriptName",
-      "label": "盛瑞脚本",
-      "width": "auto",
+      "label": "盛瑞铭牌脚本",
+      "width": 130,
       "fixed": false,
       "sortable": false,
       "show": true
@@ -375,7 +386,7 @@
     {
       "prop": "writePartsNo",
       "label": "写入零部件号",
-      "width": "auto",
+      "width": 130,
       "fixed": false,
       "sortable": false,
       "show": true
@@ -383,7 +394,7 @@
     {
       "prop": "labelPartsNo",
       "label": "标签零部件号",
-      "width": "auto",
+      "width": 130,
       "fixed": false,
       "sortable": false,
       "show": true
